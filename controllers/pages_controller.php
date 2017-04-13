@@ -16,8 +16,8 @@
             require_once('views/pages/error.php');
         }
 
-        public function faq() {
-            require_once('views/pages/faq.php');
-        }
+        // public function faq() {
+        //     require_once('views/pages/faq.php');
+        // }
     }
 ?>

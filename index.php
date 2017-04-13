@@ -1,6 +1,6 @@
 <?php
-    require_once('config.php');
-    require_once('classes.php');
+    require_once('vendor/config.php');
+    require_once('vendor/classes.php');
 
     session_start();
 
