@@ -1,2 +1,2 @@
 # smts_base
-php framework
+a php framework
