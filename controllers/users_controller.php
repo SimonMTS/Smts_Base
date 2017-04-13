@@ -1,5 +1,5 @@
 <?php
-    class UsersController {
+    class usersController {
 
         public function login() {
 

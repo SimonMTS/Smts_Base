@@ -6,7 +6,7 @@
             'action' => 'home'
         ],
 
-        'base_url' => 'http://localhost/tovuti/',
+        'base_url' => 'http://localhost/smts_base/',
         'mongodb' => "mongodb://localhost:27017"
     ];
 ?>

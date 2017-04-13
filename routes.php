@@ -1,61 +1,28 @@
 <?php
-    function call($controller, $action) {
+
+    $controllers = array_diff(scandir("./controllers"), array('..', '.'));
+
+    if ( in_array( ($controller.'_controller.php'), $controllers) )
+    {
         require_once('controllers/' . $controller . '_controller.php');
 
-        // Links to the controllers
-        switch($controller) {
+        $controller = $controller.'Controller';
+        $actions = get_class_methods( $controller );
 
-            case 'pages':
-                $controller = new PagesController();
-            break;
-
-            case 'users':
-                require_once('models/user.php');
-                require_once('models/doc.php');
-                $controller = new UsersController();
-            break;
-
-            case 'docs':
-                require_once('models/doc.php');
-                $controller = new DocsController();
-            break;
+        if ( in_array( $action, $actions ) )
+        {
+            $controller::{$action}();
         }
-
-        $controller->{$action}();
+        else
+        {
+            require_once('controllers/pages_controller.php');
+            pagesController::error();
+        }
+    }
+    else
+    {
+        require_once('controllers/pages_controller.php');
+        pagesController::error();
     }
 
-    // All valid conntrollers and actions
-    $controllers = [
-
-        'pages' => [
-            'home',
-            'faq',
-            'error'
-        ],
-
-        'users' => [
-            'login',
-            'logout',
-            'overview',
-            'view',
-            'create',
-            'edit',
-            'delete'
-        ],
-
-        'docs' => [
-            'create',
-            'delete'
-        ]
-    ];
-
-    if (array_key_exists($controller, $controllers)) {
-        if (in_array($action, $controllers[$controller])) {
-            call($controller, $action);
-        } else {
-            call('pages', 'error');
-        }
-    } else {
-        call('pages', 'error');
-    }
 ?>
