@@ -22,7 +22,7 @@
                             "child_id" => $user->child_id
                         ];
 
-                        Redirect::to($GLOBALS['config']['base_url']);
+                        Base::Redirect($GLOBALS['config']['base_url']);
                     } else {
                         require_once('views/users/login.php');
                     }
@@ -36,7 +36,7 @@
 
         public function logout() {
             $_SESSION['user'] = null;
-            Redirect::to($GLOBALS['config']['base_url']);
+            Base::Redirect($GLOBALS['config']['base_url']);
         }
 
         public function overview() {
@@ -116,7 +116,7 @@
                         );
 
                         if ($user->save()) {
-                            Redirect::to($GLOBALS['config']['base_url']);
+                            Base::Redirect($GLOBALS['config']['base_url']);
                         } else {
                             return call('pages', 'error');
                         }
@@ -165,7 +165,7 @@
                     }
 
                     if ($user->save()) {
-                        Redirect::to($GLOBALS['config']['base_url'] . "users/edit/" . $user->_id);
+                        Base::Redirect($GLOBALS['config']['base_url'] . "users/edit/" . $user->_id);
                     } else {
                         return call('pages', 'error');
                     }
@@ -183,7 +183,7 @@
 
             if ($_SESSION['user']['role'] > $user->role) {
                 $user->delete();
-                Redirect::to($GLOBALS['config']['base_url'] . 'users/overview');
+                Base::Redirect($GLOBALS['config']['base_url'] . 'users/overview');
             } else {
                 return call('pages', 'error');
             }

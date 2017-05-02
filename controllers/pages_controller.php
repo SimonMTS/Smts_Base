@@ -9,11 +9,13 @@
                 $name = 'bezoeker';
             }
 
-            require_once('views/pages/home.php');
+            Base::Render('pages/home.php', [
+                'name' => $name
+            ]);
         }
 
         public function error() {
-            require_once('views/pages/error.php');
+            Base::Render('pages/error.php');
         }
 
         // public function faq() {

@@ -1,6 +1,6 @@
 <?php
-    require_once('vendor/config.php');
-    require_once('vendor/classes.php');
+    require_once('base/config.php');
+    require_once('base/classes.php');
 
     session_start();
 
@@ -12,5 +12,5 @@
         $action     = $config['landing']['action'];
     }
 
-    require_once('views/layout.php');
+    require_once('base/routes.php');
 ?>

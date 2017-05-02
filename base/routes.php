@@ -1,6 +1,6 @@
 <?php
 
-    $controllers = array_diff(scandir("./controllers"), array('..', '.'));
+    $controllers = array_diff(scandir("./controllers"), ['..', '.']);
 
     if ( in_array( ($controller.'_controller.php'), $controllers) )
     {

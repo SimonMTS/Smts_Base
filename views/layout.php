@@ -39,7 +39,7 @@
 
         <div id="main-body">
             <div class="inner-body">
-                <?php require_once('vendor/routes.php'); ?>
+                <?php require_once($view); ?>
             </div>
         </div>
 
