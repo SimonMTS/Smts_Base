@@ -1,7 +1,7 @@
 <?php
     class pagesController {
 
-        public static function home() {
+        public function home() {
 
             if (isset($_SESSION['user']['name'])) {
                 $name = $_SESSION['user']['name'];
