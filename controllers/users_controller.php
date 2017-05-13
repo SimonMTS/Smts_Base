@@ -5,7 +5,7 @@
 
             if (isset($_POST['user'])) {
                 $user = User::findByName($_POST['user']['name']);
-
+                
                 if ($user !== false) {
                     if ($user->password === hash('sha512', $_POST['user']['password'])) {
 

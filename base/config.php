@@ -7,6 +7,6 @@
         ],
 
         'base_url' => 'http://localhost/smts_base/',
-        'mongodb' => "mongodb://localhost:27017"
+        'DataBaseName' => "smts_base"
     ];
 ?>

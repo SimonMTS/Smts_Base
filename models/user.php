@@ -24,7 +24,7 @@
             $this->child_id = $child_id;
         }
 
-        public static function role($text) {
+        public static function role($text) { //eval
             switch ($text) {
                 case 'parent':
                     return 1;
@@ -58,7 +58,7 @@
             return false;
         }
 
-        public static function gender($text) {
+        public static function gender($text) { //eval
             switch ($text) {
                 case 'male':
                     return 'm';
