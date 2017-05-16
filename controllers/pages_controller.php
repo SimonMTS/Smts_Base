@@ -10,6 +10,7 @@
             }
 
             Base::Render('pages/home.php', [
+                'page_title' => 'Home',
                 'name' => $name
             ]);
         }
@@ -17,9 +18,5 @@
         public function error() {
             Base::Render('pages/error.php');
         }
-
-        // public function faq() {
-        //     require_once('views/pages/faq.php');
-        // }
     }
 ?>

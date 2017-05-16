@@ -14,9 +14,20 @@
         }
 
         public static function Render( $view, $Cvar = null ) {
+            if ( !isset($Cvar['page_title']) ) {
+                $Cvar['page_title'] = $GLOBALS['config']['Default_Title'];
+            }
+            
             require_once('views/layout.php');
         }
 
+        public static function Sanitize($string) {
+            return htmlentities($string);
+        }
+
+        public static function Genetate_id($string) {
+            return str_replace('.', '', uniqid('', true));;
+        }
     }
 
     class Sql {
