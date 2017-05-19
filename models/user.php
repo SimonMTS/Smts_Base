@@ -47,16 +47,16 @@
             $result = Sql::Get('user', 'id', $id);
 
             if (
-                isset($result['id']) &&
-                isset($result['name']) &&
-                isset($result['password']) &&
-                isset($result['role'])
+                isset($result[0]['id']) &&
+                isset($result[0]['name']) &&
+                isset($result[0]['password']) &&
+                isset($result[0]['role'])
             ) {
                 return new User(
-                    $result['id'],
-                    $result['name'],
-                    $result['password'],
-                    $result['role']);
+                    $result[0]['id'],
+                    $result[0]['name'],
+                    $result[0]['password'],
+                    $result[0]['role']);
             } else {
                 return false;
             }
@@ -83,7 +83,7 @@
         }
 
         public static function findByRole($number, $lt) {
-            if (!$lt) {
+            if (!$lt && false) {
                 $result = $col->find( ["role" => ['$lt' => $number]] );
             } else {
                 $result = Sql::Get('user', 'role', $number);
@@ -129,7 +129,7 @@
         }
 
         public function delete() {
-            Delete('user', 'id', $this->id);
+            Sql::Delete('user', 'id', $this->id);
         }
     }
 ?>

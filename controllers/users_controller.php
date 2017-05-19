@@ -6,7 +6,7 @@
         public function login() {
             if (isset($_POST['user'])) {
                 $user = User::findByName($_POST['user']['name']);
-                if ( $user !== false && $user->password === hash('sha512', $_POST['user']['password']) ) {
+                if ( $user !== false && $user->password === Base::Hash_String($_POST['user']['password']) ) {
                     $_SESSION['user'] = [
                         "id" => $user->id,
                         "name" => $user->name,
@@ -55,7 +55,7 @@
                 $user = new User(
                     Base::Genetate_id(),
                     $_POST['user']['name'],
-                    hash('sha512', $_POST['user']['password']),
+                    Base::Hash_String($_POST['user']['password']),
                     1
                 );
 
@@ -69,7 +69,7 @@
             }
         }
 
-        public function edit() { //TODO
+        public function edit() {
             $id = Base::Sanitize( $_GET['var1'] );
             $user = User::find($id);
 
@@ -80,19 +80,21 @@
                     ((isset($_POST['user']['password']) && !empty($_POST['user']['password']) && $_POST['user']['password'] == $_POST['user']['passwordrep']) ||
                     (empty($_POST['user']['password']) && empty($_POST['user']['passwordrep'])))
                 ) {
-                    $user->name = $_POST['user']['name'];
+                    $user->name = Base::Sanitize( $_POST['user']['name'] );
 
                     if (!empty($_POST['user']['password'])) {
-                        $user->password = $_POST['user']['password'];
+                        $user->password = Base::Hash_String($_POST['user']['password']);
                     }
 
                     if ($user->save()) {
-                        Base::Redirect($GLOBALS['config']['base_url'] . "users/edit/" . $user->_id);
+                        Base::Redirect($GLOBALS['config']['base_url'] . "users/edit/" . $user->id);
                     } else {
                         Base::Render('pages/error');
                     }
                 } else {
-                    Base::Render('users/edit');
+                    Base::Render('users/edit', [
+                        'user' => $user
+                    ]);
                 }
             } else {
                 Base::Render('pages/error');

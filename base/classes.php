@@ -30,6 +30,10 @@
         public static function Genetate_id($string) {
             return str_replace('.', '', uniqid('', true));;
         }
+
+        public static function Hash_String($string) {
+            return hash('sha512', $string);
+        }
     }
 
     class Sql {
