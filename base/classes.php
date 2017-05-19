@@ -18,6 +18,8 @@
                 $Cvar['page_title'] = $GLOBALS['config']['Default_Title'];
             }
             
+            $view = $view . '.php';
+
             require_once('views/layout.php');
         }
 
@@ -49,7 +51,7 @@
             try {
                 $req = $db->prepare("SELECT * FROM $table WHERE $row = :where");
                 $req->execute([':where' => $where]);
-                $res = $req->fetch();
+                $res = $req->fetchall();
             } catch( PDOException $Exception ) {
                 return $Exception->getMessage();
             }
