@@ -12,9 +12,9 @@
 	<div class="col-md-9 col-xs-4">
 		<a href="<?= $GLOBALS['config']['base_url'] ?>users/create" class="btn btn-default pull-right">add user</a>
 	</div>
-</div>
-<div class="row">
-	<hr class="hr-mar">
+	<div class="col-md-12">
+		<hr>
+	</div>
 </div>
 <div class="row">
 	<?php foreach ($users as $key => $user) : ?>
@@ -35,9 +35,26 @@
 	<?php endforeach; ?>
 </div>
 <div class="row">
-	<div class="col-md-2 col-md-offset-5">
-		<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page-1).$searchpar ?>" class="<?php if ($page == 1) : ?>disabled<?php endif; ?>">previous</a>
-		<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page+1).$searchpar ?>" class="pull-right">next</a>
+	<div class="col-md-12">
+		<nav class="text-center" aria-label="Page navigation">
+			<ul class="pagination">
+				<li>
+					<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page-1).$searchpar ?>" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li>
+					<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page+1).$searchpar ?>" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 </div>
 <div class="row">

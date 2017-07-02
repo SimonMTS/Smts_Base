@@ -54,9 +54,9 @@
 
                 if (isset($var[3])) {
                     $search = base::Sanitize($var[3]);
-                    $users = User::searchByName($search, 8, (($page - 1) * 8) );
+                    $users = User::searchByName($search, 12, (($page - 1) * 12) );
                 } else {
-                    $users = User::searchByName('', 8, (($page - 1) * 8) );
+                    $users = User::searchByName('', 12, (($page - 1) * 12) );
                 }
 
                 if (isset($var[3])) {
