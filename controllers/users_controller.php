@@ -1,10 +1,11 @@
 <?php
     require_once "models/user.php";
-    require_once "models/order.php";
 
-    class usersController extends Controller {
+    class usersController extends Controller 
+    {
         
-        public static function login() {
+        public static function login() 
+        {
             if (isset($_POST['user'])) {
                 $user = User::findByName($_POST['user']['name']);
                 if ( $user != false && $user->password === Base::Hash_String($_POST['user']['password'], $user->salt) ) {
@@ -26,12 +27,14 @@
             }
         }
 
-        public static function logout() {
+        public static function logout() 
+        {
             $_SESSION['user'] = null;
             Base::Redirect($GLOBALS['config']['base_url']);
         }
 
-        public static function overview($var) {
+        public static function overview($var) 
+        {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
 
 				if (isset($_POST['var2']) && !empty($_POST['var2'])) {
@@ -79,16 +82,17 @@
             }
         }
 
-        public static function view($var) {
+        public static function view($var) 
+        {
             $id = Base::Sanitize( $var[2] );
             $user = User::Find($id);
             
             if ($user !== false && isset($_SESSION['user']) && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
-                $orders = Order::FindByUser($id);
+                // $orders = Order::FindByUser($id);
                 
                 Base::Render('users/view', [
                     'user' => $user,
-                    'orders' => array_reverse($orders)
+                    'orders' => []
                 ]);
             } else {
                 Base::Render('pages/error', [
@@ -101,7 +105,8 @@
             }
         }
 
-        public static function create($var) {			
+        public static function create($var) 
+        {			
             if (
                 isset($_POST['user']) &&
                 isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
@@ -133,9 +138,6 @@
 				$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
 				$parsedArray = json_decode($jsonString,true);
 				
-				
-				$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
-				
 				if (
 					!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
 					!isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
@@ -145,9 +147,20 @@
 				) {
 					Base::Redirect($GLOBALS['config']['base_url'].'users/create/wrongadres');
 				}
+
+				$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
 				
-				if ( $_FILES['pic']['size'] > 0 ) {//Todo
+				if ( $_FILES['pic']['size'] > 0 ) {
                     $pic = Base::Upload_file( $_FILES['pic'] );
+                    if (!$pic) {
+                        Base::Render('pages/error', [
+                        'type' => 'custom',
+                        'data' => [
+                            0 => 'Error',
+                            1 => 'Could not save image'
+                        ]
+                    ]);
+                    }
                 } else {
                     $pic = 'assets/img/user.png';
                 }
@@ -201,7 +214,8 @@
             }
         }
 
-        public static function edit($var) {
+        public static function edit($var) 
+        {
             $id = Base::Sanitize( $var[2] );
             $user = User::find($id);
 
@@ -300,7 +314,8 @@
             }
         }
 
-        public static function delete($var) {
+        public static function delete($var) 
+        {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
                 $id = Base::Sanitize( $var[2] );
                 $user = User::find($id);

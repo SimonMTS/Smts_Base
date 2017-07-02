@@ -1,15 +1,18 @@
 <?php
     require_once "models/user.php";
-    require_once "models/game.php";
-    require_once "models/order.php";
+    // require_once "models/game.php";
+    // require_once "models/order.php";
 
-    class setupController extends Controller {
+    class setupController extends Controller 
+    {
 
-        public static function beforeAction() {
+        public static function beforeAction() 
+        {
             self::$layout = 'empty';
         }
 
-        public static function init($var) {
+        public static function init($var) 
+        {
             $pw = 'pw';
             $start_time = new DateTime();
 
@@ -24,9 +27,9 @@
 
             self::setupdb();
             self::addusers();
-            self::addgames();
-            self::addorders();
-            self::addviews();
+            // self::addgames();
+            // self::addorders();
+            // self::addviews();
 
             echo 'Admin login is:<br> -Name: beheerder<br> -Password: beheerder<br><br>';
             $end_time = new DateTime();
@@ -35,43 +38,44 @@
             echo '<a href="' . $GLOBALS['config']['base_url'] . '">home</a>';
         }
 
-        private static function setupdb() {
-            Sql::RemoveDB('striekwold_uxxx');
+        private static function setupdb() 
+        {
+            Sql::RemoveDB($GLOBALS['config']['DataBaseName']);
 
-            Sql::CreateDB('striekwold_uxxx');
+            Sql::CreateDB($GLOBALS['config']['DataBaseName']);
             
-            Sql::CreateTable('game', [
-                'id' => 'varchar(256)',
-                'name' => 'varchar(256)',
-                'price' => 'int(10)',
-                'descr' => 'longtext',
-                'cover' => 'varchar(256)',
-                'views' => 'int(20)',
-                'rating' => 'float',
-                'votes' => 'int(20)'
-            ]);
-            Sql::AddPKey('game', 'id');
+            // Sql::CreateTable('game', [
+            //     'id' => 'varchar(256)',
+            //     'name' => 'varchar(256)',
+            //     'price' => 'int(10)',
+            //     'descr' => 'longtext',
+            //     'cover' => 'varchar(256)',
+            //     'views' => 'int(20)',
+            //     'rating' => 'float',
+            //     'votes' => 'int(20)'
+            // ]);
+            // Sql::AddPKey('game', 'id');
 
-            Sql::CreateTable('game_view', [
-                'game_id' => 'varchar(256)',
-                'user_id' => 'varchar(256)',
-                'time' => 'varchar(256)'
-            ]);
-            // Sql::AddPKey('game_view', 'game_id');
+            // Sql::CreateTable('game_view', [
+            //     'game_id' => 'varchar(256)',
+            //     'user_id' => 'varchar(256)',
+            //     'time' => 'varchar(256)'
+            // ]);
+            // // Sql::AddPKey('game_view', 'game_id');
             
-            Sql::CreateTable('game_order', [
-                'id' => 'varchar(256)',
-                'user_id' => 'varchar(256)',
-                'game_name' => 'varchar(256)',
-                'game_id' => 'varchar(256)',
-                'amount' => 'int(10)',
-                'method' => 'varchar(256)',
-                'status' => 'varchar(256)',
-                'paidDatetime' => 'varchar(256)',
-                'details_consumerName' => 'varchar(256)',
-                'details_consumerAccount' => 'varchar(256)'
-            ]);
-            Sql::AddPKey('game_order', 'id');
+            // Sql::CreateTable('game_order', [
+            //     'id' => 'varchar(256)',
+            //     'user_id' => 'varchar(256)',
+            //     'game_name' => 'varchar(256)',
+            //     'game_id' => 'varchar(256)',
+            //     'amount' => 'int(10)',
+            //     'method' => 'varchar(256)',
+            //     'status' => 'varchar(256)',
+            //     'paidDatetime' => 'varchar(256)',
+            //     'details_consumerName' => 'varchar(256)',
+            //     'details_consumerAccount' => 'varchar(256)'
+            // ]);
+            // Sql::AddPKey('game_order', 'id');
 
             Sql::CreateTable('user', [
                 'id' => 'varchar(256)',
@@ -84,15 +88,15 @@
                 'achternaam' => 'varchar(256)',
                 'geslacht' => 'varchar(3)',
                 'geboorte_datum' => 'varchar(256)',
-                'adres' => 'varchar(256)',
-                'rated' => 'varchar(512)'
+                'adres' => 'varchar(256)'
             ]);
             Sql::AddPKey('user', 'id');
 
             echo'done creating database<br><br>';
         }
 
-        private static function addusers() {
+        private static function addusers() 
+        {
             
             $salt = Base::Genetate_id();
             $users[] = new User(
@@ -101,7 +105,7 @@
                 Base::Hash_String('beheerder', $salt),
                 $salt,
                 777,
-                'assets/default-img/harambae.jpg',
+                'assets/user.png',
                 'Simon',
                 'Striekwold',
                 'm',
@@ -136,7 +140,8 @@
             echo'done adding users<br><br>';
         }
 
-        private static function addorders() {
+        private static function addorders() 
+        {
             $game = Game::findByName('Red Dead Redemtion 2');
             $user = User::findByName('beheerder');
 
@@ -162,7 +167,8 @@
             }
         }
 
-        private static function addviews() {
+        private static function addviews() 
+        {
             $games = Game::all();
             if ($_SESSION['user']['id']) {
                 $user_id = $_SESSION['user']['id'];
@@ -185,7 +191,8 @@
             }
         }
 
-        private static function addgames() {
+        private static function addgames() 
+        {
 
             $games = [
                 [
