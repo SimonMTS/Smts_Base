@@ -6,8 +6,14 @@
             'action' => 'home'
         ],
 
-        'Default_Title' => 'SMTS_Base',
+        'Debug' => true,
+        'custom_errors' => true,
+
+        'Default_Title' => 'smts_base',
+
         'base_url' => 'http://localhost/smts_base/',
-        'DataBaseName' => "uxxx"
+
+        'DataBaseName' => "smts_base",
+        'DataBase_user' => 'root',
+        'DataBase_password' => ''     
     ];
-?>

@@ -11,18 +11,15 @@
 
         if ( in_array( $action, $actions ) )
         {
-            $controller::{$action}();
+            $controller::beforeAction();
+            $controller::{$action}($var);
         }
         else
         {
-            require_once('controllers/pages_controller.php');
-            pagesController::error();
+            Base::error_view(404);
         }
     }
     else
     {
-        require_once('controllers/pages_controller.php');
-        pagesController::error();
+        Base::error_view(404);
     }
-
-?>

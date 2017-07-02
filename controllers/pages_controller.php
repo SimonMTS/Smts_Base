@@ -1,22 +1,19 @@
 <?php
-    class pagesController {
+    require_once "models/game.php";
 
-        public function home() {
+    class pagesController extends Controller {
 
-            if (isset($_SESSION['user']['name'])) {
-                $name = $_SESSION['user']['name'];
-            } else {
-                $name = 'bezoeker';
-            }
+        public static function home() {
+            $games = Game::findPopular(4);
+
+            self::$title = 'Home';
 
             Base::Render('pages/home', [
-                'page_title' => 'Home',
-                'name' => $name
+                'games' => $games
             ]);
         }
 
-        public function error() {
-            Base::Render('pages/error');
+        public static function error($type = null, $data = null) {
+            Base::error_view($type, $data);
         }
     }
-?>
