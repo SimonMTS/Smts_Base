@@ -155,7 +155,7 @@
             ]);
         }
 
-        public static function BreadCrumbs() { //todo ucfirst()
+        public static function BreadCrumbs() {
             $base_url = $GLOBALS['config']['base_url'];
             $var = explode('/', str_replace($base_url, '',Base::Curl()) );
 
@@ -194,6 +194,120 @@
 
         public static function beforeAction() {
             self::$title = $GLOBALS['config']['Default_Title'];
+        }
+    }
+
+    class Model {
+
+        public function save() {
+            //todo
+        }
+
+        public function load($input) {
+            if ($input == 'post' && isset( $_POST[get_class($this)] )) {
+                $input = array_merge( $_POST[get_class($this)], $_FILES );
+
+                foreach ( $this->attributes() as $attribute => $value ) {
+                    $this->{$attribute} = $input[$attribute];
+                }
+
+                return true;
+            } elseif ( is_array( $input ) ) {
+                foreach ( $this->attributes() as $attribute => $value ) {
+                    $this->{$attribute} = $input[$attribute];
+                }
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function validate() {
+            
+            foreach ( $this->rules() as $rule ) {
+                switch ( $rule[1] ) {
+
+                    case 'required':
+                        foreach ($rule[0] as $prop) {
+                            if ( !isset( $this->{$prop} ) || empty( $this->{$prop} ) ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'unique':
+                        foreach ($rule[0] as $prop) {
+                            if ( user::findByName( $this->{$prop} ) ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'password':
+                        if ( $this->{$rule[0][0]} != $this->{$rule[0][1]} ) {
+                            return false;
+                        } else {
+                            $this->{$rule[0][0]} = Base::Hash_String( $this->{$rule[0][0]}, $this->salt );
+                            $this->{$rule[0][1]} = null;
+                        }
+                    break;
+
+                    case 'in': 
+                        foreach ($rule[0] as $prop) {
+                            if ( !in_array( $this->{$prop}, $rule[2] ) ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'string': 
+                        foreach ($rule[0] as $prop) {
+                            if ( !is_string( $prop ) ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'integer': 
+                        foreach ($rule[0] as $prop) {
+                            if ( !is_int( $prop ) ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'double': 
+                        foreach ($rule[0] as $prop) {
+                            if ( !is_double( $prop ) ) {
+                                return false;
+                            }
+                        }
+                    break;
+
+                    case 'image': 
+                        foreach ($rule[0] as $prop) {
+                            
+                            if ( $this->{$prop}['size'] > 0 ) {
+                                $this->{$prop} = Base::Upload_file( $_FILES['pic'] );
+                                if (!$this->{$prop}) {
+                                    return false;
+                                }
+                            } else {
+                                $this->{$prop} = false;
+                            }
+
+                        }
+                    break;
+
+                    default:
+                        // error todo
+                    break;
+
+                }
+            }
+
+            return true;
         }
     }
 

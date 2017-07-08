@@ -1,9 +1,10 @@
 <?php
 
-    class User {
+    class User extends model {
         public $id;
         public $name;
         public $password;
+        public $password_rep;
         public $salt;
         public $role;
         public $pic;
@@ -14,31 +15,71 @@
         public $geboorte_datum;
         public $adres;
 
-        public function __construct(
-            $id, 
-            $name, 
-            $password, 
-            $salt, 
-            $role, 
-            $pic, 
-            $voornaam, 
-            $achternaam, 
-            $geslacht, 
-            $geboorte_datum, 
-            $adres
-        ) {
-            $this->id = $id;
-            $this->name = $name;
-            $this->password = $password;
-            $this->salt = $salt;
-            $this->role = $role;
-            $this->pic = $pic;
+        // public function __construct(
+        //     $id, 
+        //     $name, 
+        //     $password, 
+        //     $salt, 
+        //     $role, 
+        //     $pic, 
+        //     $voornaam, 
+        //     $achternaam, 
+        //     $geslacht, 
+        //     $geboorte_datum, 
+        //     $adres
+        // ) {
+        //     $this->id = $id;
+        //     $this->name = $name;
+        //     $this->password = $password;
+        //     $this->salt = $salt;
+        //     $this->role = $role;
+        //     $this->pic = $pic;
 
-            $this->voornaam = $voornaam;
-            $this->achternaam = $achternaam;
-            $this->geslacht = $geslacht;
-            $this->geboorte_datum = $geboorte_datum;
-            $this->adres = $adres;
+        //     $this->voornaam = $voornaam;
+        //     $this->achternaam = $achternaam;
+        //     $this->geslacht = $geslacht;
+        //     $this->geboorte_datum = $geboorte_datum;
+        //     $this->adres = $adres;
+        // }
+
+        public function rules()
+        {
+            return [
+                [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht', 'geboorte_datum', 'adres'], 'required' ],
+
+                [ ['name'], 'unique' ],
+                
+                [ ['password', 'password_rep'], 'password' ],
+
+                [ ['geslacht'], 'in', ['m', 'f'] ],
+                
+                [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht'], 'string' ],
+
+                [ ['pic'], 'image', [400, 400] ],
+
+                [ ['geboorte_datum'], 'date' ],
+
+                [ ['adres'], 'adres' ]
+            ];
+        }
+
+        public function attributes()
+        {
+            return [
+                'name' => 'Gebruikersnaam',
+                'password' => 'Wachtwoord',
+                'password_rep' => 'Wachtwoord herhalen',
+                'pic' => 'Afbeelding',
+                'voornaam' => 'Voornaam',
+                'achternaam' => 'Achternaam',
+                'geslacht' => 'Geslacht',
+                'geboorte_datum' => 'Geboorte datum',
+                'adres' => 'Address'
+            ];
+        }
+
+        public function login() {
+            //todo
         }
 
         public static function role($text) {

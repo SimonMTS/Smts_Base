@@ -6,9 +6,9 @@
         
         public static function login() 
         {
-            if (isset($_POST['user'])) {
-                $user = User::findByName($_POST['user']['name']);
-                if ( $user != false && $user->password === Base::Hash_String($_POST['user']['password'], $user->salt) ) {
+            if (isset($_POST['User'])) {
+                $user = User::findByName($_POST['User']['name']);
+                if ( $user != false && $user->password === Base::Hash_String($_POST['User']['password'], $user->salt) ) {
                     $_SESSION['user'] = [
                         "id" => $user->id,
                         "name" => $user->name,
@@ -106,80 +106,101 @@
         }
 
         public static function create($var) 
-        {			
+        {
+            $user = new User();
+
             if (
-                isset($_POST['user']) &&
-                isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
-                isset($_POST['user']['password']) && !empty($_POST['user']['password']) &&
-                $_POST['user']['password'] === $_POST['user']['passwordrep'] &&
-                !user::findByName($_POST['user']['name']) &&
+                // isset($_POST['User']) &&
+                // isset($_POST['User']['name']) && !empty($_POST['User']['name']) &&
+                // isset($_POST['User']['password']) && !empty($_POST['User']['password']) &&
+                // $_POST['User']['password'] === $_POST['User']['password_rep'] &&
+                // !user::findByName($_POST['User']['name']) &&
                 
-                isset($_POST['user']['voornaam']) && !empty($_POST['user']['voornaam']) &&
-                isset($_POST['user']['achternaam']) && !empty($_POST['user']['achternaam']) &&
-                isset($_POST['user']['geslacht']) && !empty($_POST['user']['geslacht']) &&
-                isset($_POST['user']['geboorte_datum']) && sizeof($_POST['user']['geboorte_datum']) == 3 &&
-				isset($_POST['user']['adres']) && sizeof($_POST['user']['adres']) == 4
+                // isset($_POST['User']['voornaam']) && !empty($_POST['User']['voornaam']) &&
+                // isset($_POST['User']['achternaam']) && !empty($_POST['User']['achternaam']) &&
+                // isset($_POST['User']['geslacht']) && !empty($_POST['User']['geslacht']) &&
+                // isset($_POST['User']['geboorte_datum']) && sizeof($_POST['User']['geboorte_datum']) == 3 &&
+				// isset($_POST['User']['adres']) && sizeof($_POST['User']['adres']) == 4
+
+                $user->load('post') && $user->validate()
             ) {
-				
-				$exAdres = [
-					'',
-					'',
-					'',
-					''
-				];
+                $user->id = Base::Genetate_id();
+                $user->salt = Base::Genetate_id();
+                $user->role = 1;
+
+                echo'<pre>';
+
+                // echo'<hr>post<hr>';
+                // var_dump( $_POST );
+
+                // echo'<hr>load & validate<hr>';
+                // var_dump( ( $user->load() && $user->validate() ) );
+
+                echo'<hr>user<hr>';
+                var_dump( $user );
+
+                echo'</pre>';
+                exit;
+
+				// $exAdres = [
+				// 	'',
+				// 	'',
+				// 	'',
+				// 	''
+				// ];
 	
-				$adres = $_POST['user']['adres'];
+				// $adres = $_POST['User']['adres'];
 				
-				for ($i=0; $i < 6; $i++) {
-					if (isset($adres[$i])) {
-						$exAdres[$i] = Base::Sanitize ($adres[$i]);
-					}
-				}
-				$jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
-				$parsedArray = json_decode($jsonString,true);
+				// for ($i=0; $i < 6; $i++) {
+				// 	if (isset($adres[$i])) {
+				// 		$exAdres[$i] = Base::Sanitize ($adres[$i]);
+				// 	}
+				// }
+				// $jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
+				// $parsedArray = json_decode($jsonString,true);
 				
-				if (
-					!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
-					!isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
-					!isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
-					!isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
-					!isset($parsedArray['results'][0]['address_components'][5]['long_name'])
-				) {
-					Base::Redirect($GLOBALS['config']['base_url'].'users/create/wrongadres');
-				}
+				// if (
+				// 	!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
+				// 	!isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
+				// 	!isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
+				// 	!isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
+				// 	!isset($parsedArray['results'][0]['address_components'][5]['long_name'])
+				// ) {
+				// 	Base::Redirect($GLOBALS['config']['base_url'].'users/create/wrongadres');
+				// }
 
-				$result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
+				// $result = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
 				
-				if ( $_FILES['pic']['size'] > 0 ) {
-                    $pic = Base::Upload_file( $_FILES['pic'] );
-                    if (!$pic) {
-                        Base::Render('pages/error', [
-                        'type' => 'custom',
-                        'data' => [
-                            0 => 'Error',
-                            1 => 'Could not save image'
-                        ]
-                    ]);
-                    }
-                } else {
-                    $pic = 'assets/img/user.png';
-                }
+				// if ( $_FILES['pic']['size'] > 0 ) {
+                //     $pic = Base::Upload_file( $_FILES['pic'] );
+                //     if (!$pic) {
+                //         Base::Render('pages/error', [
+                //         'type' => 'custom',
+                //         'data' => [
+                //             0 => 'Error',
+                //             1 => 'Could not save image'
+                //         ]
+                //     ]);
+                //     }
+                // } else {
+                //     $pic = 'assets/img/user.png';
+                // }
                 
-                $salt = Base::Genetate_id();
+                // $salt = Base::Genetate_id();
 
-                $user = new User(
-                    Base::Genetate_id(),
-                    Base::Sanitize( $_POST['user']['name'] ),
-                    Base::Hash_String( $_POST['user']['password'], $salt ),
-                    $salt,
-                    1,
-                    $pic,
-                    Base::Sanitize( $_POST['user']['voornaam'] ),
-                    Base::Sanitize( $_POST['user']['achternaam'] ),
-                    Base::Sanitize( $_POST['user']['geslacht'] ),
-                    implode( '/', $_POST['user']['geboorte_datum'] ),
-					$result
-                );
+                // $user = new User(
+                //     Base::Genetate_id(),
+                //     Base::Sanitize( $_POST['User']['name'] ),
+                //     Base::Hash_String( $_POST['User']['password'], $salt ),
+                //     $salt,
+                //     1,
+                //     $pic,
+                //     Base::Sanitize( $_POST['User']['voornaam'] ),
+                //     Base::Sanitize( $_POST['User']['achternaam'] ),
+                //     Base::Sanitize( $_POST['User']['geslacht'] ),
+                //     implode( '/', $_POST['User']['geboorte_datum'] ),
+				// 	$result
+                // );
 
                 if ($user->save()) {
                     if ( !isset($_SESSION['user']) ) {
@@ -221,16 +242,16 @@
 
             if ($user !== false && isset($_SESSION['user']) && (($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || ($_SESSION['user']['role'] == 777))) {
                 if (
-                    isset($_POST['user']) &&
-                    isset($_POST['user']['name']) && !empty($_POST['user']['name']) &&
-                    ((isset($_POST['user']['password']) && !empty($_POST['user']['password']) && $_POST['user']['password'] == $_POST['user']['passwordrep']) ||
-                    (empty($_POST['user']['password']) && empty($_POST['user']['passwordrep'])))
+                    isset($_POST['User']) &&
+                    isset($_POST['User']['name']) && !empty($_POST['User']['name']) &&
+                    ((isset($_POST['User']['password']) && !empty($_POST['User']['password']) && $_POST['User']['password'] == $_POST['User']['passwordrep']) ||
+                    (empty($_POST['User']['password']) && empty($_POST['User']['passwordrep'])))
                 ) {
-                    $user->name = Base::Sanitize( $_POST['user']['name'] );
-                    $user->voornaam = Base::Sanitize( $_POST['user']['voornaam'] );
-                    $user->achternaam = Base::Sanitize( $_POST['user']['achternaam'] );
-                    $user->geslacht = Base::Sanitize( $_POST['user']['geslacht'] );
-                    $user->geboorte_datum = implode( '/', $_POST['user']['geboorte_datum'] );
+                    $user->name = Base::Sanitize( $_POST['User']['name'] );
+                    $user->voornaam = Base::Sanitize( $_POST['User']['voornaam'] );
+                    $user->achternaam = Base::Sanitize( $_POST['User']['achternaam'] );
+                    $user->geslacht = Base::Sanitize( $_POST['User']['geslacht'] );
+                    $user->geboorte_datum = implode( '/', $_POST['User']['geboorte_datum'] );
 					
 					$exAdres = [
 						'',
@@ -239,7 +260,7 @@
 						''
 					];
 		
-					$adres = $_POST['user']['adres'];
+					$adres = $_POST['User']['adres'];
 					
 					for ($i=0; $i < 6; $i++) {
 						if (isset($adres[$i])) {
@@ -264,8 +285,8 @@
 					
 					$user->adres = $result;
 					
-                    if (!empty($_POST['user']['password'])) {
-                        $user->password = Base::Hash_String($_POST['user']['password'], $user->salt);
+                    if (!empty($_POST['User']['password'])) {
+                        $user->password = Base::Hash_String($_POST['User']['password'], $user->salt);
                     }
 
                     if ($_FILES['pic']['size'] > 0) {

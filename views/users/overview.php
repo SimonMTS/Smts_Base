@@ -43,11 +43,11 @@
 						<span aria-hidden="true">&laquo;</span>
 					</a>
 				</li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
+				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>1">1</a></li>
+				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>2">2</a></li>
+				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>3">3</a></li>
+				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>4">4</a></li>
+				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>5">5</a></li>
 				<li>
 					<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page+1).$searchpar ?>" aria-label="Next">
 						<span aria-hidden="true">&raquo;</span>
