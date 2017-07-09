@@ -23,7 +23,7 @@
             require_once(__dir__.'/../views/layout/' . Controller::$layout . '.php');
         }
 
-        public static function Upload_file($file) {
+        public static function Upload_file($file, $resolution = null) {
             $target_dir = "assets/img/";
             $target_file = $target_dir . self::Genetate_id().$file['name'] ;
             $uploadOk = 1;
@@ -42,9 +42,17 @@
             if ($uploadOk == 0) {
                 return false;
             } else {
-                self::square_thumbnail_with_proportion($file["tmp_name"], $target_file, 400, 100);
+                if ( isset( $resolution ) ) {
+                    self::square_thumbnail_with_proportion($file["tmp_name"], $target_file, $resolution, 100);
 
-                return $target_file;
+                    return $target_file;
+                } else {
+                    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                        return $target_file;
+                    } else {
+                        return false;
+                    }
+                }
             }
 
         }
@@ -208,13 +216,19 @@
                 $input = array_merge( $_POST[get_class($this)], $_FILES );
 
                 foreach ( $this->attributes() as $attribute => $value ) {
-                    $this->{$attribute} = $input[$attribute];
+                    if ( isset( $input[$attribute] ) ) {
+                        $this->{$attribute} = $input[$attribute];
+                    } else {
+                        return false;
+                    }
                 }
-
+                
                 return true;
             } elseif ( is_array( $input ) ) {
-                foreach ( $this->attributes() as $attribute => $value ) {
-                    $this->{$attribute} = $input[$attribute];
+                foreach ($input as $prop => $value) {
+                    if ( is_string($prop) ) {
+                        $this->{$prop} = $value;
+                    }
                 }
 
                 return true;
@@ -263,24 +277,30 @@
 
                     case 'string': 
                         foreach ($rule[0] as $prop) {
-                            if ( !is_string( $prop ) ) {
+                            if ( !is_string( $this->{$prop} ) ) {
                                 return false;
+                            } else {
+                                $this->{$prop} = strval( $this->{$prop} );
                             }
                         }
                     break;
 
                     case 'integer': 
                         foreach ($rule[0] as $prop) {
-                            if ( !is_int( $prop ) ) {
+                            if ( !is_int( $this->{$prop} ) ) {
                                 return false;
+                            } else {
+                                $this->{$prop} = intval( $this->{$prop} );
                             }
                         }
                     break;
 
                     case 'double': 
                         foreach ($rule[0] as $prop) {
-                            if ( !is_double( $prop ) ) {
+                            if ( !is_double( $this->{$prop} ) ) {
                                 return false;
+                            } else {
+                                $this->{$prop} = floatval( $this->{$prop} );
                             }
                         }
                     break;
@@ -289,12 +309,67 @@
                         foreach ($rule[0] as $prop) {
                             
                             if ( $this->{$prop}['size'] > 0 ) {
-                                $this->{$prop} = Base::Upload_file( $_FILES['pic'] );
+                                $this->{$prop} = Base::Upload_file( $_FILES['pic'], $rule[2] );
                                 if (!$this->{$prop}) {
                                     return false;
                                 }
+                            } elseif ( !isset($this->{$prop}) ) {
+                                $this->{$prop} = $GLOBALS['config']['Default_Profile_Pic'];
+                            }
+
+                        }
+                    break;
+
+                    case 'adres': 
+                        foreach ($rule[0] as $prop) {
+                            
+                            if ( sizeof( $this->{$prop} ) == 4 ) {
+                                $exAdres = [
+                                	'',
+                                	'',
+                                	'',
+                                	''
+                                ];
+                    
+                                $adres = $this->{$prop};
+                                
+                                for ($i=0; $i < 6; $i++) {
+                                	if (isset($adres[$i])) {
+                                		$exAdres[$i] = Base::Sanitize ($adres[$i]);
+                                	}
+                                }
+                                
+                                $jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
+                                $parsedArray = json_decode($jsonString,true);
+                                
+                                if (
+                                	!isset($parsedArray['results'][0]['address_components'][1]['long_name']) || 
+                                	!isset($parsedArray['results'][0]['address_components'][0]['long_name']) || 
+                                	!isset($parsedArray['results'][0]['address_components'][6]['long_name']) || 
+                                	!isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
+                                	!isset($parsedArray['results'][0]['address_components'][5]['long_name'])
+                                ) {
+                                	return false;
+                                }
+
+                                $this->{$prop} = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
+                                
                             } else {
-                                $this->{$prop} = false;
+                                return false;
+                            }
+
+                        }
+                    break;
+
+                    case 'date': 
+                        foreach ($rule[0] as $prop) {
+                            
+                            $date = date('d/m/Y:H:i:s', strtotime( implode( '-', $this->{$prop} ) ));
+                            
+                            if ( sizeof( $this->{$prop} ) == 3 ) {
+                                $this->{$prop} = $date;
+                            } else {
+                                return false;
                             }
 
                         }

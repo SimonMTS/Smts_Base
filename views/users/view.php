@@ -16,7 +16,7 @@
 				<dt>Age</dt>
 				<dd><?php
 					$datetime1 = new DateTime();
-					$datetime2 = DateTime::createFromFormat('j/m/Y', $user->geboorte_datum);
+					$datetime2 = DateTime::createFromFormat('d/m/Y:H:i:s', $user->geboorte_datum);
 					$interval = $datetime1->diff($datetime2);
 					echo $interval->format('%y');
 				?> y/o</dd>

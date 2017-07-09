@@ -61,38 +61,48 @@
         {
             
             $salt = Base::Genetate_id();
-            $users[] = new User(
-                Base::Genetate_id(),
-                'beheerder',
-                Base::Hash_String('beheerder', $salt),
-                $salt,
-                777,
-                'assets/user.png',
-                'Simon',
-                'Striekwold',
-                'm',
-                '19/3/1999',
-                'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
-            );
+            $user_data = [
+                'id' => Base::Genetate_id(),
+                'name' => 'beheerder',
+                'password' => Base::Hash_String('beheerder', $salt),
+                'salt' => $salt,
+                'role' => 777,
+                'pic' => 'assets/user.png',
+                'voornaam' => 'Simon',
+                'achternaam' => 'Striekwold',
+                'geslacht' => 'm',
+                'geboorte_datum' => date('d/m/Y:H:i:s', strtotime( '19-3-1999' )),
+                'adres' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
+            ];
+
+            $user = new user();
+            $user->load($user_data);
+
+            $users[] = $user;
             
             for ($i=1; $i < 20; $i++) {
                 $salt = Base::Genetate_id();
 
-                $users[] = new User(
-                    Base::Genetate_id(),
-                    'test'.$i,
-                    Base::Hash_String('test'.$i, $salt),
-                    $salt,
-                    1,
-                    'assets/user.png',
-                    'voornaam'.$i,
-                    'achternaam'.$i,
-                    'm',
-                    '27/6/1993',
-                    'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
-                );
-            }
+                $user_data = [
+                    'id' => Base::Genetate_id(),
+                    'name' => 'test'.$i,
+                    'password' => Base::Hash_String('test'.$i, $salt),
+                    'salt' => $salt,
+                    'role' => 1,
+                    'pic' => 'assets/user.png',
+                    'voornaam' => 'voornaam'.$i,
+                    'achternaam' => 'achternaam'.$i,
+                    'geslacht' => 'm',
+                    'geboorte_datum' => date('d/m/Y:H:i:s', strtotime( '27-6-1993' )),
+                    'adres' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'                   
+                ];
 
+                $user = new user();
+                $user->load($user_data);
+
+                $users[] = $user;
+            }
+            
             foreach ($users as $user) {
                 if ( !$user->save() ) {
                     echo'error<br><br>';

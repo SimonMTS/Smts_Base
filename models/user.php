@@ -15,33 +15,6 @@
         public $geboorte_datum;
         public $adres;
 
-        // public function __construct(
-        //     $id, 
-        //     $name, 
-        //     $password, 
-        //     $salt, 
-        //     $role, 
-        //     $pic, 
-        //     $voornaam, 
-        //     $achternaam, 
-        //     $geslacht, 
-        //     $geboorte_datum, 
-        //     $adres
-        // ) {
-        //     $this->id = $id;
-        //     $this->name = $name;
-        //     $this->password = $password;
-        //     $this->salt = $salt;
-        //     $this->role = $role;
-        //     $this->pic = $pic;
-
-        //     $this->voornaam = $voornaam;
-        //     $this->achternaam = $achternaam;
-        //     $this->geslacht = $geslacht;
-        //     $this->geboorte_datum = $geboorte_datum;
-        //     $this->adres = $adres;
-        // }
-
         public function rules()
         {
             return [
@@ -55,7 +28,7 @@
                 
                 [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht'], 'string' ],
 
-                [ ['pic'], 'image', [400, 400] ],
+                [ ['pic'], 'image', 400 ],
 
                 [ ['geboorte_datum'], 'date' ],
 
@@ -79,7 +52,22 @@
         }
 
         public function login() {
-            //todo
+            $_SESSION['user'] = [
+                "id" => $this->id,
+                "name" => $this->name,
+                "password" => $this->password,
+                "salt" => $this->salt,
+                "role" => $this->role,
+                "pic" => $this->pic
+            ];
+        }
+
+        public function isAdmin() {
+            if ($_SESSION['user']['role'] == 777) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public static function role($text) {
@@ -113,31 +101,10 @@
         public static function find($id) {
             $result = Sql::Get('user', 'id', $id);
 
-            if (
-                isset($result[0]['id']) &&
-                isset($result[0]['name']) &&
-                isset($result[0]['password']) &&
-                isset($result[0]['salt']) &&
-                isset($result[0]['role']) &&
-                isset($result[0]['pic']) &&
-                isset($result[0]['voornaam']) &&
-                isset($result[0]['achternaam']) &&
-                isset($result[0]['geslacht']) &&
-                isset($result[0]['geboorte_datum']) &&
-                isset($result[0]['adres'])
-            ) {
-                return new User(
-                    $result[0]['id'],
-                    $result[0]['name'],
-                    $result[0]['password'],
-                    $result[0]['salt'],
-                    $result[0]['role'],
-                    $result[0]['pic'],
-                    $result[0]['voornaam'],
-                    $result[0]['achternaam'],
-                    $result[0]['geslacht'],
-                    $result[0]['geboorte_datum'],
-                    $result[0]['adres']);
+            if ( isset($result[0]) ) {
+                $user = new User();
+                $user->load( $result[0] );
+                return $user;
             } else {
                 return false;
             }
@@ -147,33 +114,12 @@
         public static function findByName($name) {
             $result = Sql::Get('user', 'name', $name);
 
-            if (
-                isset($result[0]['id']) &&
-                isset($result[0]['name']) &&
-                isset($result[0]['password']) &&
-                isset($result[0]['salt']) &&
-                isset($result[0]['role']) &&
-                isset($result[0]['pic']) &&
-                isset($result[0]['voornaam']) &&
-                isset($result[0]['achternaam']) &&
-                isset($result[0]['geslacht']) &&
-                isset($result[0]['geboorte_datum']) &&
-                isset($result[0]['adres'])
-            ) {
-                return new User(
-                    $result[0]['id'],
-                    $result[0]['name'],
-                    $result[0]['password'],
-                    $result[0]['salt'],
-                    $result[0]['role'],
-                    $result[0]['pic'],
-                    $result[0]['voornaam'],
-                    $result[0]['achternaam'],
-                    $result[0]['geslacht'],
-                    $result[0]['geboorte_datum'],
-                    $result[0]['adres']);
+            if ( isset($result[0]) ) {
+                $user = new User();
+                $user->load( $result[0] );
+                return $user;
             } else {
-                return $result;
+                return false;
             }
         }
 
@@ -229,13 +175,17 @@
 
         public function delete() {
             $user = self::find($this->id);
-
-            if (explode('/', $user->pic)[1] == 'img') {
-                if ( !unlink($user->pic) ) {
-                    return false;
+            
+            if ($user) {
+                if (explode('/', $user->pic)[1] == 'img') {
+                    if ( !unlink($user->pic) ) {
+                        return false;
+                    }
                 }
-            }
 
-            Sql::Delete('user', 'id', $this->id);
+                return Sql::Delete('user', 'id', $this->id);
+            } else {
+                return false;
+            }
         }
     }

@@ -8,46 +8,46 @@
 							<b>Warning!</b> U heeft uw adres niet correct ingevoerd
 						</div>
 					<?php endif; ?>
-					<input class="form-control" type="text" placeholder="Gebruikersnaam" name="User[name]" autofocus required>
+					<input class="form-control" type="text" placeholder="<?=$user->attributes()['name'] ?>" name="User[name]" autofocus required>
 					<br>
-					<input class="form-control" type="password" placeholder="Wachtwoord" name="User[password]" required>
+					<input class="form-control" type="password" placeholder="<?=$user->attributes()['password'] ?>" name="User[password]" required>
 					<br>
-					<input class="form-control" type="password" placeholder="Wachtwoord herhalen" name="User[password_rep]" required>
+					<input class="form-control" type="password" placeholder="<?=$user->attributes()['password_rep'] ?>" name="User[password_rep]" required>
 					<br>
-					<input class="form-control" type="file" placeholder="Profile picture" name="pic">
+					<input class="form-control" type="file" placeholder="<?=$user->attributes()['pic'] ?>" name="pic">
 					<hr>
-					<input class="form-control" type="text" placeholder="Voornaam" name="User[voornaam]" required>
+					<input class="form-control" type="text" placeholder="<?=$user->attributes()['voornaam'] ?>" name="User[voornaam]" required>
 					<br>
-					<input class="form-control" type="text" placeholder="Achternaam" name="User[achternaam]" required>
+					<input class="form-control" type="text" placeholder="<?=$user->attributes()['achternaam'] ?>" name="User[achternaam]" required>
 					<br>
 					<select class="form-control" name="User[geslacht]" required>
-						<option selected disabled>Geslacht</option>
+						<option selected disabled><?=$user->attributes()['geslacht'] ?></option>
 						<option value="m">Man</option>
 						<option value="f">Vrouw</option>
 					</select>
 					<br>
 					<div class="form-group">
-					<div class="col-sm-4 form">
-						<select class="form-control birth" name="User[geboorte_datum][0]" required>
-							<?php for ($i=1; $i < 32; $i++) : ?>
-								<option value="<?=$i ?>"><?=$i ?></option>
-							<?php endfor; ?>
-						</select>
-					</div>
-					<div class="col-sm-4 form">
-						<select class="form-control birth" name="User[geboorte_datum][1]" required>
-							<?php for ($i=1; $i < 13; $i++) : ?>
-								<option value="<?=$i ?>"><?=$i ?></option>
-							<?php endfor; ?>
-						</select>
-					</div>
-					<div class="col-sm-4 form">
-						<select class="form-control birth" name="User[geboorte_datum][2]" required>
-							<?php for ($i=2017; $i > 1899; $i = $i - 1) : ?>
-								<option value="<?=$i ?>"><?=$i ?></option>
-							<?php endfor; ?>
-						</select>
-					</div>
+						<div class="col-sm-4 form">
+							<select class="form-control birth" name="User[geboorte_datum][0]" required>
+								<?php for ($i=1; $i < 32; $i++) : ?>
+									<option value="<?=$i ?>"><?=$i ?></option>
+								<?php endfor; ?>
+							</select>
+						</div>
+						<div class="col-sm-4 form">
+							<select class="form-control birth" name="User[geboorte_datum][1]" required>
+								<?php for ($i=1; $i < 13; $i++) : ?>
+									<option value="<?=$i ?>"><?=$i ?></option>
+								<?php endfor; ?>
+							</select>
+						</div>
+						<div class="col-sm-4 form">
+							<select class="form-control birth" name="User[geboorte_datum][2]" required>
+								<?php for ($i=2017; $i > 1899; $i = $i - 1) : ?>
+									<option value="<?=$i ?>"><?=$i ?></option>
+								<?php endfor; ?>
+							</select>
+						</div>
 					</div>
 					<br>
 					<br>	
