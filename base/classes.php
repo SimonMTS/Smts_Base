@@ -1,5 +1,11 @@
 <?php
 
+    function vd($var) {//todo, dev shorthand
+        echo'<pre>';
+        var_dump($var);
+        echo'</pre>';
+    }
+
     class Base {
 
         public static function Redirect( $url ) {
@@ -216,10 +222,12 @@
                 $input = array_merge( $_POST[get_class($this)], $_FILES );
 
                 foreach ( $this->attributes() as $attribute => $value ) {
-                    if ( isset( $input[$attribute] ) ) {
+                    if ( isset( $input[$attribute] ) && !empty( $input[$attribute] ) ) {
                         $this->{$attribute} = $input[$attribute];
                     } else {
-                        return false;
+                        if ( !isset( $this->{$attribute} ) || empty( $this->{$attribute} )) {
+                            return false;
+                        }
                     }
                 }
                 
@@ -238,7 +246,7 @@
         }
 
         public function validate() {
-            
+            //todo
             foreach ( $this->rules() as $rule ) {
                 switch ( $rule[1] ) {
 
@@ -252,7 +260,8 @@
 
                     case 'unique':
                         foreach ($rule[0] as $prop) {
-                            if ( user::findByName( $this->{$prop} ) ) {
+                            $user = user::findByName( $this->{$prop} );
+                            if ( $user && $user->id != $this->id ) {
                                 return false;
                             }
                         }
@@ -261,9 +270,6 @@
                     case 'password':
                         if ( $this->{$rule[0][0]} != $this->{$rule[0][1]} ) {
                             return false;
-                        } else {
-                            $this->{$rule[0][0]} = Base::Hash_String( $this->{$rule[0][0]}, $this->salt );
-                            $this->{$rule[0][1]} = null;
                         }
                     break;
 
@@ -310,10 +316,11 @@
                             
                             if ( $this->{$prop}['size'] > 0 ) {
                                 $this->{$prop} = Base::Upload_file( $_FILES['pic'], $rule[2] );
-                                if (!$this->{$prop}) {
+                                
+                                if ( !$this->{$prop} ) {
                                     return false;
                                 }
-                            } elseif ( !isset($this->{$prop}) ) {
+                            } else {
                                 $this->{$prop} = $GLOBALS['config']['Default_Profile_Pic'];
                             }
 
@@ -339,7 +346,14 @@
                                 	}
                                 }
                                 
-                                $jsonString = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$exAdres[0]+$exAdres[1],+$exAdres[2]+$exAdres[3]&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys");
+                                $curl = curl_init();
+                                curl_setopt_array($curl, [
+                                    CURLOPT_RETURNTRANSFER => 1,
+                                    CURLOPT_URL => "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($exAdres[0])."+".urlencode($exAdres[1])."+".urlencode($exAdres[2])."+".urlencode($exAdres[3])."&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys"
+                                ]);
+                                $jsonString = curl_exec($curl);
+                                curl_close($curl);
+                                
                                 $parsedArray = json_decode($jsonString,true);
                                 
                                 if (
