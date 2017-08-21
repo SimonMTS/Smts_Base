@@ -136,7 +136,7 @@
         public function save() {
             if ( !self::find($this->id) ) {
                 if ( !self::findByName($this->name) ) {
-                    Sql::Save('user', [
+                    return Sql::Save('user', [
                         'id' => $this->id,
                         'name' => $this->name,
                         'password' => $this->password,
@@ -149,13 +149,11 @@
                         'geboorte_datum' => $this->geboorte_datum,
                         'adres' => $this->adres
                     ]);
-
-                    return true;
                 } else {
                     return false;
                 }
             } else {
-                Sql::Update('user', 'id', $this->id, [
+                return Sql::Update('user', 'id', $this->id, [
                     'id' => $this->id,
                     'name' => $this->name,
                     'password' => $this->password,
@@ -168,8 +166,6 @@
                     'geboorte_datum' => $this->geboorte_datum,
                     'adres' => $this->adres
                 ]);
-
-                return true;
             }
         }
 
