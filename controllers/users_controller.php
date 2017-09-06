@@ -9,14 +9,7 @@
             if (isset($_POST['User'])) {
                 $user = User::findByName($_POST['User']['name']);
                 if ( $user != false && $user->password === Base::Hash_String($_POST['User']['password'], $user->salt) ) {
-                    $_SESSION['user'] = [
-                        "id" => $user->id,
-                        "name" => $user->name,
-                        "password" => $user->password,
-                        "salt" => $user->salt,
-                        "role" => $user->role,
-                        "pic" => $user->pic
-                    ];
+                    $user->login();
 
                     Base::Redirect($GLOBALS['config']['base_url']);
                 } else {

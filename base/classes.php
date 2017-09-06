@@ -1,11 +1,5 @@
 <?php
 
-    function vd($var) {//todo, dev shorthand
-        echo'<pre>';
-        var_dump($var);
-        echo'</pre>';
-    }
-
     class Base {
 
         public static function Redirect( $url ) {
