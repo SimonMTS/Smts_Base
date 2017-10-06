@@ -206,11 +206,6 @@
     }
 
     class Model {
-
-        public function save() {
-            //todo
-        }
-
         public function load($input) {
             if ($input == 'post' && isset( $_POST[get_class($this)] )) {
                 $input = array_merge( $_POST[get_class($this)], $_FILES );
@@ -254,8 +249,8 @@
 
                     case 'unique':
                         foreach ($rule[0] as $prop) {
-                            $user = user::findByName( $this->{$prop} );
-                            if ( $user && $user->id != $this->id ) {
+                            $item = Sql::Get(get_class($this), $prop, $this->{$prop});
+                            if ( $item && $item[0][$prop] != $this->{$prop} ) {
                                 return false;
                             }
                         }
@@ -288,8 +283,6 @@
                     case 'integer': 
                         foreach ($rule[0] as $prop) {
                             if ( !is_int( $this->{$prop} ) ) {
-                                return false;
-                            } else {
                                 $this->{$prop} = intval( $this->{$prop} );
                             }
                         }
@@ -309,7 +302,7 @@
                         foreach ($rule[0] as $prop) {
                             
                             if ( $this->{$prop}['size'] > 0 ) {
-                                $this->{$prop} = Base::Upload_file( $_FILES['pic'], $rule[2] );
+                                $this->{$prop} = Base::Upload_file( $_FILES[$prop], $rule[2] );
                                 
                                 if ( !$this->{$prop} ) {
                                     return false;
