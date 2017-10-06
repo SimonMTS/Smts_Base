@@ -68,8 +68,8 @@
                 Base::Render('pages/error', [
                     'type' => 'custom',
                     'data' => [
-                        0 => 'Denied',
-                        1 => 'This page requires admin privileges'
+                        'Denied',
+                        'This page requires admin privileges'
                     ]
                 ]);
             }
@@ -86,7 +86,6 @@
                     ($_SESSION['user']['role'] == 777)
                 )
             ) {
-                
                 Base::Render('users/view', [
                     'user' => $user,
                 ]);
@@ -94,8 +93,8 @@
                 Base::Render('pages/error', [
                     'type' => 'custom',
                     'data' => [
-                        0 => 'Error',
-                        1 => 'User not found'
+                        'Error',
+                        'User not found'
                     ]
                 ]);
             }
@@ -194,8 +193,8 @@
                     Base::Render('pages/error', [
                        'type' => 'custom',
                         'data' => [
-                            0 => 'Denied',
-                            1 => 'You can only delete user of a lower role than you own'
+                            'Denied',
+                            'You can only delete user of a lower role than your own'
                         ]
                     ]);
                 }
@@ -203,8 +202,8 @@
                 Base::Render('pages/error', [
                     'type' => 'custom',
                     'data' => [
-                        0 => 'Denied',
-                        1 => 'This page requires admin privileges'
+                        'Denied',
+                        'This page requires admin privileges'
                     ]
                 ]);
             }

@@ -10,7 +10,9 @@
         }
 
         public static function init($var) 
-        {
+        { 
+            Base::Render('layout/empty');
+            
             $pw = 'pw';
             $start_time = new DateTime();
 
