@@ -1,6 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<h1 class="pop-prod">Model Generator</h1>
+		<a href="<?= $GLOBALS['config']['base_url'] ?>crud/model" >go to</a>
 		<p>This generator generates a model class for the specified database table.</p>
 		<p>input: database table</p>
 		<p>output: model class</p>

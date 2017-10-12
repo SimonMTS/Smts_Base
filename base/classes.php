@@ -625,4 +625,46 @@
                 return true;
             }
         }
+
+        // Sql::GetTables('smts_base');
+        public static function GetTables($dbn) {
+            if (isset($dbn) && !empty($dbn)) {
+                $db = self::getInstance();
+                
+                try {
+                    $req = $db->prepare("SHOW TABLES FROM $dbn");
+                    $req->execute();
+                    return $req->fetchAll();
+                } catch( PDOException $Exception ) {
+                    return $Exception->getMessage();
+                }
+
+                return true;
+            }
+        }
+        
+        // Sql::GetColumns('smts_base', 'user');
+        public static function GetColumns($dbn, $col) {
+            if (isset($dbn) && !empty($dbn)) {
+                $db = self::getInstance();
+                
+                try {
+                    $req = $db->prepare("SELECT COLUMN_NAME, DATA_TYPE  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$col."' AND TABLE_SCHEMA = '".$dbn."'");
+                    $req->execute();
+                    $cols = $req->fetchAll();
+
+                    // foreach ( $cols as $col ) {
+                    //     if ( $col[1] !== 'char' && $col[1] !== 'enum' && !isset( $res[$col[0]] ) ) {
+                    //         $res[$col[0]] = $col[0];
+                    //     }
+                    // }
+
+                    return $cols;
+                } catch( PDOException $Exception ) {
+                    return $Exception->getMessage();
+                }
+
+                return true;
+            }
+        }
     }
