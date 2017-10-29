@@ -653,12 +653,6 @@
                     $req->execute();
                     $cols = $req->fetchAll();
 
-                    // foreach ( $cols as $col ) {
-                    //     if ( $col[1] !== 'char' && $col[1] !== 'enum' && !isset( $res[$col[0]] ) ) {
-                    //         $res[$col[0]] = $col[0];
-                    //     }
-                    // }
-
                     return $cols;
                 } catch( PDOException $Exception ) {
                     return $Exception->getMessage();

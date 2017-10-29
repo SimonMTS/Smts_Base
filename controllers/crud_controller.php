@@ -10,7 +10,36 @@
         }
 
         public static function model() 
-        {       
+        {   
+            $y = $z = false;
+
+            if ( !isset( $y ) && !isset( $z ) ) {
+                // step 1: select table and class-name
+
+                $tables = Sql::GetTables( $GLOBALS['config']['DataBaseName'] );
+                
+                Base::Render('crud/model', [
+                    'tables' => $tables
+                ]);
+
+            } elseif ( $y ) {
+                // step 2: confirm input and generate output
+
+                
+
+            } elseif ( $z ) {
+                // step 3: create files
+
+                $model = fopen("models/" . $modelName . ".php", "w");
+                
+                fwrite($model, $modelValue);
+                fclose($model);
+
+                Base::Redirect($GLOBALS['config']['base_url'].'crud');
+
+            }
+
+
             if ( isset($_POST['generate']) ) {
                 $model = fopen("models/" . $_SESSION['crud']['modelName'] . ".php", "w");
     
@@ -21,6 +50,7 @@
             
             } elseif ( isset($_POST['tableName']) ) {
                 $_SESSION['crud']['modelName'] = $_POST['tableName'];
+                $cols = Sql::GetColumns('smts_base',  'user');
 
                 if ( isset( $_POST['className'] ) && !empty( $_POST['className'] ) ) {
                     $_SESSION['crud']['modelName'] = $_POST['className'];
@@ -28,10 +58,16 @@
 
                 $classname = $_SESSION['crud']['modelName'];
 
+                $props = "";
+
+                foreach ( $cols as $col ) {
+                    $porps = $props .= "        public \$" . $col[0] . "; \n";
+                }
+
                 $_SESSION['crud']['val'] = "<?php
                 
     class $classname extends model {
-        public \$name;
+$props
 
         public function rules() {
             return [

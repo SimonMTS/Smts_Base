@@ -17,7 +17,7 @@
 			</div>
 			<div class="form-group">
 				<label for="path">Path</label>
-				<input id="path" class="form-control" type="text" name="path" value="<?= realpath(__DIR__ . '/../..') ?>/models/" disabled>
+				<input id="path" class="form-control" type="text" name="path" value="<?= realpath(__DIR__ . '/../..') ?>\models\" disabled>
 			</div>
 			<div class="form-group">
 				<label for="className">Class name</label>
