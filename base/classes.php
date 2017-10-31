@@ -206,6 +206,92 @@
     }
 
     class Model {
+        public static function generate( $classname, $properties ) {
+            $props = '';
+            $rules = '';
+            $attributes = '';
+            $lenghtRules = '';
+
+            $ruletypes = [];
+            $rulelenghts = [];
+
+            $i = 1;
+
+            // set $props, attributes, and types of rules //
+            foreach ( $properties as $key => $property ) {
+                $props .= "\t\tpublic " . $property['COLUMN_NAME'] . ";\n";
+
+                $attributes .= "\t\t\t\t'" . $property['COLUMN_NAME'] . "' => 'seo_" . $property['COLUMN_NAME'] . "'";
+                if ( count($properties) != ($key + 1) ) {
+                    $attributes .= ",\n";
+                }
+
+                $ruletypes[$property['DATA_TYPE']][] = $property;
+
+                preg_match('/(?<=\()(.*?)(?=\))/', $property['COLUMN_TYPE'], $match);
+                if ( isset( $match[0] ) ) {
+                    $rulelenghts[ $match[0] ][] = $property;
+                }
+            }
+
+            // link props with their rule //
+            foreach ( $ruletypes as $key => $ruletype ) {
+                $propnames = '';
+
+                foreach ( $ruletype as $propname ) {
+                    $propnames .= $propname['COLUMN_NAME'] . ', ';
+                }
+
+                $rules .= "\t\t\t\t[ [" . $propnames . "], '" . $key . "']";
+
+                if (count($ruletypes) != $i ) {
+                    $rules .= ",\n";
+                } else {
+                    $rules .= ",";
+                }
+
+                $i++;
+            }
+
+            // set lenght rules //
+            foreach ( $rulelenghts as $key => $rulelenght ) {
+                $propnames = '';
+
+                foreach ( $rulelenght as $propname ) {
+                    $propnames .= $propname['COLUMN_NAME'] . ', ';
+                }
+
+                $lenghtRules .= "\t\t\t\t[ [" . $propnames . "], 'maxlen', " . $key . "]";
+
+                if ((count($rulelenghts) + count($ruletypes)) != $i ) {
+                    $lenghtRules .= ",\n";
+                }
+                
+                $i++;
+            }
+
+            $model = "<?php
+            
+\tclass $classname extends model {
+$props
+\t\tpublic function rules() { 
+\t\t\treturn [
+$rules
+$lenghtRules
+\t\t\t];
+\t\t}
+
+\t\t// Remove fields that aren't visible to the user, used in \$model-load() to find form fields //
+\t\tpublic function attributes() {
+\t\t\treturn [
+$attributes
+\t\t\t];
+\t\t}
+\t}";
+
+            return $model;
+        }
+
         public function load($input) {
             if ($input == 'post' && isset( $_POST[get_class($this)] )) {
                 $input = array_merge( $_POST[get_class($this)], $_FILES );
@@ -397,7 +483,6 @@
             }
             return self::$instance;
         }
-
 
         // Sql::Get('user', 'id', 'test_id');
         public static function Get($table, $row = '1', $where = '1') {
@@ -649,7 +734,7 @@
                 $db = self::getInstance();
                 
                 try {
-                    $req = $db->prepare("SELECT COLUMN_NAME, DATA_TYPE  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$col."' AND TABLE_SCHEMA = '".$dbn."'");
+                    $req = $db->prepare("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_TYPE  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$col."' AND TABLE_SCHEMA = '".$dbn."'");
                     $req->execute();
                     $cols = $req->fetchAll();
 

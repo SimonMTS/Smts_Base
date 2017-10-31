@@ -23,7 +23,7 @@
 				<label for="className">Class name</label>
 				<input id="className" class="form-control" type="text" name="className" placeholder="Leave empty to keep table name">
 			</div>
-			<input class="btn btn-primary" type="submit" value="Generate">
+			<input class="btn btn-primary" type="submit" name="generate" value="Generate">
 		</form>
 	</div>
 </div>
