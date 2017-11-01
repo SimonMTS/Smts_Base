@@ -108,7 +108,6 @@
             } else {
                 return false;
             }
-
         }
 
         public static function findByName($name) {

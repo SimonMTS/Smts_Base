@@ -206,11 +206,12 @@
     }
 
     class Model {
-        public static function generate( $classname, $properties ) {
+        public static function generate( $classname, $tablename, $properties ) {
             $props = '';
             $rules = '';
             $attributes = '';
             $lenghtRules = '';
+            $sqldata = '';
 
             $ruletypes = [];
             $rulelenghts = [];
@@ -219,11 +220,16 @@
 
             // set $props, attributes, and types of rules //
             foreach ( $properties as $key => $property ) {
-                $props .= "\t\tpublic " . $property['COLUMN_NAME'] . ";\n";
+                $props .= "\t\tpublic $" . $property['COLUMN_NAME'] . ";\n";
 
                 $attributes .= "\t\t\t\t'" . $property['COLUMN_NAME'] . "' => 'seo_" . $property['COLUMN_NAME'] . "'";
                 if ( count($properties) != ($key + 1) ) {
                     $attributes .= ",\n";
+                }
+
+                $sqldata .= "\t\t\t\t\t'" . $property['COLUMN_NAME'] . "' => \$this->" . $property['COLUMN_NAME'];
+                if ( count($properties) != ($key + 1) ) {
+                    $sqldata .= ",\n";
                 }
 
                 $ruletypes[$property['DATA_TYPE']][] = $property;
@@ -238,16 +244,19 @@
             foreach ( $ruletypes as $key => $ruletype ) {
                 $propnames = '';
 
-                foreach ( $ruletype as $propname ) {
-                    $propnames .= $propname['COLUMN_NAME'] . ', ';
+                foreach ( $ruletype as $rtkey => $propname ) {
+                    $propnames .= "'" . $propname['COLUMN_NAME'] . "'";
+                    if ( count($ruletype) != ($rtkey + 1) ) {
+                        $propnames .= ", ";
+                    }
                 }
 
-                $rules .= "\t\t\t\t[ [" . $propnames . "], '" . $key . "']";
+                $rules .= "\t\t\t\t[ [" . $propnames . "], '" . $key . "' ]";
 
                 if (count($ruletypes) != $i ) {
-                    $rules .= ",\n";
+                    $rules .= ",\n\n";
                 } else {
-                    $rules .= ",";
+                    $rules .= ",\n";
                 }
 
                 $i++;
@@ -257,14 +266,17 @@
             foreach ( $rulelenghts as $key => $rulelenght ) {
                 $propnames = '';
 
-                foreach ( $rulelenght as $propname ) {
-                    $propnames .= $propname['COLUMN_NAME'] . ', ';
+                foreach ( $rulelenght as $rlkey => $propname ) {
+                    $propnames .= "'" . $propname['COLUMN_NAME'] . "'";
+                    if ( count($rulelenght) != ($rlkey + 1) ) {
+                        $propnames .= ", ";
+                    }
                 }
 
-                $lenghtRules .= "\t\t\t\t[ [" . $propnames . "], 'maxlen', " . $key . "]";
+                $lenghtRules .= "\t\t\t\t[ [" . $propnames . "], 'maxlen', " . $key . " ]";
 
                 if ((count($rulelenghts) + count($ruletypes)) != $i ) {
-                    $lenghtRules .= ",\n";
+                    $lenghtRules .= ",\n\n";
                 }
                 
                 $i++;
@@ -274,7 +286,9 @@
             
 \tclass $classname extends model {
 $props
-\t\tpublic function rules() { 
+\t\t// Only contains fields with a set lenght //
+\t\tpublic function rules() 
+\t\t{ 
 \t\t\treturn [
 $rules
 $lenghtRules
@@ -282,10 +296,50 @@ $lenghtRules
 \t\t}
 
 \t\t// Remove fields that aren't visible to the user, used in \$model-load() to find form fields //
-\t\tpublic function attributes() {
+\t\tpublic function attributes() 
+\t\t{
 \t\t\treturn [
 $attributes
 \t\t\t];
+\t\t}
+
+\t\t// If your database doesn't use 'id', you'll have to change that here //
+\t\tpublic static function find(\$id)
+\t\t{
+\t\t\t\$result = Sql::Get('$tablename', 'id', \$id);
+
+\t\t\tif ( isset(\$result[0]) ) {
+\t\t\t\t\$$classname = new $classname();
+\t\t\t\t\$".$classname."->load( \$result[0] );
+\t\t\t\treturn \$$classname;
+\t\t\t} else {
+\t\t\t\treturn false;
+\t\t\t}
+\t\t}
+
+\t\t// If your database doesn't use 'id', you'll have to change that here //
+\t\tpublic function save()
+\t\t{
+\t\t\tif ( !self::find(\$this->id) ) {
+\t\t\t\treturn Sql::Save('$tablename', [
+$sqldata
+\t\t\t\t]);
+\t\t\t} else {
+\t\t\t\treturn Sql::Update('$tablename', 'id', \$this->id, [
+$sqldata
+\t\t\t\t]);
+\t\t\t}
+\t\t}
+
+\t\t// If your database doesn't use 'id', you'll have to change that here //
+\t\tpublic function delete()
+\t\t{
+\t\t\t\$user = self::find(\$this->id);
+\t\t\tif (\$user) {
+\t\t\t\treturn Sql::Delete('$tablename', 'id', \$this->id);
+\t\t\t} else {
+\t\t\t\treturn false;
+\t\t\t}
 \t\t}
 \t}";
 

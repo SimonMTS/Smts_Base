@@ -5,8 +5,10 @@
 		<br>
 	</div>
 	<div class="col-md-12">
-		<pre><?= htmlentities($val) ?></pre>
 		<form action="" method="post" enctype="multipart/form-data">
+			<textarea readonly onclick="$(this).attr('readonly', false);" name="content" class="form-control" rows="<?= substr_count( $val, "\n" ) + 1 ?>"><?= htmlentities($val) ?></textarea>
+			<input type="hidden" name="classname" value="<?=$classname ?>"></input>
+			<br>
 			<input class="btn btn-primary" type="submit" name="generateConfirm" value="Generate">
 			<input class="btn btn-danger" type="submit" name="decline" value="Decline">
 		</form>
