@@ -14,6 +14,7 @@
 
     $var = explode('/', str_replace($GLOBALS['config']['base_url'], '',Base::Curl()) );
 
+    if ( $GLOBALS['config']['Debug'] && $var[0] == 'smts' ) {
         require_once('base/smts/base_index.php');exit;
     } elseif ( isset($var[0]) && !empty($var[0]) && !isset($var[1]) ) {
         $var[1] = 'overview';
