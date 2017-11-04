@@ -4,7 +4,7 @@
     {
         public static function overview() 
         {
-            Base::Render('filegen/overview');
+            base_smts::Render('filegen/overview');
         }
 
         public static function model() 
@@ -14,7 +14,7 @@
 
                 $tables = Sql::GetTables( $GLOBALS['config']['DataBaseName'] );
                 
-                Base::Render('filegen/model', [
+                base_smts::Render('filegen/model', [
                     'tables' => $tables
                 ]);
 
@@ -22,7 +22,7 @@
                 // step 2: confirm input and generate output
 
                 if ( !isset( $_POST['tableName'] ) ) {
-                    Base::Redirect($GLOBALS['config']['base_url'].'filegen/model');
+                    Base::Redirect($GLOBALS['config']['base_url'].'smts/filegen/model');
                 } elseif ( isset( $_POST['className'] ) && !empty( $_POST['className'] ) ) {
                     $classname = $_POST['className'];
                 } else {
@@ -33,7 +33,7 @@
 
                 $val = Model::generate( $classname, $_POST['tableName'], $properties );
 
-                Base::Render('filegen/preview', [
+                base_smts::Render('filegen/preview', [
                     'classname' => $classname,
                     'val' => $val
                 ]);
@@ -46,13 +46,13 @@
                 fwrite($model, $_POST['content']);
                 fclose($model);
 
-                Base::Redirect($GLOBALS['config']['base_url'].'filegen');
+                Base::Redirect($GLOBALS['config']['base_url'].'smts/filegen');
             }
         }
 
         public static function crud()
         {
-            Base::Render('filegen/crud');
+            base_smts::Render('filegen/crud');
 
             // generate view files: create, edit, view, overview //
             // generate controller with actions: create, edit, delete, view, overview

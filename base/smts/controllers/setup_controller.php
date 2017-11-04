@@ -16,12 +16,12 @@
             $pw = 'pw';
             $start_time = new DateTime();
 
-            if ( !(isset($var[2]) && $var[2] == $pw) && !(isset($var[2]) && $var[2] == $pw.'confirmed') ) {
+            if ( !(isset($var[3]) && $var[3] == $pw) && !(isset($var[3]) && $var[3] == $pw.'confirmed') ) {
                 echo'error: wrong password<br><br>';exit;
             }
 
-            if ($var[2] == $pw) {
-                echo 'Are you sure you want to create/reset the database? <br><br> als dit niet werkt moet de max_execution_time omhoog in php.ini <br><br> <a href="'.$GLOBALS['config']['base_url'].'setup/init/'.$pw.'confirmed">Yes</a>';
+            if ($var[3] == $pw) {
+                echo 'Are you sure you want to create/reset the database? <br><br> als dit niet werkt moet de max_execution_time omhoog in php.ini <br><br> <a href="'.$GLOBALS['config']['base_url'].'smts/setup/init/'.$pw.'confirmed">Yes</a>';
                 exit;
             }
 

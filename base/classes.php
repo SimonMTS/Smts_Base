@@ -143,7 +143,7 @@
             } elseif ( isset($a) && !isset($b) && !isset($c) && !isset($d) && !isset($e) && !isset($f) ) {
                 // error
                 self::error_view($a->getcode(), $a);exit;
-            } else { 
+            } elseif ( isset( $error ) ) { 
                 // exeption
                 self::error_view($a, [
                     $a,
