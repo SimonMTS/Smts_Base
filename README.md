@@ -3,6 +3,8 @@ a php framework
 
 //todo
 
+Mongodb class maken, naast de sql class,
+
 setup- en crub-controllers af maken,
 
 setup- en crub-controllers in base zetten,
@@ -15,7 +17,7 @@ docs schrijven,
 
 validators in aparte bestanden zetten,
 
-file upload goed /zelf/ maken,
+file upload goed (zelf) maken,
 
 custom error bugs fixen,
 

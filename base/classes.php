@@ -203,6 +203,97 @@
         public static function beforeAction() {
             self::$title = $GLOBALS['config']['Default_Title'];
         }
+
+        public static function generate( $modelname ) {
+
+            $UCmodelname = ucfirst($modelname);
+            $controller = "<?php
+\trequire_once \"models/$modelname.php\";
+
+\tclass ".$modelname."sController extends Controller 
+\t{
+
+\t\tpublic static function overview() 
+\t\t{
+
+\t\t\tBase::Render('".$modelname."s/overview');
+\t\t}
+
+\t\tpublic static function view( \$var ) 
+\t\t{
+\t\t\t\$id = Base::Sanitize( \$var[2] );
+\t\t\t\$$modelname = $UCmodelname::Find(\$id);
+
+\t\t\tif ( \$$modelname !== false ) {
+\t\t\t\tBase::Render('".$modelname."s/view', [
+\t\t\t\t\t'$modelname' => \$$modelname,
+\t\t\t\t]);
+\t\t\t} else {
+\t\t\t\tBase::Render('pages/error', [
+\t\t\t\t\t'type' => 'custom',
+\t\t\t\t\t'data' => [
+\t\t\t\t\t\t'Error',
+\t\t\t\t\t\t'$UCmodelname not found'
+\t\t\t\t\t]
+\t\t\t\t]);
+\t\t\t}
+\t\t}
+
+\t\tpublic static function create() 
+\t\t{
+    \$user = new User();
+    
+    if ( \$user->load('post') && \$user->validate() ) {
+        \$user->id = Base::Genetate_id();
+
+        if ( \$user->save() ) {
+            Base::Redirect(\$GLOBALS['config']['base_url']);
+        } else {
+            Base::Render('pages/error', [
+                'type' => 'custom',
+                'data' => [
+                    'Error',
+                    'Could not save user'
+                ]
+            ]);
+        }
+    } else {
+        Base::Render('users/create', [
+            'var' => \$var,
+            'user' => \$user
+        ]);
+    }
+\t\t}
+
+\t\tpublic static function edit() 
+\t\t{
+
+\t\t\tBase::Render('".$modelname."s/edit');
+\t\t}
+
+\t\tpublic static function delete() 
+\t\t{
+\t\t\t\$id = Base::Sanitize( \$var[2] );
+\t\t\t\$$modelname = $UCmodelname::find(\$id);
+
+\t\t\tif ( \$".$modelname."->delete() ) {
+\t\t\t\tBase::Redirect(\$GLOBALS['config']['base_url'] . '".$modelname."s/overview');
+\t\t\t} else {
+\t\t\t\tBase::Render('pages/error', [
+\t\t\t\t\t'type' => 'custom',
+\t\t\t\t\t'data' => [
+\t\t\t\t\t\t'Error',
+\t\t\t\t\t\t'$UCmodelname not found'
+\t\t\t\t\t]
+\t\t\t\t]);
+\t\t\t}
+\t\t\tBase::Redirect(\$GLOBALS['config']['base_url'] . '".$modelname."s/overview');
+\t\t}
+\t}
+";
+
+            return $controller;
+        }
     }
 
     class Model {
@@ -282,9 +373,10 @@
                 $i++;
             }
 
+            $UCclassname = ucfirst($classname);
             $model = "<?php
             
-\tclass $classname extends model {
+\tclass $UCclassname extends model {
 $props
 \t\t// Only contains fields with a set lenght //
 \t\tpublic function rules() 

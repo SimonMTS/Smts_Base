@@ -50,10 +50,12 @@
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
 									<ul class="dropdown-menu">
-										<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/view/<?=$_SESSION['user']['id'] ?>">Profile</a></li>
-										<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/edit/<?=$_SESSION['user']['id'] ?>">Settings</a></li>
+										<li><a class="disabled">Signed in as <b><?=$_SESSION['user']['name'] ?></b></a></li>
 										<li role="separator" class="divider"></li>
-										<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/logout">Logout( <?=$_SESSION['user']['name'] ?> )</a></li>
+										<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/view/<?=$_SESSION['user']['id'] ?>">Your profile</a></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/edit/<?=$_SESSION['user']['id'] ?>">Settings</a></li>
+										<li><a href="<?= $GLOBALS['config']['base_url'] ?>users/logout">Sign out</a></li>
 									</ul>
 								</li>
 							</ul>

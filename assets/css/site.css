@@ -18,6 +18,10 @@
     padding-right: 0px;
 }
 
+.nav .dropdown-menu .disabled:hover {
+    background-color: white;
+}
+
 @media (min-width: 768px) {
     .dl-horizontal dd {
         margin-left: 130px;
