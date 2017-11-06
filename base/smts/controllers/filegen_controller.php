@@ -8,7 +8,7 @@
         }
 
         public static function model() 
-        { //todo use table name in generated sql queries//
+        {
             if ( !isset( $_POST['generate'] ) && !isset( $_POST['generateConfirm'] ) ) {
                 // step 1: select table and class-name
 
