@@ -76,10 +76,10 @@
 
                 $files['controller'] = ['controllers\\'.$modelname.'s_controller.php', Controller::generate($modelname)];
 
-                $files['overview'] = ['views\\'.$modelname.'\\overview.php', 'a'];
-                $files['create'] = ['views\\'.$modelname.'\\create.php', 'a'];
-                $files['read'] = ['views\\'.$modelname.'\\read.php', 'a'];
-                $files['update'] = ['views\\'.$modelname.'\\update.php', 'a'];
+                $files['overview'] = ['views\\'.$modelname.'s\\overview.php', 'a'];
+                $files['create'] = ['views\\'.$modelname.'s\\create.php', 'a'];
+                $files['read'] = ['views\\'.$modelname.'s\\read.php', 'a'];
+                $files['update'] = ['views\\'.$modelname.'s\\update.php', 'a'];
 
                 base_smts::Render('filegen/crud_preview', [
                     'modelname' => $modelname,
