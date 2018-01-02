@@ -1,5 +1,5 @@
 <?php
-    require_once "base/sql_old.php";
+    require_once "base/sql.php";
 
     class Base {
 
@@ -482,7 +482,7 @@ $sqldata
 
                     case 'unique':
                         foreach ($rule[0] as $prop) {
-                            $item = Sql::Get(get_class($this), $prop, $this->{$prop});
+                            $item = Sql::find(get_class($this))->where([$prop => $this->{$prop}])->all();
                             if ( $item && $item[0][$prop] != $this->{$prop} ) {
                                 return false;
                             }
@@ -568,11 +568,12 @@ $sqldata
                                 
                                 $curl = curl_init();
                                 curl_setopt_array($curl, [
+                                    CURLOPT_SSL_VERIFYPEER => FALSE,
                                     CURLOPT_RETURNTRANSFER => 1,
                                     CURLOPT_URL => "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($exAdres[0])."+".urlencode($exAdres[1])."+".urlencode($exAdres[2])."+".urlencode($exAdres[3])."&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys"
                                 ]);
                                 $jsonString = curl_exec($curl);
-                                curl_close($curl);
+                                // curl_close($curl);
                                 
                                 $parsedArray = json_decode($jsonString,true);
                                 
@@ -583,7 +584,7 @@ $sqldata
                                 	!isset($parsedArray['results'][0]['address_components'][2]['long_name']) || 
                                 	!isset($parsedArray['results'][0]['address_components'][5]['long_name'])
                                 ) {
-                                	return false;
+                                    return false;
                                 }
 
                                 $this->{$prop} = $parsedArray['results'][0]['address_components'][1]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][0]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][6]['long_name'] . ', ' .  $parsedArray['results'][0]['address_components'][2]['long_name'] . ', ' . $parsedArray['results'][0]['address_components'][5]['long_name'];
