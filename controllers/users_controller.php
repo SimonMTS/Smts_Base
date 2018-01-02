@@ -143,7 +143,7 @@
             $user = User::find($id);
             $model = clone($user);
             $model->password_rep = $model->password;
-
+            
             if ( $model->load('post') && $model->validate() ) {
 
                 if ( $user->password != $model->password ) {

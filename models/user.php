@@ -91,19 +91,23 @@
         }
 		
 		public static function searchByName($text, $limit, $offset) {
-			return Sql::Search('user', 'name', $text, $limit, $offset);
+            return Sql::find('user')
+                ->whereLike(['name' => $text])
+                ->limit($limit)
+                ->offset($offset)
+                ->all();
 		}
 		
         public static function all() {
-            return Sql::Get('user');
+            return Sql::find('user')->all();
         }
 
         public static function find($id) {
-            $result = Sql::Get('user', 'id', $id);
+            $result = Sql::find('user')->where(['id' => $id])->one();
 
-            if ( isset($result[0]) ) {
+            if ( isset($result['id']) ) {
                 $user = new User();
-                $user->load( $result[0] );
+                $user->load( $result );
                 return $user;
             } else {
                 return false;
@@ -111,25 +115,19 @@
         }
 
         public static function findByName($name) {
-            $result = Sql::Get('user', 'name', $name);
+            $result = Sql::find('user')->where(['name' => $name])->one();
 
-            if ( isset($result[0]) ) {
+            if ( isset($result['id']) ) {
                 $user = new User();
-                $user->load( $result[0] );
+                $user->load( $result );
                 return $user;
             } else {
                 return false;
             }
         }
 
-        public static function findByRole($number, $lt) {
-            if (!$lt && false) {
-                $result = $col->find( ["role" => ['$lt' => $number]] );
-            } else {
-                $result = Sql::Get('user', 'role', $number);
-            }
-
-            return $result;
+        public static function findByRole($number) {
+            return Sql::find('user')->where(['role' => $number])->all();
         }
 
         public function save() {
