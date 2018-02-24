@@ -12,7 +12,9 @@
             'users/view/[id]' => 'users/view/[id]',
             'users/edit/[id]' => 'users/edit/[id]',
             
-            '[controller]/[action]' => '[controller]/[action]'
+            '[controller]/[action]' => '[controller]/[action]',
+
+            '' => 'pages/home'
 
         ],
 
@@ -35,7 +37,7 @@
         ],
 
         'Dev' => [
-            'BaseUrl' => 'http://localhost/Smts_FrameWork/',
+            'BaseUrl' => 'http://localhost/smts_base/',
 
             'DataBaseName' => "smts_base",
             'DataBaseUser' => 'root',
