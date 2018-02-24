@@ -8,22 +8,22 @@
         {
             if (isset($_POST['User'])) {
                 $user = User::findByName($_POST['User']['name']);
-                if ( $user != false && $user->password === Base::Hash_String($_POST['User']['password'], $user->salt) ) {
+                if ( $user != false && $user->password === Smts::HashString($_POST['User']['password'], $user->salt) ) {
                     $user->login();
 
-                    Base::Redirect($GLOBALS['config']['base_url']);
+                    Smts::Redirect(Smts::$config['BaseUrl']);
                 } else {
-                    Base::Render('users/login');
+                    Smts::Render('users/login');
                 }
             } else {
-                Base::Render('users/login');
+                Smts::Render('users/login');
             }
         }
 
         public static function logout() 
         {
             $_SESSION['user'] = null;
-            Base::Redirect($GLOBALS['config']['base_url']);
+            Smts::Redirect(Smts::$config['BaseUrl']);
         }
 
         public static function overview($var) 
@@ -31,41 +31,44 @@
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
 
 				if (isset($_POST['var2']) && !empty($_POST['var2'])) {
-                    Base::Redirect($GLOBALS['config']['base_url'].'users/overview/1/'.Base::Sanitize($_POST['var2']));
+                    Smts::Redirect(Smts::$config['BaseUrl'].'users/overview/1/'.Smts::Sanitize($_POST['var2']));
                 } elseif (isset($_POST['var2']) && empty($_POST['var2'])) {
-                    Base::Redirect($GLOBALS['config']['base_url'].'users/overview/1');
+                    Smts::Redirect(Smts::$config['BaseUrl'].'users/overview/1');
                 }
 
-                if (isset($var[2])) {
-                    $page = (int) Base::Sanitize( $var[2] );
+                if (isset($var['page'])) {
+                    $page = (int) Smts::Sanitize( $var['page'] );
                     if ($page < 1) {
-                        Base::Redirect( $GLOBALS['config']['base_url'].'users/overview/1' );
+                        Smts::Redirect( Smts::$config['BaseUrl'].'users/overview/1' );
                     }
                 } else {
                     $page = 1;
                 }
 
-                if (isset($var[3])) {
-                    $search = base::Sanitize($var[3]);
+                if (isset($var['search'])) {
+                    $search = Smts::Sanitize($var['search']);
                     $users = User::searchByName($search, 12, (($page - 1) * 12) );
+                    $pagination = User::searchByName($search, 9999, 0, true ) / 12;
                 } else {
                     $users = User::searchByName('', 12, (($page - 1) * 12) );
+                    $pagination = User::searchByName('', 9999, 0, true ) / 12;
                 }
 
-                if (isset($var[3])) {
-                    $searchpar = '/'.$var[3];
+                if (isset($var['search'])) {
+                    $searchpar = '/'.$var['search'];
                 } else {
                     $searchpar = null;
                 }
 
-                Base::Render('users/overview', [
+                Smts::Render('users/overview', [
                     'users' => $users,
                     'page' => $page,
                     'searchpar' => $searchpar,
-                    'var' => $var
+                    'var' => $var,
+                    'pagination' => $pagination
                 ]);
             } else {
-                Base::Render('pages/error', [
+                Smts::Render('pages/error', [
                     'type' => 'custom',
                     'data' => [
                         'Denied',
@@ -77,7 +80,7 @@
 
         public static function view($var) 
         {
-            $id = Base::Sanitize( $var[2] );
+            $id = Smts::Sanitize( $var['id'] );
             $user = User::Find($id);
             
             if (
@@ -86,11 +89,11 @@
                     ($_SESSION['user']['role'] == 777)
                 )
             ) {
-                Base::Render('users/view', [
+                Smts::Render('users/view', [
                     'user' => $user,
                 ]);
             } else {
-                Base::Render('pages/error', [
+                Smts::Render('pages/error', [
                     'type' => 'custom',
                     'data' => [
                         'Error',
@@ -105,10 +108,10 @@
             $user = new User();
 
             if ( $user->load('post') && $user->validate() ) {
-                $user->id = Base::Genetate_id();
-                $user->salt = Base::Genetate_id();
+                $user->id = Smts::Genetate_id();
+                $user->salt = Smts::Genetate_id();
                 $user->role = 1;
-                $user->password = Base::Hash_String( $user->password, $user->salt );
+                $user->password = Smts::Hash_String( $user->password, $user->salt );
 
                 if ( $user->save() ) {
                     if ( !isset($_SESSION['user']) ) {
@@ -116,12 +119,12 @@
                     }
 
                     if ( $user->isAdmin() ) {
-                        Base::Redirect($GLOBALS['config']['base_url'].'users/overview');
+                        Smts::Redirect(Smts::$config['BaseUrl'].'users/overview');
                     } else {
-                        Base::Redirect($GLOBALS['config']['base_url']);
+                        Smts::Redirect(Smts::$config['BaseUrl']);
                     }
                 } else {
-                    Base::Render('pages/error', [
+                    Smts::Render('pages/error', [
                         'type' => 'custom',
                         'data' => [
                             'Error',
@@ -130,7 +133,7 @@
                     ]);
                 }
             } else {
-                Base::Render('users/create', [
+                Smts::Render('users/create', [
 					'var' => $var,
                     'user' => $user
 				]);
@@ -139,7 +142,7 @@
 
         public static function edit($var) 
         { 
-            $id = Base::Sanitize( $var[2] );
+            $id = Smts::Sanitize( $var['id'] );
             $user = User::find($id);
             $model = clone($user);
             $model->password_rep = $model->password;
@@ -147,7 +150,7 @@
             if ( $model->load('post') && $model->validate() ) {
 
                 if ( $user->password != $model->password ) {
-                    $user->password = Base::Hash_String( $model->password, $user->salt );
+                    $user->password = Smts::HashString( $model->password, $user->salt );
                 }
 
                 if ( is_string($model->pic) && sizeof( explode('/', $model->pic) ) == 3 ) {
@@ -163,9 +166,9 @@
 
                 if ( $user->save() ) {
                     $user->login();
-                    Base::Redirect($GLOBALS['config']['base_url'].'users/view/'.$user->id);
+                    Smts::Redirect(Smts::$config['BaseUrl'].'users/view/'.$user->id);
                 } else {
-                    Base::Render('pages/error', [
+                    Smts::Render('pages/error', [
                         'type' => 'custom',
                         'data' => [
                             'Error',
@@ -174,7 +177,7 @@
                     ]);
                 }
             } else {
-                Base::Render('users/edit', [
+                Smts::Render('users/edit', [
                     'user' => $user,
                     'var' => $var
                 ]);
@@ -184,13 +187,13 @@
         public static function delete($var) 
         {
             if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
-                $id = Base::Sanitize( $var[2] );
+                $id = Smts::Sanitize( $var[2] );
                 $user = User::find($id);
                 
                 if ( $_SESSION['user']['role'] > $user->role && $user->delete() ) {
-                    Base::Redirect($GLOBALS['config']['base_url'] . 'users/overview');
+                    Smts::Redirect(Smts::$config['BaseUrl'] . 'users/overview');
                 } else {
-                    Base::Render('pages/error', [
+                    Smts::Render('pages/error', [
                        'type' => 'custom',
                         'data' => [
                             'Denied',
@@ -199,7 +202,7 @@
                     ]);
                 }
             } else {
-                Base::Render('pages/error', [
+                Smts::Render('pages/error', [
                     'type' => 'custom',
                     'data' => [
                         'Denied',

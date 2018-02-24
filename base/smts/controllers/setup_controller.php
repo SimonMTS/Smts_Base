@@ -11,7 +11,7 @@
 
         public static function init($var) 
         { 
-            Base::Render('layout/empty');
+            Smts::Render('layout/empty');
             
             $pw = 'pw';
             $start_time = new DateTime();
@@ -21,7 +21,7 @@
             }
 
             if ($var[3] == $pw) {
-                echo 'Are you sure you want to create/reset the database? <br><br> als dit niet werkt moet de max_execution_time omhoog in php.ini <br><br> <a href="'.$GLOBALS['config']['base_url'].'smts/setup/init/'.$pw.'confirmed">Yes</a>';
+                echo 'Are you sure you want to create/reset the database? <br><br> als dit niet werkt moet de max_execution_time omhoog in php.ini <br><br> <a href="'.Smts::$config['BaseUrl'].'smts/setup/init/'.$pw.'confirmed">Yes</a>';
                 exit;
             }
 
@@ -32,14 +32,14 @@
             $end_time = new DateTime();
             echo 'operation took ' . $start_time->diff($end_time)->i . 'min ' . $start_time->diff($end_time)->s . ' sec. <br><br>';
 
-            echo '<a href="' . $GLOBALS['config']['base_url'] . '">home</a>';
+            echo '<a href="' . Smts::$config['BaseUrl'] . '">home</a>';
         }
 
         private static function setupdb() 
         {
-            Sql::RemoveDB($GLOBALS['config']['DataBaseName']);
+            Sql::RemoveDB(Smts::$config['DataBaseName']);
 
-            Sql::CreateDB($GLOBALS['config']['DataBaseName']);
+            Sql::CreateDB(Smts::$config['DataBaseName']);
 
             Sql::CreateTable('user', [
                 'id' => 'varchar(256)',
@@ -62,11 +62,11 @@
         private static function addusers() 
         {
             
-            $salt = Base::Genetate_id();
+            $salt = Smts::Genetate_id();
             $user_data = [
-                'id' => Base::Genetate_id(),
+                'id' => Smts::Genetate_id(),
                 'name' => 'beheerder',
-                'password' => Base::Hash_String('beheerder', $salt),
+                'password' => Smts::Hash_String('beheerder', $salt),
                 'salt' => $salt,
                 'role' => 777,
                 'pic' => 'assets/user.png',
@@ -83,12 +83,12 @@
             $users[] = $user;
             
             for ($i=1; $i < 20; $i++) {
-                $salt = Base::Genetate_id();
+                $salt = Smts::Genetate_id();
 
                 $user_data = [
-                    'id' => Base::Genetate_id(),
+                    'id' => Smts::Genetate_id(),
                     'name' => 'test'.$i,
-                    'password' => Base::Hash_String('test'.$i, $salt),
+                    'password' => Smts::Hash_String('test'.$i, $salt),
                     'salt' => $salt,
                     'role' => 1,
                     'pic' => 'assets/user.png',

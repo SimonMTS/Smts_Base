@@ -1,5 +1,13 @@
 <div class="row">
 	<div class="col-md-12">
-		<h1 class="pop-prod">Home Page</h1>
+		<div class="jumbotron">
+			<h1 class="display-4">smts_base</h1>
+			<p class="lead">a php framework.</p>
+			<hr class="my-4">
+			<p>Download this framework on github.</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-lg" href="https://github.com/SimonMTS/smts_base" target="_blank" role="button">Github</a>
+			</p>
+		</div>
 	</div>
 </div>

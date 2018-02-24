@@ -14,8 +14,8 @@
 
 
         public static function BreadCrumbs() {
-            $base_url = $GLOBALS['config']['base_url'];
-            $var = explode('/', str_replace($base_url, '',Base::Curl()) );
+            $base_url = Smts::$config['BaseUrl'];
+            $var = explode('/', str_replace($base_url, '',Smts::Curl()) );
 
             if ( empty( $var[1] ) && empty( $var[2] ) ) {
                 $string = '<li class="active">Smts</li>';

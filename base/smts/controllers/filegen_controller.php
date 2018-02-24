@@ -12,7 +12,7 @@
             if ( !isset( $_POST['generate'] ) && !isset( $_POST['generateConfirm'] ) ) {
                 // step 1: select table and class-name
 
-                $tables = Sql::GetTables( $GLOBALS['config']['DataBaseName'] );
+                $tables = Sql::GetTables( Smts::$config['DataBaseName'] );
                 
                 base_smts::Render('filegen/model', [
                     'tables' => $tables
@@ -22,7 +22,7 @@
                 // step 2: confirm input and generate output
 
                 if ( !isset( $_POST['tableName'] ) ) {
-                    Base::Redirect($GLOBALS['config']['base_url'].'smts/filegen/model');
+                    Smts::Redirect(Smts::$config['BaseUrl'].'smts/filegen/model');
                 } elseif ( isset( $_POST['className'] ) && !empty( $_POST['className'] ) ) {
                     $classname = $_POST['className'];
                 } else {
@@ -46,7 +46,7 @@
                 fwrite($model, $_POST['content']);
                 fclose($model);
 
-                Base::Redirect($GLOBALS['config']['base_url'].'smts/filegen');
+                Smts::Redirect(Smts::$config['BaseUrl'].'smts/filegen');
             }
         }
 
@@ -69,7 +69,7 @@
                 // step 2: confirm input and generate output
 
                 if ( !isset( $_POST['modelName'] ) ) {
-                    Base::Redirect($GLOBALS['config']['base_url'].'smts/filegen/crud');
+                    Smts::Redirect(Smts::$config['BaseUrl'].'smts/filegen/crud');
                 } else {
                     $modelname = $_POST['modelName'];
                 }
@@ -115,7 +115,7 @@
                 fwrite($delete, $_POST['content']);
                 fclose($delete);
 
-                Base::Redirect($GLOBALS['config']['base_url'].'smts/filegen');
+                Smts::Redirect(Smts::$config['BaseUrl'].'smts/filegen');
             }
         }
     }

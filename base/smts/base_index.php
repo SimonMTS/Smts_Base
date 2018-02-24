@@ -32,10 +32,10 @@
         {
             var_dump( $action );
             var_dump( $actions );
-            Base::error_view(404);
+            Smts::ErrorView(404);
         }
     }
     else
     {
-        Base::error_view(404);
+        Smts::ErrorView(404);
     }

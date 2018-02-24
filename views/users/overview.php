@@ -1,60 +1,59 @@
 <div class="row">
-	<div class="col-md-3 col-xs-8">
+	<div class="col-8 col-sm-6 col-md-3">
 		<form method="POST">
-			<div class="input-group search">
-				<input name="var2" value="<?php if (isset ($var[3])) { echo $var[3]; } ?>" type="text" class="form-control" placeholder="Search for...">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit">Go!</button>
-				</span>
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="Search for..." name="var2" value="<?php if (isset ($var[3])) { echo $var[3]; } ?>">
+				<div class="input-group-append">
+					<button class="btn btn-secondary" type="submit">Go!</button>
+				</div>
 			</div>
 		</form>
 	</div>
-	<div class="col-md-9 col-xs-4">
-		<a href="<?= $GLOBALS['config']['base_url'] ?>users/create" class="btn btn-default pull-right">add user</a>
+	<div class="col-4 col-sm-6 col-md-9">
+		<a href="<?= Smts::$config['BaseUrl'] ?>users/create" class="btn btn-success float-right">Add user</a>
 	</div>
 	<div class="col-md-12">
-		<hr>
+		<hr class="mt-md-0">
 	</div>
 </div>
 <div class="row">
 	<?php foreach ($users as $key => $user) : ?>
-		<div class="col-xs-12 col-sm-6 col-md-3">
-			<div class="thumbnail">
-				<img src="<?=$GLOBALS['config']['base_url'].$user['pic'] ?>">
-				<div class="caption">
-					<h3><?=$user['name'] ?></h3>
-					<p><?=user::role($user['role']) ?></p>
-					<p>
-						<a href="<?= $GLOBALS['config']['base_url'] ?>users/view/<?=$user['id'] ?>" class="btn btn-default" role="button">View</a>
-						<a href="<?= $GLOBALS['config']['base_url'] ?>users/edit/<?=$user['id'] ?>" class="btn btn-primary" role="button">Edit</a>
-						<a href="<?= $GLOBALS['config']['base_url'] ?>users/delete/<?=$user['id'] ?>" class="btn btn-danger" role="button">Delete</a>
-					</p>
+		<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+
+			<div class="card mb-4">
+				<img class="card-img-top" src="<?=Smts::$config['BaseUrl'].$user['pic'] ?>" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title"><?=$user['name'] ?></h5>
+					<p class="card-text"><?=user::role($user['role']) ?></p>
+				</div>
+				<div class="card-footer">
+					<a href="<?= Smts::$config['BaseUrl'] ?>users/view/<?=$user['id'] ?>" class="btn btn-secondary" role="button">View</a>
+					<div class="btn-group float-right">
+						<a href="<?= Smts::$config['BaseUrl'] ?>users/edit/<?=$user['id'] ?>" class="btn btn-primary" role="button">Edit</a>
+						<a href="<?= Smts::$config['BaseUrl'] ?>users/delete/<?=$user['id'] ?>" class="btn btn-danger" role="button">Delete</a>
+					</div>
 				</div>
 			</div>
+
 		</div>
 	<?php endforeach; ?>
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<nav class="text-center" aria-label="Page navigation">
-			<ul class="pagination">
-				<li>
-					<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page-1).$searchpar ?>" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>1">1</a></li>
-				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>2">2</a></li>
-				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>3">3</a></li>
-				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>4">4</a></li>
-				<li><a href="<?=$GLOBALS['config']['base_url'].'users/overview/' ?>5">5</a></li>
-				<li>
-					<a href="<?=$GLOBALS['config']['base_url'].'users/overview/'.($page+1).$searchpar ?>" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
+
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<?= Smts::Pagination($pagination) ?>
+				<!-- <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				<li class="page-item active"><a class="page-link" href="<?=Smts::$config['BaseUrl'].'users/overview/' ?>1">1</a></li>
+				<li class="page-item"><a class="page-link" href="<?=Smts::$config['BaseUrl'].'users/overview/' ?>2">2</a></li>
+				<li class="page-item"><a class="page-link" href="<?=Smts::$config['BaseUrl'].'users/overview/' ?>3">3</a></li>
+				<li class="page-item"><a class="page-link" href="<?=Smts::$config['BaseUrl'].'users/overview/' ?>4">4</a></li>
+				<li class="page-item"><a class="page-link" href="<?=Smts::$config['BaseUrl'].'users/overview/' ?>5">5</a></li>
+				<li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li> -->
 			</ul>
 		</nav>
+
 	</div>
 </div>
 <div class="row">
