@@ -1,21 +1,48 @@
 <?php
-    $GLOBALS['config'] = [
+    return [
 
-        'landing' => [
-            'controller' => 'pages',
-            'action' => 'home'
+        'RewriteRules' => [
+
+            'login' => 'users/login',
+
+            '[controller]' => '[controller]/overview',
+            '[controller]/p/[page]' => '[controller]/overview/[page]',
+            '[controller]/p/[page]/s/[search]' => '[controller]/overview/[page]/[search]',
+
+            'users/view/[id]' => 'users/view/[id]',
+            'users/edit/[id]' => 'users/edit/[id]',
+            
+            '[controller]/[action]' => '[controller]/[action]'
+
         ],
 
-        'Debug' => true,
-        'custom_errors' => true,
 
-        'Default_Title' => 'smts_base',
+        'DefaultTitle' => 'smts_base',
+        'DefaultProfilePic' => 'assets/user.png',
 
-        'Default_Profile_Pic' => 'assets/user.png',
+        
+        'Env' => 'Dev',
 
-        'base_url' => 'http://localhost/smts_base/',
+        'Live' => [
+            'BaseUrl' => 'https://base.simonstriekwold.nl/',
 
-        'DataBaseName' => "smts_base",
-        'DataBase_user' => 'root',
-        'DataBase_password' => ''     
+            'DataBaseName' => "simonstriekwold_nl_smts",
+            'DataBaseUser' => 'simonstriekwold_nl_smts',
+            'DataBasePassword' => 'zLtxPufNw2PM',
+
+            'Debug' => false,
+            'CustomErrors' => true
+        ],
+
+        'Dev' => [
+            'BaseUrl' => 'http://localhost/Smts_FrameWork/',
+
+            'DataBaseName' => "smts_base",
+            'DataBaseUser' => 'root',
+            'DataBasePassword' => '',
+
+            'Debug' => true,
+            'CustomErrors' => true
+        ]
+
     ];

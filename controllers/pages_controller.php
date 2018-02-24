@@ -7,11 +7,11 @@
         {
             self::$title = 'Home';
 
-            Base::Render('pages/home');
+            Smts::Render('pages/home');
         }
 
         public static function error($type = null, $data = null) 
         {
-            Base::error_view($type, $data);
+            Smts::ErrorView($type, $data);
         }
     }

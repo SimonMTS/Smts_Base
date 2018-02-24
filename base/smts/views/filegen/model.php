@@ -4,7 +4,7 @@
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="database">Database</label>
-				<input id="database" class="form-control" type="text" name="database" value="<?=$GLOBALS['config']['DataBaseName'] ?>" disabled>
+				<input id="database" class="form-control" type="text" name="database" value="<?=Smts::$config['DataBaseName'] ?>" disabled>
 			</div>
 			<div class="form-group">
 				<label for="tableName">Database Table</label>

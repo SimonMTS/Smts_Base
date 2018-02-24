@@ -39,14 +39,14 @@
         public function attributes()
         {
             return [
-                'name' => 'Gebruikersnaam',
-                'password' => 'Wachtwoord',
-                'password_rep' => 'Wachtwoord herhalen',
-                'pic' => 'Afbeelding',
-                'voornaam' => 'Voornaam',
-                'achternaam' => 'Achternaam',
-                'geslacht' => 'Geslacht',
-                'geboorte_datum' => 'Geboorte datum',
+                'name' => 'Username',
+                'password' => 'Password',
+                'password_rep' => 'Repeat Password',
+                'pic' => 'Profile picture',
+                'voornaam' => 'Firstname',
+                'achternaam' => 'Lastname',
+                'geslacht' => 'Gender',
+                'geboorte_datum' => 'Date of birth',
                 'adres' => 'Address'
             ];
         }
@@ -90,12 +90,20 @@
             }
         }
 		
-		public static function searchByName($text, $limit, $offset) {
-            return Sql::find('user')
-                ->whereLike(['name' => $text])
-                ->limit($limit)
-                ->offset($offset)
-                ->all();
+		public static function searchByName($text, $limit, $offset, $count = false) {
+            if ( !$count ) {
+                return Sql::find('user')
+                    ->whereLike(['name' => $text])
+                    ->limit($limit)
+                    ->offset($offset)
+                    ->all();
+            } else {
+                return Sql::find('user')
+                    ->whereLike(['name' => $text])
+                    ->limit($limit)
+                    ->offset($offset)
+                    ->count();
+            }
 		}
 		
         public static function all() {
