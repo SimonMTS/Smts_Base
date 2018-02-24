@@ -22,49 +22,32 @@
 
         public static function logout() 
         {
-            $_SESSION['user'] = null;
+            Smts::$session = null;
             Smts::Redirect(Smts::$config['BaseUrl']);
         }
 
         public static function overview($var) 
-        { //todo
-            if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
+        {
+            if (isset(Smts::$session['role']) && Smts::$session['role'] == 777) {
 
-				if (isset($_POST['var2']) && !empty($_POST['var2'])) {
-                    Smts::Redirect(Smts::$config['BaseUrl'].'users/overview/1/'.Smts::Sanitize($_POST['var2']));
-                } elseif (isset($_POST['var2']) && empty($_POST['var2'])) {
-                    Smts::Redirect(Smts::$config['BaseUrl'].'users/overview/1');
+                $search = '';
+                $page = 1;
+
+                if ( isset( $var['search'] ) ) {
+                    $search = Smts::Sanitize( $var['search'] );
                 }
 
-                if (isset($var['page'])) {
+                if ( isset( $var['page'] ) ) {
                     $page = (int) Smts::Sanitize( $var['page'] );
-                    if ($page < 1) {
-                        Smts::Redirect( Smts::$config['BaseUrl'].'users/overview/1' );
-                    }
-                } else {
-                    $page = 1;
                 }
-
-                if (isset($var['search'])) {
-                    $search = Smts::Sanitize($var['search']);
-                    $users = User::searchByName($search, 12, (($page - 1) * 12) );
-                    $pagination = User::searchByName($search, 9999, 0, true ) / 12;
-                } else {
-                    $users = User::searchByName('', 12, (($page - 1) * 12) );
-                    $pagination = User::searchByName('', 9999, 0, true ) / 12;
-                }
-
-                if (isset($var['search'])) {
-                    $searchpar = '/'.$var['search'];
-                } else {
-                    $searchpar = null;
-                }
-
+                
+                $users = User::searchByName( $search, 12, (( $page-1 ) * 12) );
+                $pagination = User::searchByName( $search, 0, 0, true ) / 12;
+                
                 Smts::Render('users/overview', [
                     'users' => $users,
+                    'search' => $search,
                     'page' => $page,
-                    'searchpar' => $searchpar,
-                    'var' => $var,
                     'pagination' => $pagination
                 ]);
             } else {
@@ -84,9 +67,9 @@
             $user = User::Find($id);
             
             if (
-                $user !== false && isset($_SESSION['user']) && (
-                    ($user->id == $_SESSION['user']['id'] && $user->password == $_SESSION['user']['password']) || 
-                    ($_SESSION['user']['role'] == 777)
+                $user !== false && isset(Smts::$session) && (
+                    ($user->id == Smts::$session['id'] && $user->password == Smts::$session['password']) || 
+                    (Smts::$session['role'] == 777)
                 )
             ) {
                 Smts::Render('users/view', [
@@ -114,11 +97,11 @@
                 $user->password = Smts::Hash_String( $user->password, $user->salt );
 
                 if ( $user->save() ) {
-                    if ( !isset($_SESSION['user']) ) {
+                    if ( !isset(Smts::$session) ) {
                         $user->login();
                     }
 
-                    if ( $user->isAdmin() ) {
+                    if ( Smts::$session['role'] == 777 ) {
                         Smts::Redirect(Smts::$config['BaseUrl'].'users/overview');
                     } else {
                         Smts::Redirect(Smts::$config['BaseUrl']);
@@ -186,11 +169,11 @@
 
         public static function delete($var) 
         {
-            if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 777) {
+            if (isset(Smts::$session['role']) && Smts::$session['role'] == 777) {
                 $id = Smts::Sanitize( $var[2] );
                 $user = User::find($id);
                 
-                if ( $_SESSION['user']['role'] > $user->role && $user->delete() ) {
+                if ( Smts::$session['role'] > $user->role && $user->delete() ) {
                     Smts::Redirect(Smts::$config['BaseUrl'] . 'users/overview');
                 } else {
                     Smts::Render('pages/error', [

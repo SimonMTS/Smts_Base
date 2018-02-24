@@ -44,7 +44,7 @@
             'DataBasePassword' => '',
 
             'Debug' => true,
-            'CustomErrors' => true
+            'CustomErrors' => false
         ]
 
     ];
