@@ -28,7 +28,7 @@
         }
 
         public static function GenetateId() {
-            return str_replace('.', '', uniqid('', true));;
+            return  bin2hex(random_bytes(32));
         }
 
         public static function HashString( $string, $salt ) {
@@ -121,6 +121,8 @@
                 self::$config[ $settingName ] = $settingValue;
             }
 
+            self::$session =& $_SESSION[ self::$config['BaseUrl'] ];
+
             if ( self::$config['CustomErrors'] ) {
                 register_shutdown_function('Smts::Error');
                 set_error_handler('Smts::Error');
@@ -142,6 +144,7 @@
 
                 $url['controller'] = $defaultPath[0];
                 $url['action'] = $defaultPath[1];
+                $urlParams = [];
 
             } else {
                 
@@ -162,10 +165,15 @@
                         }
                     }
                 }
-
+                
                 $dataToFillIn = $var;
-                $fillInStructure = explode( '/', array_shift(array_slice(array_flip($urls), 0, 1)) );
-                $pathToBeFilledIn = explode( '/', array_shift(array_slice($urls, 0, 1)) );
+
+                $fillInStructureSliced = array_slice(array_flip($urls), 0, 1);
+                $fillInStructure = explode( '/', array_shift( $fillInStructureSliced ) );
+
+                $pathToBeFilledInSliced = array_slice($urls, 0, 1);
+                $pathToBeFilledIn = explode( '/', array_shift( $pathToBeFilledInSliced ) );
+
                 $url = [];
 
                 foreach ( $fillInStructure as $fillInStructureKey => $fillInStructureValue ) {
@@ -177,7 +185,8 @@
                 $pathToBeFilledIn = array_reverse($pathToBeFilledIn);
                 $url['controller'] = array_pop( $pathToBeFilledIn );
                 $url['action'] = array_pop( $pathToBeFilledIn );
-
+                $urlParams = [];
+                
                 $i = 0;
                 foreach ( array_reverse($fillInStructure) as $fillInStructureValue ) {
                     if ( mb_substr( $fillInStructureValue, 0, 1 ) == '[' || mb_substr( $fillInStructureValue, -1 ) == ']' ) {

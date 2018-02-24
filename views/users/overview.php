@@ -1,13 +1,22 @@
 <div class="row">
+	<div class="col-md-12">
+		<nav class="mt-4" aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>">Home</a></li>
+				<li class="breadcrumb-item active">Users</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
+<div class="row">
 	<div class="col-8 col-sm-6 col-md-3">
-		<form method="POST">
-			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="Search for..." name="var2" value="<?php if (isset ($var[3])) { echo $var[3]; } ?>">
-				<div class="input-group-append">
-					<button class="btn btn-secondary" type="submit">Go!</button>
-				</div>
+		<div class="input-group mb-3">
+			<input id="overviewinput" type="text" class="form-control" placeholder="Search for..." name="var2" value="<?php if (!empty($search)) { echo $search; } ?>">
+			<div class="input-group-append">
+				<button id="overviewsubmit" data-url="<?=Smts::$config['BaseUrl'] ?>users/p/1/s/[search]" class="btn btn-secondary">Go!</button>
 			</div>
-		</form>
+		</div>
 	</div>
 	<div class="col-4 col-sm-6 col-md-9">
 		<a href="<?= Smts::$config['BaseUrl'] ?>users/create" class="btn btn-success float-right">Add user</a>
@@ -16,6 +25,7 @@
 		<hr class="mt-md-0">
 	</div>
 </div>
+
 <div class="row">
 	<?php foreach ($users as $key => $user) : ?>
 		<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
@@ -38,17 +48,19 @@
 		</div>
 	<?php endforeach; ?>
 </div>
+
 <div class="row">
 	<div class="col-md-12">
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<?= BootstrapHelper::Pagination($pagination) ?>
+			<?= BootstrapHelper::Pagination( $pagination, $page ) ?>
 			</ul>
 		</nav>
 
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-md-12">
 		<br>

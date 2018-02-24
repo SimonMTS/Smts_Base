@@ -108,7 +108,7 @@
         public static function RemoveDB($name) {
             if (isset($name) && !empty($name)) {
                 $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-                $db = new PDO('mysql:host=localhost', Smts::$config['DataBase_user'], Smts::$config['DataBase_password'], $pdo_options);
+                $db = new PDO('mysql:host=localhost', Smts::$config['DataBaseUser'], Smts::$config['DataBasePassword'], $pdo_options);
 
                 try {
                     $req = $db->prepare("DROP DATABASE `$name`");
@@ -124,7 +124,7 @@
         public static function CreateDB($name) {
             if (isset($name) && !empty($name)) {
                 $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-                $db = new PDO('mysql:host=localhost', Smts::$config['DataBase_user'], Smts::$config['DataBase_password'], $pdo_options);
+                $db = new PDO('mysql:host=localhost', Smts::$config['DataBaseUser'], Smts::$config['DataBasePassword'], $pdo_options);
 
                 try {
                     $req = $db->prepare("CREATE DATABASE `$name`");
@@ -343,7 +343,7 @@
         }
         
         public function count() {
-
+            
             return self::exec( "SELECT count(*)".$this->sql, $this->prop )[0][0];
 
         }

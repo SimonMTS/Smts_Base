@@ -1,4 +1,16 @@
 <div class="row">
+	<div class="col-md-12">
+		<nav class="mt-4" aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>">Home</a></li>
+				<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>users">Users</a></li>
+				<li class="breadcrumb-item active">View</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
+<div class="row">
 	<div class="col-md-4">
 		<div class="card mb-4">
 			<img class="card-img-top" src="<?=Smts::$config['BaseUrl'].$user->pic ?>">

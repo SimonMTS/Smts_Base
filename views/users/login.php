@@ -1,3 +1,14 @@
+<div class="row">
+	<div class="col-md-12">
+		<nav class="mt-4" aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>">Home</a></li>
+				<li class="breadcrumb-item active">Login</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
 <div class="row justify-content-center">
 	<div class="col-12 col-md-8 col-lg-6 col-xl-4 mt-4 text-center loginpage">
 		<div class="card">

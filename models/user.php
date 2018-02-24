@@ -52,7 +52,7 @@
         }
 
         public function login() {
-            $_SESSION['user'] = [
+            Smts::$session = [
                 "id" => $this->id,
                 "name" => $this->name,
                 "password" => $this->password,
@@ -60,14 +60,6 @@
                 "role" => $this->role,
                 "pic" => $this->pic
             ];
-        }
-
-        public function isAdmin() {
-            if ($_SESSION['user']['role'] == 777) {
-                return true;
-            } else {
-                return false;
-            }
         }
 
         public static function role($text) {
@@ -94,21 +86,16 @@
             if ( !$count ) {
                 return Sql::find('user')
                     ->whereLike(['name' => $text])
+                    ->orderBy('name', 'ASC')
                     ->limit($limit)
                     ->offset($offset)
                     ->all();
             } else {
                 return Sql::find('user')
                     ->whereLike(['name' => $text])
-                    ->limit($limit)
-                    ->offset($offset)
                     ->count();
             }
 		}
-		
-        public static function all() {
-            return Sql::find('user')->all();
-        }
 
         public static function find($id) {
             $result = Sql::find('user')->where(['id' => $id])->one();

@@ -28,6 +28,8 @@
             self::setupdb();
             self::addusers();
 
+            Smts::$session = null;
+
             echo 'Admin login is:<br> -Name: beheerder<br> -Password: beheerder<br><br>';
             $end_time = new DateTime();
             echo 'operation took ' . $start_time->diff($end_time)->i . 'min ' . $start_time->diff($end_time)->s . ' sec. <br><br>';
@@ -62,14 +64,14 @@
         private static function addusers() 
         {
             
-            $salt = Smts::Genetate_id();
+            $salt = Smts::GenetateId();
             $user_data = [
-                'id' => Smts::Genetate_id(),
+                'id' => Smts::GenetateId(),
                 'name' => 'beheerder',
-                'password' => Smts::Hash_String('beheerder', $salt),
+                'password' => Smts::HashString('beheerder', $salt),
                 'salt' => $salt,
                 'role' => 777,
-                'pic' => 'assets/user.png',
+                'pic' => 'assets/img/7.jpg',
                 'voornaam' => 'Simon',
                 'achternaam' => 'Striekwold',
                 'geslacht' => 'm',
@@ -82,16 +84,16 @@
 
             $users[] = $user;
             
-            for ($i=1; $i < 20; $i++) {
-                $salt = Smts::Genetate_id();
+            for ($i=1; $i < 128; $i++) {
+                $salt = Smts::GenetateId();
 
                 $user_data = [
-                    'id' => Smts::Genetate_id(),
+                    'id' => Smts::GenetateId(),
                     'name' => 'test'.$i,
-                    'password' => Smts::Hash_String('test'.$i, $salt),
+                    'password' => Smts::HashString('test'.$i, $salt),
                     'salt' => $salt,
                     'role' => 1,
-                    'pic' => 'assets/user.png',
+                    'pic' => 'assets/img/'.mt_rand(1,9).'.jpg',
                     'voornaam' => 'voornaam'.$i,
                     'achternaam' => 'achternaam'.$i,
                     'geslacht' => 'm',

@@ -38,7 +38,7 @@
 						<li><a href="<?= Smts::$config['BaseUrl'] ?>users">Users</a></li>
 					</ul>
 					
-						<?php if ( !isset( $_SESSION['user']['id']) ) : ?>
+						<?php if ( !isset( Smts::$session['id']) ) : ?>
 
 							<p class="navbar-text navbar-right">
 							<a class="navbar-link" href="<?= Smts::$config['BaseUrl'] ?>users/login"><b>Sign in</b></a> or 
@@ -50,10 +50,10 @@
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
 									<ul class="dropdown-menu">
-										<li><a href="<?= Smts::$config['BaseUrl'] ?>users/view/<?=$_SESSION['user']['id'] ?>">Profile</a></li>
-										<li><a href="<?= Smts::$config['BaseUrl'] ?>users/edit/<?=$_SESSION['user']['id'] ?>">Settings</a></li>
+										<li><a href="<?= Smts::$config['BaseUrl'] ?>users/view/<?=Smts::$session['id'] ?>">Profile</a></li>
+										<li><a href="<?= Smts::$config['BaseUrl'] ?>users/edit/<?=Smts::$session['id'] ?>">Settings</a></li>
 										<li role="separator" class="divider"></li>
-										<li><a href="<?= Smts::$config['BaseUrl'] ?>users/logout">Logout( <?=$_SESSION['user']['name'] ?> )</a></li>
+										<li><a href="<?= Smts::$config['BaseUrl'] ?>users/logout">Logout( <?=Smts::$session['name'] ?> )</a></li>
 									</ul>
 								</li>
 							</ul>

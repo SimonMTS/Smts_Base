@@ -36,7 +36,7 @@
 						</li>
 					</ul>
 
-					<?php if ( !isset( $_SESSION['user']['id']) ) : ?>
+					<?php if ( !isset( Smts::$session['id']) ) : ?>
 
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item">
@@ -58,8 +58,8 @@
 									Account
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="<?= Smts::$config['BaseUrl'] ?>users/view/<?=$_SESSION['user']['id'] ?>">Profile</a>
-									<a class="dropdown-item" href="<?= Smts::$config['BaseUrl'] ?>users/edit/<?=$_SESSION['user']['id'] ?>">Settings</a>
+									<a class="dropdown-item" href="<?= Smts::$config['BaseUrl'] ?>users/view/<?=Smts::$session['id'] ?>">Profile</a>
+									<a class="dropdown-item" href="<?= Smts::$config['BaseUrl'] ?>users/edit/<?=Smts::$session['id'] ?>">Settings</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="<?= Smts::$config['BaseUrl'] ?>users/logout">Sign out</a>
 								</div>
@@ -73,12 +73,7 @@
 		</nav>
 
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<?= BootstrapHelper::BreadCrumbs() ?>
-				</div>
-			</div>
-
+		
 			<?php require_once(__dir__.'/../'.$view); ?>
 
 		</div>
