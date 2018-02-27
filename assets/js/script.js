@@ -2,12 +2,12 @@ $( document ).ready(function() {
 
     $("#overviewsubmit").click(function(){
         var value = $("#overviewinput").val(),
-            url = $(this).data("url").replace( '[search]', value ) ;
+            url = $(this).data("url").replace( '[search]', value );
 
         if ( value != '' ) {
             window.location.href = url;
         } else {
-            window.location.href = $(this).data("url");
+            window.location.href = $(this).data("baseurl");
         }
     });
     $("#overviewinput").on('keyup', function (e) {

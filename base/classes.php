@@ -28,7 +28,7 @@
         }
 
         public static function GenetateId() {
-            return  bin2hex(random_bytes(32));
+            return bin2hex(random_bytes(32));
         }
 
         public static function HashString( $string, $salt ) {
