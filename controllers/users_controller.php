@@ -41,8 +41,9 @@
                     $page = (int) Smts::Sanitize( $var['page'] );
                 }
                 
-                $users = User::searchByName( $search, 12, (( $page-1 ) * 12) );
-                $pagination = User::searchByName( $search, 0, 0, true ) / 12;
+                $ipp = 12; // items per page
+                $users = User::searchByName( $search, $ipp, (( $page-1 ) * $ipp) );
+                $pagination = User::searchByName( $search, 0, 0, true ) / $ipp;
                 
                 Smts::Render('users/overview', [
                     'users' => $users,

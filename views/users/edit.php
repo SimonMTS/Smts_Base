@@ -90,3 +90,9 @@
 		<img class="img-fluid rounded" src="<?=Smts::$config['BaseUrl'].$user->pic ?>">
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-md-12">
+		<br>
+	</div>
+</div>

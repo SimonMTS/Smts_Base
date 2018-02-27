@@ -14,7 +14,7 @@
 		<div class="input-group mb-3">
 			<input id="overviewinput" type="text" class="form-control" placeholder="Search for..." name="var2" value="<?php if (!empty($search)) { echo $search; } ?>">
 			<div class="input-group-append">
-				<button id="overviewsubmit" data-url="<?=Smts::$config['BaseUrl'] ?>users/p/1/s/[search]" class="btn btn-secondary">Go!</button>
+				<button id="overviewsubmit" data-baseurl="<?=Smts::$config['BaseUrl'] ?>users" data-url="<?=Smts::$config['BaseUrl'] ?>users/p/1/s/[search]" class="btn btn-secondary">Go!</button>
 			</div>
 		</div>
 	</div>
