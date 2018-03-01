@@ -112,8 +112,25 @@ class Model {
     }
 
     public function validate() {
-        //todo
+        
         foreach ( $this->rules() as $rule ) {
+            $validators = array_diff(scandir("./base/validators"), ['..', '.']);
+            if ( in_array( ( $rule[1].'.php'), $validators ) ) {
+                require './base/validators/' . $rule[1].'.php';
+
+                $props = [];
+                foreach ($rule[0] as $prop) {
+                    $props[$prop] = $this->{$prop};
+                }
+
+                // echo'<pre>';var_dump( $props );exit;
+
+                if ( $rule[1]::validate( $rule, $props ) === false ) {
+                    return false;
+                }
+
+            }
+            /*
             switch ( $rule[1] ) {
 
                 case 'required':
@@ -191,22 +208,22 @@ class Model {
                     }
                 break;
 
-                case 'adres': 
+                case 'address': 
                     foreach ($rule[0] as $prop) {
                         
                         if ( sizeof( $this->{$prop} ) == 4 ) {
-                            $exAdres = [
+                            $exaddress = [
                                 '',
                                 '',
                                 '',
                                 ''
                             ];
                 
-                            $adres = $this->{$prop};
+                            $address = $this->{$prop};
                             
                             for ($i=0; $i < 6; $i++) {
-                                if (isset($adres[$i])) {
-                                    $exAdres[$i] = Smts::Sanitize ($adres[$i]);
+                                if (isset($address[$i])) {
+                                    $exaddress[$i] = Smts::Sanitize ($address[$i]);
                                 }
                             }
                             
@@ -214,7 +231,7 @@ class Model {
                             curl_setopt_array($curl, [
                                 CURLOPT_SSL_VERIFYPEER => FALSE,
                                 CURLOPT_RETURNTRANSFER => 1,
-                                CURLOPT_URL => "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($exAdres[0])."+".urlencode($exAdres[1])."+".urlencode($exAdres[2])."+".urlencode($exAdres[3])."&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys"
+                                CURLOPT_URL => "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($exaddress[0])."+".urlencode($exaddress[1])."+".urlencode($exaddress[2])."+".urlencode($exaddress[3])."&key=AIzaSyB5osi-LV3EjHVqve1t7cna6R_9FCgxFys"
                             ]);
                             $jsonString = curl_exec($curl);
                             // curl_close($curl);
@@ -259,7 +276,9 @@ class Model {
                 break;
 
             }
+            */
         }
+        // exit;
 
         return true;
     }

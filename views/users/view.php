@@ -33,21 +33,13 @@
 						$interval = $datetime1->diff($datetime2);
 						echo $interval->format('%y');
 					?> y/o</dd>
-					<!-- <dt>Address</dt>
-					<dd>
-						<?=explode(',', $user->adres)[0] ?>
-						<?=explode(',', $user->adres)[1] ?>, <br>
-						<?=explode(',', $user->adres)[2] ?>, 
-						<?=explode(',', $user->adres)[3] ?>, 
-						<?=explode(',', $user->adres)[4] ?>
-					</dd> -->
 					<dd>
 					<address>
 						<strong>Address</strong><br>
-						<?=explode(',', $user->adres)[0] ?> <?=explode(',', $user->adres)[1] ?><br>
-						<?=explode(',', $user->adres)[2] ?>, 
-						<?=explode(',', $user->adres)[3] ?><br>
-						<?=explode(',', $user->adres)[4] ?>
+						<?=explode(',', $user->address)[0] ?> <?=explode(',', $user->address)[1] ?><br>
+						<?=explode(',', $user->address)[2] ?>, 
+						<?=explode(',', $user->address)[3] ?><br>
+						<?=explode(',', $user->address)[4] ?>
 					</address>
 					</dd>
 					<dt>Registration date</dt>

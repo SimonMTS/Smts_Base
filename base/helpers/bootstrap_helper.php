@@ -3,6 +3,7 @@
         
         public static function Pagination( $totalPages, $currentPage ) {
             $totalPages = round($totalPages);
+            $item = [];
 
             if ( strpos( Smts::Curl(), $currentPage.'' ) !== false ) {
                 $url = preg_replace( '/'.$currentPage.'/', '[page]', Smts::Curl(), 1 );
@@ -35,6 +36,11 @@
                 for ( $i=1; $i<$totalPages+1; $i++ ) {
                     $item[] = '<li class="page-item '.($i==$currentPage?'active':'').'"><a class="page-link" href="' . str_replace('[page]', $i, $url) . '">' . $i . '</a></li>';
                 }
+
+                if ( sizeof( $item ) == 0 ) {
+                    $item[] = '<li class="page-item active"><a class="page-link" href="' . str_replace('[page]', $currentPage, $url) . '">' . $currentPage . '</a></li>';
+                }
+
             } else {
                 switch ( true ) {
                     case $currentPage-1 < 1:

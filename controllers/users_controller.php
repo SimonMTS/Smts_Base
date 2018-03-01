@@ -146,7 +146,7 @@
                 $user->achternaam = $model->achternaam;
                 $user->geslacht = $model->geslacht;
                 $user->geboorte_datum = $model->geboorte_datum;
-                $user->adres = $model->adres;
+                $user->address = $model->address;
 
                 if ( $user->save() ) {
                     $user->login();
@@ -162,8 +162,7 @@
                 }
             } else {
                 Smts::Render('users/edit', [
-                    'user' => $user,
-                    'var' => $var
+                    'user' => $user
                 ]);
             }
         }
@@ -171,7 +170,7 @@
         public static function delete($var) 
         {
             if (isset(Smts::$session['role']) && Smts::$session['role'] == 777) {
-                $id = Smts::Sanitize( $var[2] );
+                $id = Smts::Sanitize( $var['id'] );
                 $user = User::find($id);
                 
                 if ( Smts::$session['role'] > $user->role && $user->delete() ) {
