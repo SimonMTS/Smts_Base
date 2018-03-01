@@ -11,6 +11,7 @@
 
             'users/view/[id]' => 'users/view/[id]',
             'users/edit/[id]' => 'users/edit/[id]',
+            'users/delete/[id]' => 'users/delete/[id]',
             
             '[controller]/[action]' => '[controller]/[action]',
 

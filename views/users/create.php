@@ -14,9 +14,9 @@
 	<div class="col-12 col-md-8 col-lg-6 col-xl-4 createpage">
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="login-form">
-				<?php if (isset($var[2]) && $var[2] == 'wrongadres') : ?>
+				<?php if (isset($var[2]) && $var[2] == 'wrongaddress') : ?>
 					<div class=" alert alert-warning">
-						<b>Warning!</b> U heeft uw adres niet correct ingevoerd
+						<b>Warning!</b> U heeft uw address niet correct ingevoerd
 					</div>
 				<?php endif; ?>
 				<div class="input-group">
@@ -71,19 +71,19 @@
 				<br>
 				<div class="form-row">
 					<div class="col-7">
-						<input class="form-control" type="text" placeholder="Street name" name="User[adres][0]" required>
+						<input class="form-control" type="text" placeholder="Street name" name="User[address][0]" required>
 					</div>
 					<div class="col-5">
-						<input class="form-control" type="text" placeholder="House number" name="User[adres][1]" required>
+						<input class="form-control" type="text" placeholder="House number" name="User[address][1]" required>
 					</div>
 				</div>
 				<br>
 				<div class="form-row">
 					<div class="col-7">
-						<input class="form-control" type="text" placeholder="City" name="User[adres][2]" required>
+						<input class="form-control" type="text" placeholder="City" name="User[address][2]" required>
 					</div>
 					<div class="col-5">
-						<input class="form-control" type="text" placeholder="Zipcode" name="User[adres][3]" required>
+						<input class="form-control" type="text" placeholder="Zipcode" name="User[address][3]" required>
 					</div>
 				</div>
 				<br>

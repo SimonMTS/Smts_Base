@@ -13,12 +13,12 @@
         public $achternaam;
         public $geslacht;
         public $geboorte_datum;
-        public $adres;
+        public $address;
 
         public function rules()
         {
             return [
-                [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht', 'geboorte_datum', 'adres'], 'required' ],
+                [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht', 'geboorte_datum', 'address'], 'required' ],
 
                 [ ['name'], 'unique' ],
                 
@@ -26,13 +26,13 @@
 
                 [ ['geslacht'], 'in', ['m', 'f'] ],
                 
-                [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht'], 'string' ],
+                [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht'], 'type_string' ],
 
                 [ ['pic'], 'image', 400 ],
 
                 [ ['geboorte_datum'], 'date' ],
 
-                [ ['adres'], 'adres' ]
+                [ ['address'], 'address' ]
             ];
         }
 
@@ -47,7 +47,7 @@
                 'achternaam' => 'Lastname',
                 'geslacht' => 'Gender',
                 'geboorte_datum' => 'Date of birth',
-                'adres' => 'Address'
+                'address' => 'Address'
             ];
         }
 
@@ -139,7 +139,7 @@
                         'achternaam' => $this->achternaam,
                         'geslacht' => $this->geslacht,
                         'geboorte_datum' => $this->geboorte_datum,
-                        'adres' => $this->adres
+                        'address' => $this->address
                     ]);
                 } else {
                     return false;
@@ -156,7 +156,7 @@
                     'achternaam' => $this->achternaam,
                     'geslacht' => $this->geslacht,
                     'geboorte_datum' => $this->geboorte_datum,
-                    'adres' => $this->adres
+                    'address' => $this->address
                 ]);
             }
         }

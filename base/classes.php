@@ -54,17 +54,17 @@
             if ($uploadOk == 0) {
                 return false;
             } else {
-                if ( isset( $resolution ) ) {
-                    self::square_thumbnail_with_proportion($file["tmp_name"], $target_file, $resolution, 100);
+                // if ( isset( $resolution ) ) {
+                    // self::square_thumbnail_with_proportion($file["tmp_name"], $target_file, $resolution, 100);
 
-                    return $target_file;
-                } else {
+                //     return $target_file;
+                // } else {
                     if (move_uploaded_file($file["tmp_name"], $target_file)) {
                         return $target_file;
                     } else {
                         return false;
                     }
-                }
+                // }
             }
 
         }

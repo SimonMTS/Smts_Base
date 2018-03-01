@@ -14,11 +14,6 @@
 	<div class="col-4 createpage">
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="login-form">
-				<?php if (isset($var[4]) && !empty($var[3]) && isset($var[3]) && $var[3] == 'warn') : ?>
-					<div class=" alert alert-warning">
-						<b>Warning!</b> <?=str_replace('%20', ' ', $var[4]) ?>
-					</div>
-				<?php endif; ?>
 				<input class="form-control" type="text" placeholder="Gebruikersnaam" name="User[name]" value="<?=$user->name ?>" required>
 				<br>
 				<input class="form-control" type="password" placeholder="Wachtwoord" name="User[password]">
@@ -66,19 +61,19 @@
 				<br>	
 				<div class="form-row">
 					<div class="col">
-						<input class="form-control" type="text" placeholder="Straatnaam" name="User[adres][0]" value="<?=explode(', ', $user->adres)[0] ?>" required>
+						<input class="form-control" type="text" placeholder="Straatnaam" name="User[address][0]" value="<?=explode(', ', $user->address)[0] ?>" required>
 					</div>
 					<div class="col">
-						<input class="form-control" type="text" placeholder="Huisnummer" name="User[adres][1]" value="<?=explode(', ', $user->adres)[1] ?>" required>
+						<input class="form-control" type="text" placeholder="Huisnummer" name="User[address][1]" value="<?=explode(', ', $user->address)[1] ?>" required>
 					</div>
 				</div>
 				<br>
 				<div class="form-row">
 					<div class="col">
-						<input class="form-control" type="text" placeholder="Plaats" name="User[adres][2]" value="<?=explode(', ', $user->adres)[2] ?>" required>
+						<input class="form-control" type="text" placeholder="Plaats" name="User[address][2]" value="<?=explode(', ', $user->address)[2] ?>" required>
 					</div>
 					<div class="col">
-						<input class="form-control" type="text" placeholder="Postcode" name="User[adres][3]" value="<?=explode(', ', $user->adres)[3] ?>" required>
+						<input class="form-control" type="text" placeholder="Postcode" name="User[address][3]" value="<?=explode(', ', $user->address)[3] ?>" required>
 					</div>
 				</div>
 				<br>

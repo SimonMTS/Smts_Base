@@ -54,7 +54,7 @@
                 'achternaam' => 'varchar(256)',
                 'geslacht' => 'varchar(3)',
                 'geboorte_datum' => 'varchar(256)',
-                'adres' => 'varchar(256)'
+                'address' => 'varchar(256)'
             ]);
             Sql::AddPKey('user', 'id');
 
@@ -71,12 +71,12 @@
                 'password' => Smts::HashString('beheerder', $salt),
                 'salt' => $salt,
                 'role' => 777,
-                'pic' => 'assets/img/7.jpg',
+                'pic' => 'assets/user.png',
                 'voornaam' => 'Simon',
                 'achternaam' => 'Striekwold',
                 'geslacht' => 'm',
                 'geboorte_datum' => date('d/m/Y:H:i:s', strtotime( '19-3-1999' )),
-                'adres' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
+                'address' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
             ];
 
             $user = new user();
@@ -93,12 +93,12 @@
                     'password' => Smts::HashString('test'.$i, $salt),
                     'salt' => $salt,
                     'role' => 1,
-                    'pic' => 'assets/img/'.mt_rand(1,9).'.jpg',
+                    'pic' => 'assets/user.png',
                     'voornaam' => 'voornaam'.$i,
                     'achternaam' => 'achternaam'.$i,
                     'geslacht' => 'm',
                     'geboorte_datum' => date('d/m/Y:H:i:s', strtotime( '27-6-1993' )),
-                    'adres' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'                   
+                    'address' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'                   
                 ];
 
                 $user = new user();
