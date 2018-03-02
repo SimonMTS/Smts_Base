@@ -11,7 +11,7 @@ class Controller {
     public static function generate( $modelname ) {
 
         $UCmodelname = ucfirst($modelname);
-        require_once "base/templates/controller.php";
+        $controller = require "base/templates/controller.php";
 
         return $controller;
     }

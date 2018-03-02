@@ -2,20 +2,23 @@
 
     class image {
 
-        public static function validate( $rule, $props ) {
-            foreach ($props as $prop) {
-                        
-                if ( $prop['size'] > 0 ) {
-                    $prop = Smts::UploadFile( $_FILES[$prop], $rule[2] );
+        public static function validate( $rule, &$model ) {
+            
+            foreach ($rule[0] as $prop) {
+
+                if ( $model->{$prop}['size'] > 0 ) {
+                    $model->{$prop} = Smts::UploadFile( $_FILES[$prop], $rule[2] );
                     
-                    if ( !$prop ) {
+                    if ( !$model->{$prop} ) {
                         return false;
                     }
                 } else {
-                    $prop = Smts::$config['Default_Profile_Pic'];
+                    $model->{$prop} = Smts::$config['DefaultProfilePic'];
                 }
-
+                
             }
+
+            return true;
         }
 
     }

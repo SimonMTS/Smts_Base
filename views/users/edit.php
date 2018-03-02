@@ -70,10 +70,10 @@
 				<br>
 				<div class="form-row">
 					<div class="col">
-						<input class="form-control" type="text" placeholder="Plaats" name="User[address][2]" value="<?=explode(', ', $user->address)[2] ?>" required>
+						<input class="form-control" type="text" placeholder="Plaats" name="User[address][2]" value="<?=explode(', ', $user->address)[3] ?>" required>
 					</div>
 					<div class="col">
-						<input class="form-control" type="text" placeholder="Postcode" name="User[address][3]" value="<?=explode(', ', $user->address)[3] ?>" required>
+						<input class="form-control" type="text" placeholder="Postcode" name="User[address][3]" value="<?=explode(', ', $user->address)[2] ?>" required>
 					</div>
 				</div>
 				<br>
