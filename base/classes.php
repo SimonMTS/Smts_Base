@@ -94,6 +94,27 @@
         }
 
 
+        public static function Flash( $msg = [] ) {
+            
+            if ( is_array($msg) && sizeof($msg) > 0 ) {
+                $flip = array_flip($msg);
+                $key = array_pop($flip);
+                self::$session['flash'][ $key ] = $msg[ $key ];
+
+                return true;
+            } else {
+                if ( isset( self::$session['flash'] ) ) {
+                    $res = self::$session['flash'];
+                    unset( self::$session['flash'] );
+    
+                    return $res;
+                } else {
+                    return false;
+                }
+            }
+
+        }
+
         public static function Render( $view, $Cvar = [] ) {
             foreach ($Cvar as $key => $value) {
                 ${$key} = $value;

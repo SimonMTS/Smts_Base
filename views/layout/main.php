@@ -6,7 +6,8 @@
 <html>
 	<head>
 		<!-- JavaScript -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>		<script type="text/javascript" src="<?= Smts::$config['BaseUrl'] ?>assets/js/bootstrap.bundle.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="<?= Smts::$config['BaseUrl'] ?>assets/js/bootstrap.bundle.min.js"></script>
 		<script type="text/javascript" src="<?= Smts::$config['BaseUrl'] ?>assets/js/script.js"></script>
 
 		<!-- CSS -->
@@ -14,8 +15,8 @@
 		<link rel="stylesheet" href="<?= Smts::$config['BaseUrl'] ?>assets/css/site.css">
 
 		<!-- Other -->
-		<link rel="shortcut icon" href="<?= Smts::$config['BaseUrl'] ?>assets/favicon.ico" />
-		<link rel="icon" href="<?= Smts::$config['BaseUrl'] ?>assets/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="<?= Smts::$config['BaseUrl'] ?>assets/favicon.ico">
+		<link rel="icon" href="<?= Smts::$config['BaseUrl'] ?>assets/favicon.ico" type="image/x-icon">
 
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">

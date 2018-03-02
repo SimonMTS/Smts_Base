@@ -92,10 +92,10 @@
             $user = new User();
 
             if ( $user->load('post') && $user->validate() ) {
-                $user->id = Smts::Genetate_id();
-                $user->salt = Smts::Genetate_id();
+                $user->id = Smts::GenetateId();
+                $user->salt = Smts::GenetateId();
                 $user->role = 1;
-                $user->password = Smts::Hash_String( $user->password, $user->salt );
+                $user->password = Smts::HashString( $user->password, $user->salt );
 
                 if ( $user->save() ) {
                     if ( !isset(Smts::$session) ) {
@@ -125,7 +125,7 @@
         }
 
         public static function edit($var) 
-        { 
+        {
             $id = Smts::Sanitize( $var['id'] );
             $user = User::find($id);
             $model = clone($user);
@@ -149,7 +149,9 @@
                 $user->address = $model->address;
 
                 if ( $user->save() ) {
-                    $user->login();
+                    if ( $user->id == Smts::$session['id'] ) {
+                        $user->login();
+                    }
                     Smts::Redirect(Smts::$config['BaseUrl'].'users/view/'.$user->id);
                 } else {
                     Smts::Render('pages/error', [
