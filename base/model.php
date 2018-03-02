@@ -93,7 +93,7 @@
                         $this->{$attribute} = $input[$attribute];
                     } else {
                         if ( !isset( $this->{$attribute} ) || empty( $this->{$attribute} )) {
-                            return false;
+                            $this->{$attribute} = '';
                         }
                     }
                 }
@@ -120,6 +120,7 @@
                     require './base/validators/' . $rule[1].'.php';
 
                     if ( $rule[1]::validate( $rule, $this ) === false ) {
+                        Smts::Flash([ $rule[1] => 'false' ]);
                         return false;
                     }
 

@@ -11,7 +11,7 @@
 </div>
 
 <div class="row justify-content-end">
-	<div class="col-4 createpage">
+	<div class="col-12 col-md-8 col-lg-6 col-xl-4">
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="login-form">
 				<input class="form-control" type="text" placeholder="Gebruikersnaam" name="User[name]" value="<?=$user->name ?>" required>
@@ -77,17 +77,11 @@
 					</div>
 				</div>
 				<br>
-				<input class="btn btn-primary btn-block" type="submit" value="Edit">
+				<input class="btn btn-primary btn-block mb-5" type="submit" value="Edit">
 			</div>
 		</form>
 	</div>
-	<div class="col-4">
+	<div class="col-12 col-md-2 col-lg-3 col-xl-4 mb-5">
 		<img class="img-fluid rounded" src="<?=Smts::$config['BaseUrl'].$user->pic ?>">
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-12">
-		<br>
 	</div>
 </div>
