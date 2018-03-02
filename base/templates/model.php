@@ -1,6 +1,6 @@
 <?php
 
-$model = "<?php
+return "<?php
         
 \tclass $UCclassname extends model {
 $props

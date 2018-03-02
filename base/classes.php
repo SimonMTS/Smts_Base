@@ -35,7 +35,7 @@
             return hash('sha512', $string . $salt);
         }
 
-        public static function UploadFile( $file, $resolution = null ) {
+        public static function UploadFile( $file, $resolution = 400 ) {
             $target_dir = "assets/img/";
             $target_file = $target_dir . self::GenetateId().$file['name'] ;
             $uploadOk = 1;
@@ -54,17 +54,41 @@
             if ($uploadOk == 0) {
                 return false;
             } else {
-                // if ( isset( $resolution ) ) {
-                    // self::square_thumbnail_with_proportion($file["tmp_name"], $target_file, $resolution, 100);
 
-                //     return $target_file;
-                // } else {
-                    if (move_uploaded_file($file["tmp_name"], $target_file)) {
-                        return $target_file;
-                    } else {
-                        return false;
-                    }
-                // }
+                $im = imagecreatefromjpeg($file['tmp_name']);
+                $newX = ( imagesx($im) - imagesy($im) ) / 2;
+                $newY = ( imagesy($im) - imagesx($im) ) / 2;
+
+                if ( $newX > 0 ) {
+                    $x = $newX;  
+                    $y = 0;  
+                } else {
+                    $x = 0;  
+                    $y = $newY;  
+                }
+
+                $size = min(imagesx($im), imagesy($im));
+                $im2 = imagecrop($im, ['x' => $x, 'y' => $y, 'width' => $size, 'height' => $size]);
+                if ($im2 !== FALSE) {
+                    
+                    ob_start();
+                        imagepng($im2);
+                        $contents = ob_get_contents();
+                    ob_end_clean();
+
+                    imagedestroy($im2);
+                }
+                imagedestroy($im);
+
+                $src = imagecreatefromstring($contents);
+                $dst = imagecreatetruecolor($resolution, $resolution);
+                imagecopyresampled($dst, $src, 0, 0, 0, 0, $resolution, $resolution, $size, $size);
+
+                if ( imagejpeg( $dst, $target_file ) ) {
+                    return $target_file;
+                } else {
+                    return false;
+                }
             }
 
         }

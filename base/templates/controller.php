@@ -1,6 +1,6 @@
 <?php
 
-$controller = "<?php
+return "<?php
 \trequire_once \"models/$modelname.php\";
 
 \tclass ".$modelname."sController extends Controller 

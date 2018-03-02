@@ -29,9 +29,9 @@
         'Live' => [
             'BaseUrl' => 'https://base.simonstriekwold.nl/',
 
-            'DataBaseName' => "simonstriekwold_nl_smts",
-            'DataBaseUser' => 'simonstriekwold_nl_smts',
-            'DataBasePassword' => 'zLtxPufNw2PM',
+            'DataBaseName' => "--",
+            'DataBaseUser' => '--',
+            'DataBasePassword' => '--',
 
             'Debug' => false,
             'CustomErrors' => true
