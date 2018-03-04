@@ -16,7 +16,7 @@
 
         public static function init($var) 
         { 
-            Smts::Render('layout/empty');
+            Dev::Render('layout/main');
             
             $pw = 'pw';
             $start_time = new DateTime();

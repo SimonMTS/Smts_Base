@@ -70,11 +70,11 @@
             
 
 
-            $controllers = array_diff(scandir('modules/'.get_called_class().'/controllers'), ['..', '.']);
+            $controllers = array_diff(scandir('modules/'.strtolower(get_called_class()).'/controllers'), ['..', '.']);
 
             if ( in_array( ( $url['controller'].'_controller.php'), $controllers ) )
             {
-                require_once('modules/'.get_called_class().'/controllers/' . $url['controller'] . '_controller.php');
+                require_once('modules/'.strtolower(get_called_class()).'/controllers/' . $url['controller'] . '_controller.php');
 
                 $controller = $url['controller'].'Controller';
                 $actions = get_class_methods( $controller );
