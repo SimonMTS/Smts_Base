@@ -113,21 +113,21 @@
         }
 
         public function validate() {
-            
+            $errors = false;
+
             foreach ( $this->rules() as $rule ) {
                 $validators = array_diff(scandir("./base/validators"), ['..', '.']);
                 if ( in_array( ( $rule[1].'.php'), $validators ) ) {
                     require './base/validators/' . $rule[1].'.php';
 
                     if ( $rule[1]::validate( $rule, $this ) === false ) {
-                        Smts::Flash([ $rule[1] => 'false' ]);
-                        return false;
+                        $errors = true;
                     }
 
                 }
             }
 
-            return true;
+            return ( !$errors );
         }
         
     }

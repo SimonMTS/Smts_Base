@@ -122,7 +122,7 @@
 
             $view = $view . '.php';
 
-            require_once(__dir__.'/../views/layout/' . Controller::$layout . '.php');
+            require_once(__dir__.'/../views/layout/' . Controller::$layout . '.php');exit;
         }
 
         public static function Error( $a = null, $b = null, $c = null, $d = null, $e = null, $f = null ) { //todo
@@ -179,8 +179,13 @@
             $path = str_replace(self::$config['BaseUrl'], '',self::Curl());
             $var = explode('/', $path );
 
-            if ( self::$config['Debug'] && $var[0] == 'smts' ) {
-                require 'base/smts/base_index.php';exit;
+            $modules = array_diff(scandir("./modules"), ['..', '.']);
+
+            if ( isset($var[0]) && in_array($var[0], $modules) ) {
+                $Module = array_shift( $var );
+                
+                require 'modules/'.$Module.'/'.$Module.'.php';
+                ucfirst($Module)::Init($var);exit;
             }
 
             $defaultPath = explode( '/', array_pop( self::$config['RewriteRules'] ) );

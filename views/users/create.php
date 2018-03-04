@@ -10,68 +10,104 @@
 	</div>
 </div>
 
-<pre><?php var_dump( Smts::Flash() ) ?></pre>
+<!-- <pre><?php $flash = Smts::Flash(); var_dump( $flash ) ?></pre> -->
 
 <div class="row justify-content-center">
 	<div class="col-12 col-md-8 col-lg-6 col-xl-4">
 		<form action="" method="post" enctype="multipart/form-data">
-			<div class="input-group mb-3">
+
+			<div class="input-group mb-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text">@</span>
 				</div>
-				<input class="form-control" type="text" placeholder="<?=$user->attributes()['name'] ?>" name="User[name]" autofocus>
+				<input class="form-control <?=(isset($flash['name'])?'is-invalid':'') ?>" type="text" placeholder="<?=$user->attributes()['name'] ?>" name="User[name]" autofocus>
+				<div class="invalid-feedback"><?=(isset($flash['name'])?$flash['name']:'') ?></div>
 			</div>
-			<input class="form-control mb-3" type="password" placeholder="<?=$user->attributes()['password'] ?>" name="User[password]">
-			<input class="form-control mb-3" type="password" placeholder="<?=$user->attributes()['password_rep'] ?>" name="User[password_rep]">
+
+			<div class="input-group mb-4">
+				<input class="form-control <?=(isset($flash['password'])?'is-invalid':'') ?>" type="password" placeholder="<?=$user->attributes()['password'] ?>" name="User[password]">
+				<div class="invalid-feedback"><?=(isset($flash['password'])?$flash['password']:'') ?></div>
+			</div>
+
+			<div class="input-group mb-4">
+				<input class="form-control <?=(isset($flash['password_rep'])?'is-invalid':'') ?>" type="password" placeholder="<?=$user->attributes()['password_rep'] ?>" name="User[password_rep]">
+				<div class="invalid-feedback"><?=(isset($flash['password_rep'])?$flash['password_rep']:'') ?></div>
+			</div>
+
 			<div class="custom-file">
 				<input class="custom-file-input" type="file" name="pic">
 				<label class="custom-file-label" for="customFile"><?=$user->attributes()['pic'] ?></label>
 			</div>
+
 			<hr>
-			<input class="form-control mb-3" type="text" placeholder="<?=$user->attributes()['voornaam'] ?>" name="User[voornaam]">
-			<input class="form-control mb-3" type="text" placeholder="<?=$user->attributes()['achternaam'] ?>" name="User[achternaam]">
-			<select class="form-control mb-3" name="User[geslacht]">
-				<option selected disabled><?=$user->attributes()['geslacht'] ?></option>
-				<option value="m">Male</option>
-				<option value="f">Female</option>
-			</select>
-			<div class="input-group mb-3">
+
+			<div class="input-group mb-4">
+				<input class="form-control <?=(isset($flash['voornaam'])?'is-invalid':'') ?>" type="text" placeholder="<?=$user->attributes()['voornaam'] ?>" name="User[voornaam]">
+				<div class="invalid-feedback"><?=(isset($flash['voornaam'])?$flash['voornaam']:'') ?></div>
+			</div>
+
+			<div class="input-group mb-4">
+				<input class="form-control <?=(isset($flash['achternaam'])?'is-invalid':'') ?>" type="text" placeholder="<?=$user->attributes()['achternaam'] ?>" name="User[achternaam]">
+				<div class="invalid-feedback"><?=(isset($flash['achternaam'])?$flash['achternaam']:'') ?></div>
+			</div>
+
+			<div class="input-group mb-4">
+				<select class="form-control <?=(isset($flash['geslacht'])?'is-invalid':'') ?>" name="User[geslacht]">
+					<option selected disabled><?=$user->attributes()['geslacht'] ?></option>
+					<option value="m">Male</option>
+					<option value="f">Female</option>
+				</select>
+				<div class="invalid-feedback"><?=(isset($flash['geslacht'])?$flash['geslacht']:'') ?></div>
+			</div>
+
+			<div class="input-group mb-4">
 				<div class="input-group-prepend">
 					<span class="input-group-text"><?=$user->attributes()['geboorte_datum'] ?></span>
 				</div>
-				<select class="form-control col-3" name="User[geboorte_datum][0]">
+				<select class="form-control col-3 <?=(isset($flash['geboorte_datum'])?'is-invalid':'') ?>" name="User[geboorte_datum][0]">
+					<option selected disabled>Day</option>
 					<?php for ($i=1; $i < 32; $i++) : ?>
 						<option value="<?=$i ?>"><?=$i ?></option>
 					<?php endfor; ?>
 				</select>
-				<select class="form-control col-2" name="User[geboorte_datum][1]">
+				<select class="form-control col-2 <?=(isset($flash['geboorte_datum'])?'is-invalid':'') ?>" name="User[geboorte_datum][1]">
+				<option selected disabled>Month</option>
 					<?php for ($i=1; $i < 13; $i++) : ?>
 						<option value="<?=$i ?>"><?=$i ?></option>
 					<?php endfor; ?>
 				</select>
-				<select class="form-control col-7" name="User[geboorte_datum][2]">
+				<select class="form-control col-7 <?=(isset($flash['geboorte_datum'])?'is-invalid':'') ?>" name="User[geboorte_datum][2]">
+				<option selected disabled>Year</option>
 					<?php for ($i=2017; $i > 1899; $i = $i - 1) : ?>
 						<option value="<?=$i ?>"><?=$i ?></option>
 					<?php endfor; ?>
 				</select>
+				<div class="invalid-feedback"><?=(isset($flash['geboorte_datum'])?$flash['geboorte_datum']:'') ?></div>
 			</div>
+
 			<div class="form-row mb-2">
 				<div class="col-7">
-					<input class="form-control" type="text" placeholder="Street name" name="User[address][0]">
+					<input class="form-control <?=(isset($flash['address'])?'is-invalid':'') ?>" type="text" placeholder="Street name" name="User[address][0]">
+					<div class="invalid-feedback"><?=(isset($flash['address'])?$flash['address']:'') ?></div>
 				</div>
 				<div class="col-5">
-					<input class="form-control" type="text" placeholder="House number" name="User[address][1]">
+					<input class="form-control <?=(isset($flash['address'])?'is-invalid':'') ?>" type="text" placeholder="House number" name="User[address][1]">
+					<div class="invalid-feedback"><?=(isset($flash['address'])?$flash['address']:'') ?></div>
 				</div>
 			</div>
-			<div class="form-row mb-3">
+			<div class="form-row mb-4">
 				<div class="col-7">
-					<input class="form-control" type="text" placeholder="City" name="User[address][2]">
+					<input class="form-control <?=(isset($flash['address'])?'is-invalid':'') ?>" type="text" placeholder="City" name="User[address][2]">
+					<div class="invalid-feedback"><?=(isset($flash['address'])?$flash['address']:'') ?></div>
 				</div>
 				<div class="col-5">
-					<input class="form-control" type="text" placeholder="Zipcode" name="User[address][3]">
+					<input class="form-control <?=(isset($flash['address'])?'is-invalid':'') ?>" type="text" placeholder="Zipcode" name="User[address][3]">
+					<div class="invalid-feedback"><?=(isset($flash['address'])?$flash['address']:'') ?></div>
 				</div>
 			</div>
+
 			<input class="btn btn-success btn-block  mb-5" type="submit" value="Register">
+
 		</form>
 	</div>
 </div>

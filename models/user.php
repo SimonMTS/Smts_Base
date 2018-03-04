@@ -18,7 +18,7 @@
         public function rules()
         {
             return [
-                [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht', 'geboorte_datum', 'address'], 'required' ],
+                [ ['name', 'password', 'password_rep', 'voornaam', 'achternaam', 'geslacht', 'geboorte_datum', 'address'], 'required' ],
 
                 [ ['name'], 'unique' ],
                 

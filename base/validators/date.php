@@ -6,9 +6,8 @@
             
             foreach ($rule[0] as $prop) {
 
-                $date = date('d/m/Y:H:i:s', strtotime( implode( '-', $model->{$prop} ) ));
-                            
                 if ( sizeof( $model->{$prop} ) == 3 ) {
+                    $date = date('d/m/Y:H:i:s', strtotime( implode( '-', $model->{$prop} ) ));
                     $model->{$prop} = $date;
                 } else {
                     return false;
