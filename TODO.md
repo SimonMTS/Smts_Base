@@ -1,24 +1,27 @@
 # Todo
 
-w. file upload,  png support toevoegen,
+`w` file upload,  png support toevoegen,
 
-x. form validation feedback maken,
+`x` form validation feedback maken,
 
-i. modules toevoegen ( bv: /smts ),
+`i` modules toevoegen ( bv: /smts ),
 
-w. setup- en filegen-controllers af maken,
+`w` setup- en filegen-controllers af maken,
 
-v. setup- en filegen-controllers in module zetten,
+`v` setup- en filegen-controllers in module zetten,
 
-w. custom error bugs fixen,
+`w` custom error bugs fixen,
 
-w. custom error pagina in base zetten,
+`w` custom error pagina in base zetten,
 
-w. meer validators maken / validator generator maken,
+`w` meer validators maken / validator generator maken,
 
-w. docs schrijven,
+`w` docs schrijven,
 
-v. : klaar
-w. : work in progress
-i. : goed genoeg
-x. : uitgesteld naar V3
+* `v` : klaar
+
+* `w` : work in progress
+
+* `i` : goed genoeg
+
+* `x` : uitgesteld naar V3
