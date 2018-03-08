@@ -7,13 +7,10 @@ a php framework
 2. Unzip the file into your document-root, for example `C:/xampp/htdocs/`.
 
 3. Edit the following lines your `base/config.php` file:
-- DefaultTitle
-- BaseUrl
-- DataBaseName
-- DataBaseUser
-- DataBasePassword
 
-  For more information on what values are expected see [the wiki].
+    `DefaultTitle`, `BaseUrl`, `DataBaseName`, `DataBaseUser`, `DataBasePassword`.
+
+    For more information on what values are expected see [the wiki].
 
 4. Optionally, change the `Smts_Base` folder to your project name.
 
