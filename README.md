@@ -1,30 +1,26 @@
-# smts_base
+# SMTS_Base
 a php framework
 
-//todo
+# Installation
+1. Download the framework as a zip-file from github.
 
-Mongodb class maken, naast de sql class,
+2. Unzip the file into your document-root, for example `C:/xampp/htdocs/`.
 
-setup- en crub-controllers af maken,
+3. Edit the following lines your `base/config.php` file:
+- DefaultTitle
+- BaseUrl
+- DataBaseName
+- DataBaseUser
+- DataBasePassword
 
-setup- en crub-controllers in base zetten,
+  For more information on what values are expected see [the wiki].
 
-setup data in config zetten,
+4. Optionally, change the `Smts_Base` folder to your project name.
 
-base:: naar smts:: veranderen,
+5. Run the database setup at `/dev/setup`, this will create the database and add some default users.
 
-docs schrijven,
+# Usage
 
-validators in aparte bestanden zetten,
+For detailed guides, and information about all classes and funtionality see [the wiki].
 
-file upload goed (zelf) maken,
-
-custom error bugs fixen,
-
-custom error pagina in base zetten, 
-
-meer validators maken / validator generator maken,
-
-sql class false laten returnen als er een error is,
-
-user-controller en -model in base zetten / extendable maken
+[the wiki]: https://github.com/SimonMTS/Smts_Base/wiki
