@@ -2,23 +2,27 @@
 
 `w` file upload,  png support toevoegen,
 
-`x` form validation feedback maken,
-
-`i` modules toevoegen ( bv: /smts ),
-
-`w` setup- en filegen-controllers af maken,
-
-`v` setup- en filegen-controllers in module zetten,
+`w` setup-controllers af maken,
 
 `w` custom error bugs fixen,
 
 `w` custom error pagina in base zetten,
 
-`w` meer validators maken / validator generator maken,
+`w` docs schrijven
 
-`w` docs schrijven,
+---
 
-___
+`i` modules toevoegen ( bv: /smts ),
+
+`v` setup-controllers in module zetten,
+
+`x` FileGen-controllers af maken,
+
+`x` form validation feedback maken,
+
+`x` meer validators maken / validator generator maken
+
+---
 
 * `v` : klaar
 
