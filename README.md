@@ -1,28 +1,23 @@
-# smts_base
+# SMTS_Base
 a php framework
 
-// Todo
+# Installation
+1. Download the framework as a zip-file from github.
 
-file upload goed maken (jpg, png, square),
+2. Unzip the file into your document-root, for example `C:/xampp/htdocs/`.
 
+3. Edit the following lines your `base/config.php` file:
 
-form validation feedback maken,
+    `DefaultTitle`, `BaseUrl`, `DataBaseName`, `DataBaseUser`, `DataBasePassword`.
 
+    For more information on what values are expected see [the wiki].
 
-modules toevoegen ( bv: /smts ), 
+4. Optionally, change the `Smts_Base` folder to your project name.
 
+5. Run the database setup at `/dev/setup`, this will create the database and add some default users.
 
-setup- en filegen-controllers af maken,
+# Usage
 
-setup- en filegen-controllers in module zetten,
+For detailed guides, and information about all classes and funtionality see [the wiki].
 
-
-custom error bugs fixen,
-
-custom error pagina in base zetten, 
-
-
-meer validators maken / validator generator maken,
-
-
-docs schrijven,
+[the wiki]: https://github.com/SimonMTS/Smts_Base/wiki
