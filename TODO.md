@@ -1,35 +1,35 @@
 # Todo
 
-`w` docs schrijven,
+`w` Seperate database structure and test data into files, from setupController,
 
-`w` test all features for bugs
+`w` Write documentation,
 
----
-
-`i` modules toevoegen ( bv: /smts ),
-
-`v` setup-controllers in module zetten,
-
-`v` setup-controllers af maken,
-
-`v` file upload,  png support toevoegen,
-
-`v` custom error bugs fixen,
-
-`v` custom error pagina in base zetten,
-
-`x` FileGen-controllers af maken,
-
-`x` form validation feedback maken,
-
-`x` meer validators maken / validator generator maken
+`w` Test all features for bugs
 
 ---
 
-* `v` : klaar
+`i` Add modules ( bv: /smts ),
 
-* `w` : work in progress
+`v` Make a module for setup-controller,
 
-* `i` : goed genoeg
+`v` Finish setup-controllers,
 
-* `x` : uitgesteld naar V3
+`v` File upload, add png support,
+
+`v` Fix bugs in custom error handeling,
+
+`x` Finish fileGen-controller,
+
+`x` Finish form validation feedback, with flash sessions,
+
+`x` Make more validators / make a validator generator
+
+---
+
+* `v` : Done
+
+* `w` : Work in progress
+
+* `i` : Working, but needs improvement
+
+* `x` : Postponed to V3

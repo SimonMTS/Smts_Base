@@ -4,9 +4,9 @@ a php framework
 # Installation
 1. Download the framework from github, you can find the most recent version on [the releases tab].
 
-2. Unzip `Smts_Base-master.zip` and place the `Smts_Base` folder into your web-root, for example `C:/xampp/htdocs/`.
+2. Unzip `Smts_Base-master.zip` and place the `framework` folder into your web-root, for example `C:/xampp/htdocs/`.
 
-3. Optionally, change the `Smts_Base` folder to your project name.
+3. Optionally, change the `framework` folder to your project name.
 
 4. Edit the following lines in your `base/config.php` file:
 
@@ -21,12 +21,12 @@ For detailed guides, and information about all classes and funtionality see [the
 
 # Directory Structure
 ```
-Smts_Base/               Framework code
-Smts_Base/assets         Images, js- and css-files
-Smts_Base/base           Core framework code
-Smts_Base/controllers    Controller files
-Smts_Base/models         Model files
-Smts_Base/views          View files
+framework/               Framework code
+framework/assets         Images, js- and css-files
+framework/base           Core framework code
+framework/controllers    Controller files
+framework/models         Model files
+framework/views          View files
 ```
 
 [the wiki]: https://github.com/SimonMTS/Smts_Base/wiki
