@@ -1,33 +1,33 @@
 # Todo
 
-`w` file upload,  png support toevoegen,
+`w` Write documentation,
 
-`w` setup-controllers af maken,
-
-`w` custom error bugs fixen,
-
-`w` custom error pagina in base zetten,
-
-`w` docs schrijven
+`w` Test all features for bugs
 
 ---
 
-`i` modules toevoegen ( bv: /smts ),
+`i` Add modules ( bv: /smts ),
 
-`v` setup-controllers in module zetten,
+`v` Make a module for setup-controller,
 
-`x` FileGen-controllers af maken,
+`v` Finish setup-controllers,
 
-`x` form validation feedback maken,
+`v` File upload, add png support,
 
-`x` meer validators maken / validator generator maken
+`v` Fix bugs in custom error handeling,
+
+`x` Finish fileGen-controller,
+
+`x` Finish form validation feedback, with flash sessions,
+
+`x` Mske more validators / make a validator generator
 
 ---
 
-* `v` : klaar
+* `v` : Done
 
-* `w` : work in progress
+* `w` : Work in progress
 
-* `i` : goed genoeg
+* `i` : Working, but needs improvement
 
-* `x` : uitgesteld naar V3
+* `x` : Postponed to V3
