@@ -33,7 +33,7 @@
 
             $view = $view . '.php';
 
-            require __dir__.'/../views/layout/' . Controller::$layout . '.php';
+            require __dir__.'/../../views/layout/' . Controller::$layout . '.php';
             exit;
         }
 

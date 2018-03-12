@@ -21,15 +21,15 @@
 				<hr>
 				<dl class="dl-horizontal">
 					<dt>First name</dt>
-					<dd><?=$user->voornaam ?></dd>
+					<dd><?=$user->firstname ?></dd>
 					<dt>Last name</dt>
-					<dd><?=$user->achternaam ?></dd>
+					<dd><?=$user->lastname ?></dd>
 					<dt>Gender</dt>
-					<dd><?=($user->geslacht == 'm') ? 'Male' : 'Female' ?></dd>
+					<dd><?=($user->gender == 'm') ? 'Male' : 'Female' ?></dd>
 					<dt>Age</dt>
 					<dd><?php
 						$datetime1 = new DateTime();
-						$datetime2 = DateTime::createFromFormat('d/m/Y:H:i:s', $user->geboorte_datum);
+						$datetime2 = DateTime::createFromFormat('d/m/Y:H:i:s', $user->dateofbirth);
 						$interval = $datetime1->diff($datetime2);
 						echo $interval->format('%y');
 					?> y/o</dd>

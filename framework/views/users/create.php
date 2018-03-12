@@ -37,16 +37,16 @@
 			<hr>
 
 			<div class="input-group mb-4">
-				<input class="form-control" type="text" placeholder="<?=$user->attributes()['voornaam'] ?>" name="User[voornaam]">
+				<input class="form-control" type="text" placeholder="<?=$user->attributes()['firstname'] ?>" name="User[firstname]">
 			</div>
 
 			<div class="input-group mb-4">
-				<input class="form-control" type="text" placeholder="<?=$user->attributes()['achternaam'] ?>" name="User[achternaam]">
+				<input class="form-control" type="text" placeholder="<?=$user->attributes()['lastname'] ?>" name="User[lastname]">
 			</div>
 
 			<div class="input-group mb-4">
-				<select class="form-control" name="User[geslacht]">
-					<option selected disabled><?=$user->attributes()['geslacht'] ?></option>
+				<select class="form-control" name="User[gender]">
+					<option selected disabled><?=$user->attributes()['gender'] ?></option>
 					<option value="m">Male</option>
 					<option value="f">Female</option>
 				</select>
@@ -54,21 +54,21 @@
 
 			<div class="input-group mb-4">
 				<div class="input-group-prepend">
-					<span class="input-group-text"><?=$user->attributes()['geboorte_datum'] ?></span>
+					<span class="input-group-text"><?=$user->attributes()['dateofbirth'] ?></span>
 				</div>
-				<select class="form-control col-3" name="User[geboorte_datum][0]">
+				<select class="form-control col-3" name="User[dateofbirth][0]">
 					<option selected disabled>Day</option>
 					<?php for ($i=1; $i < 32; $i++) : ?>
 						<option value="<?=$i ?>"><?=$i ?></option>
 					<?php endfor; ?>
 				</select>
-				<select class="form-control col-2" name="User[geboorte_datum][1]">
+				<select class="form-control col-2" name="User[dateofbirth][1]">
 				<option selected disabled>Month</option>
 					<?php for ($i=1; $i < 13; $i++) : ?>
 						<option value="<?=$i ?>"><?=$i ?></option>
 					<?php endfor; ?>
 				</select>
-				<select class="form-control col-7" name="User[geboorte_datum][2]">
+				<select class="form-control col-7" name="User[dateofbirth][2]">
 				<option selected disabled>Year</option>
 					<?php for ($i=2017; $i > 1899; $i = $i - 1) : ?>
 						<option value="<?=$i ?>"><?=$i ?></option>

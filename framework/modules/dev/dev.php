@@ -1,5 +1,5 @@
 <?php
-    require "base/module.php";
+    require "base/core/module.php";
 
     class Dev extends Module {
         public static function Init( $var ) {

@@ -10,28 +10,28 @@
         public $role;
         public $pic;
 
-        public $voornaam;
-        public $achternaam;
-        public $geslacht;
-        public $geboorte_datum;
+        public $firstname;
+        public $lastname;
+        public $gender;
+        public $dateofbirth;
         public $address;
 
         public function rules() {
 
             return [
-                [ ['name', 'password', 'password_rep', 'voornaam', 'achternaam', 'geslacht', 'geboorte_datum', 'address'], 'required' ],
+                [ ['name', 'password', 'password_rep', 'firstname', 'lastname', 'gender', 'dateofbirth', 'address'], 'required' ],
 
                 [ ['name'], 'unique' ],
                 
                 [ ['password', 'password_rep'], 'password' ],
 
-                [ ['geslacht'], 'in', ['m', 'f'] ],
+                [ ['gender'], 'in', ['m', 'f'] ],
                 
-                [ ['name', 'password', 'voornaam', 'achternaam', 'geslacht'], 'type_string' ],
+                [ ['name', 'password', 'firstname', 'lastname', 'gender'], 'type_string' ],
 
                 [ ['pic'], 'image', 400 ],
 
-                [ ['geboorte_datum'], 'date' ],
+                [ ['dateofbirth'], 'date' ],
 
                 [ ['address'], 'address' ]
             ];
@@ -45,10 +45,10 @@
                 'password' => 'Password',
                 'password_rep' => 'Repeat Password',
                 'pic' => 'Profile picture',
-                'voornaam' => 'Firstname',
-                'achternaam' => 'Lastname',
-                'geslacht' => 'Gender',
-                'geboorte_datum' => 'Date of birth',
+                'firstname' => 'Firstname',
+                'lastname' => 'Lastname',
+                'gender' => 'Gender',
+                'dateofbirth' => 'Date of birth',
                 'address' => 'Address'
             ];
 
@@ -151,10 +151,10 @@
                         'salt' => $this->salt,
                         'role' => $this->role,
                         'pic' => $this->pic,
-                        'voornaam' => $this->voornaam,
-                        'achternaam' => $this->achternaam,
-                        'geslacht' => $this->geslacht,
-                        'geboorte_datum' => $this->geboorte_datum,
+                        'firstname' => $this->firstname,
+                        'lastname' => $this->lastname,
+                        'gender' => $this->gender,
+                        'dateofbirth' => $this->dateofbirth,
                         'address' => $this->address
                     ]);
                 } else {
@@ -168,10 +168,10 @@
                     'salt' => $this->salt,
                     'role' => $this->role,
                     'pic' => $this->pic,
-                    'voornaam' => $this->voornaam,
-                    'achternaam' => $this->achternaam,
-                    'geslacht' => $this->geslacht,
-                    'geboorte_datum' => $this->geboorte_datum,
+                    'firstname' => $this->firstname,
+                    'lastname' => $this->lastname,
+                    'gender' => $this->gender,
+                    'dateofbirth' => $this->dateofbirth,
                     'address' => $this->address
                 ]);
             }

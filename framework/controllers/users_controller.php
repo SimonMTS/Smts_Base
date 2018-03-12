@@ -66,8 +66,15 @@
 
         public static function view( $var ) {
 
-            $id = Smts::Sanitize( $var['id'] );
-            $user = User::Find($id);
+            if ( isset( $var['id'] ) ) {
+                $id = Smts::Sanitize( $var['id'] );
+                $user = User::find($id);
+            } else {
+                Smts::ErrorView('custom', [
+                    'Error',
+                    'Could not find user'
+                ]);
+            }
             
             if (
                 $user !== false && isset(Smts::$session) && (
@@ -103,7 +110,7 @@
                     }
 
                     if ( Smts::$session['role'] == 777 ) {
-                        Smts::Redirect(Smts::$config['BaseUrl'].'users/overview');
+                        Smts::Redirect(Smts::$config['BaseUrl'].'users');
                     } else {
                         Smts::Redirect(Smts::$config['BaseUrl']);
                     }
@@ -124,8 +131,23 @@
 
         public static function edit( $var ) {
 
-            $id = Smts::Sanitize( $var['id'] );
-            $user = User::find($id);
+            if ( isset( $var['id'] ) ) {
+                $id = Smts::Sanitize( $var['id'] );
+                $user = User::find($id);
+            } else {
+                Smts::ErrorView('custom', [
+                    'Error',
+                    'Could not find user'
+                ]);
+            }
+
+            if ( !$user || ( $user->role >= Smts::$session['role'] && $user->id != Smts::$session['id'] ) ) {
+                Smts::ErrorView('custom', [
+                    'Error',
+                    'Could not find user'
+                ]);
+            }
+            
             $model = clone($user);
             $model->password_rep = $model->password;
             
@@ -172,7 +194,7 @@
                 $user = User::find($id);
                 
                 if ( Smts::$session['role'] > $user->role && $user->delete() ) {
-                    Smts::Redirect(Smts::$config['BaseUrl'] . 'users/overview');
+                    Smts::Redirect(Smts::$config['BaseUrl'] . 'users');
                 } else {
                     Smts::ErrorView('custom', [
                         'Denied',

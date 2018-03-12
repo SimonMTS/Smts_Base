@@ -3,7 +3,7 @@
         
         public static function Pagination( $totalPages, $currentPage ) {
 
-            $totalPages = round($totalPages);
+            $totalPages = ceil($totalPages);
             $item = [];
 
             if ( strpos( Smts::Curl(), $currentPage.'' ) !== false ) {

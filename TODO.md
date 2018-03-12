@@ -1,14 +1,14 @@
 # Todo
 
-`w` Seperate database structure and test data into files, from setupController,
-
 `w` Write documentation,
 
 `w` Test all features for bugs
 
 ---
 
-`i` Add modules ( bv: /smts ),
+`i` Add modules,
+
+`v` Seperate database structure and test data into files, from setupController,
 
 `v` Make a module for setup-controller,
 

@@ -1,5 +1,5 @@
 <?php
-    require "models/user.php";
+    require "base/database_struct.php";
 
     class setupController extends Controller {
 
@@ -31,18 +31,31 @@
             echo json_encode(['msg' => 'Started Database reset <br><br>', 'isDone' => false]);
             ob_flush();flush();
 
-            self::setupdb();ob_flush();flush();
-            self::addusers();ob_flush();flush();
+                self::setupdb();
 
-            sleep(1);
+            sleep(1);ob_flush();flush();
 
-            Smts::$session = null;
+                if ( databaseStruct::getData() ) {
 
-            $end_time = new DateTime();
-            echo json_encode(['msg' => 
-            'Completed database reset. <br><br>Operation took ' . $start_time->diff($end_time)->i . 'min ' . $start_time->diff($end_time)->s . ' sec. <br><br>', 
-            'isDone' => true]);
-            ob_flush();flush();
+                    echo json_encode(['msg' => 'Done adding data <br><br>', 'isDone' => false]);
+
+                } else {
+
+                    echo json_encode(['msg' => 'Errors adding data <br><br>', 'isDone' => false]);
+
+                }
+
+            sleep(1);ob_flush();flush();
+
+                Smts::$session = null;
+
+                $end_time = new DateTime();
+                echo json_encode(['msg' => 
+                'Completed database reset. <br><br>Operation took ' . $start_time->diff($end_time)->i . 'min ' . $start_time->diff($end_time)->s . ' sec. <br><br>', 
+                'isDone' => true]);
+
+            sleep(1);ob_flush();flush(); 
+
             ob_end_flush();
 
         }
@@ -53,77 +66,20 @@
 
             Sql::CreateDB(Smts::$config['DataBaseName']);
 
-            Sql::CreateTable('user', [
-                'id' => 'varchar(256)',
-                'name' => 'varchar(256)',
-                'password' => 'varchar(256)',
-                'salt' => 'varchar(256)',
-                'role' => 'int(6)',
-                'pic' => 'varchar(256)',
-                'voornaam' => 'varchar(256)',
-                'achternaam' => 'varchar(256)',
-                'geslacht' => 'varchar(3)',
-                'geboorte_datum' => 'varchar(256)',
-                'address' => 'varchar(256)'
-            ]);
-            Sql::AddPKey('user', 'id');
+            $databaseStruct = databaseStruct::getStructure();
 
-            echo json_encode(['msg' => 'done creating database <br><br>', 'isDone' => false]);
+            $pkeys = array_pop( $databaseStruct );
 
-        }
-
-        private static function addusers() {
-
-            $salt = Smts::GenetateId();
-            $user_data = [
-                'id' => Smts::GenetateId(),
-                'name' => 'beheerder',
-                'password' => Smts::HashString('beheerder', $salt),
-                'salt' => $salt,
-                'role' => 777,
-                'pic' => 'assets/user.png',
-                'voornaam' => 'Simon',
-                'achternaam' => 'Striekwold',
-                'geslacht' => 'm',
-                'geboorte_datum' => date('d/m/Y:H:i:s', strtotime( '19-3-1999' )),
-                'address' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
-            ];
-
-            $user = new user();
-            $user->load($user_data);
-
-            $users[] = $user;
-            
-            for ($i=1; $i < 128; $i++) {
-                $salt = Smts::GenetateId();
-
-                $user_data = [
-                    'id' => Smts::GenetateId(),
-                    'name' => 'test'.$i,
-                    'password' => Smts::HashString('test'.$i, $salt),
-                    'salt' => $salt,
-                    'role' => 1,
-                    'pic' => 'assets/user.png',
-                    'voornaam' => 'voornaam'.$i,
-                    'achternaam' => 'achternaam'.$i,
-                    'geslacht' => 'm',
-                    'geboorte_datum' => date('d/m/Y:H:i:s', strtotime( '27-6-1993' )),
-                    'address' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'                   
-                ];
-
-                $user = new user();
-                $user->load($user_data);
-
-                $users[] = $user;
-            }
-            
-            foreach ($users as $user) {
-                if ( !$user->save() ) {
-                    echo'error<br><br>';
-                }
+            foreach ( $databaseStruct as $table => $columns ) {
+                Sql::CreateTable( $table, $columns );
             }
 
-            echo json_encode(['msg' => 'done adding users <br><br>', 'isDone' => false]);
-            
+            foreach ( $pkeys as $table => $column ) {
+                Sql::AddPKey( $table, $column );
+            }
+
+            echo json_encode(['msg' => 'Done creating database <br><br>', 'isDone' => false]);
+
         }
+        
     }

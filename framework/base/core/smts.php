@@ -1,8 +1,8 @@
 <?php
-    require "base/framework_core.php";
-    require "base/controller.php";
-    require "base/model.php";
-    require "base/sql.php";
+    require "base/core/framework_core.php";
+    require "base/core/controller.php";
+    require "base/core/model.php";
+    require "base/core/sql.php";
 
     class Smts extends FrameworkCore {
 

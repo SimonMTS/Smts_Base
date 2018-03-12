@@ -29,7 +29,7 @@
      * 
      */
 
-    require 'base/smts.php';
+    require 'base/core/smts.php';
     $config = require 'base/config.php';
 
     Smts::Init( $config );

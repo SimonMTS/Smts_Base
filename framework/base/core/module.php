@@ -104,7 +104,7 @@
 
             $view = $view . '.php';
 
-            require_once(__dir__.'/../modules/'.lcfirst(get_called_class()).'/views/layout/' . self::$layout . '.php');
+            require_once(__dir__.'/../../modules/'.lcfirst(get_called_class()).'/views/layout/' . self::$layout . '.php');
 
         }
     }
