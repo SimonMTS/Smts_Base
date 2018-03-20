@@ -3,7 +3,7 @@
 
     class usersController extends Controller {
         
-        public static function login() {
+        public static function login( $var ) {
 
             if ( isset($_POST['User']) ) {
 
@@ -23,7 +23,7 @@
 
         }
 
-        public static function logout() {
+        public static function logout( $var ) {
 
             Smts::$session = null;
             Smts::Redirect( Smts::$config['BaseUrl'] );

@@ -3,7 +3,7 @@
 
     class databaseStruct {
 
-        public static function getStructure () {
+        public static function getStructure() {
 
             return [
 
@@ -29,7 +29,7 @@
 
         }
 
-        public static function getData () {
+        public static function getData() {
 
             $salt = Smts::GenetateId();
             $user_data = [

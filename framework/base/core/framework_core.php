@@ -169,17 +169,18 @@
 
                 if ( in_array( $url['action'], $actions ) )
                 {
+                    $controller::$title = self::$config['DefaultTitle'];
                     $controller::beforeAction();
                     $controller::{$url['action']}($url['params']);
                 }
                 else
                 {
-                    Smts::ErrorView(404);
+                    self::ErrorView(404);
                 }
             }
             else
             {
-                Smts::ErrorView(404);
+                self::ErrorView(404);
             }
 
         }

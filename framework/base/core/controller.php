@@ -6,8 +6,6 @@
         public static $title;
 
         public static function beforeAction() {
-
-            self::$title = Smts::$config['DefaultTitle'];
             
         }
 

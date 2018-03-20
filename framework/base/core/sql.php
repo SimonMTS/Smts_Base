@@ -4,14 +4,14 @@
     // ::save()     true / false
     // ::delete()   true / false
 
-    //->Where()
-    //->andWhere()
-    //->orWhere()
-    //->orderBy()
-    //->whereLike
+    // ->Where()
+    // ->andWhere()
+    // ->orWhere()
+    // ->orderBy()
+    // ->whereLike
     
-    //->limit()
-    //->offset()
+    // ->limit()
+    // ->offset()
 
     // ->one() 
     // ->count()

@@ -18,6 +18,8 @@
 
 `v` Fix bugs in custom error handeling,
 
+`x` Rewrite sql class save/update/delete methods,
+
 `x` Finish fileGen-controller,
 
 `x` Finish form validation feedback, with flash sessions,
