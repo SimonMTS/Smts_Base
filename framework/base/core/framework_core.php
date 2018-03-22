@@ -160,26 +160,22 @@
             
             $controllers = array_diff(scandir("./controllers"), ['..', '.']);
 
-            if ( in_array( ( $url['controller'].'_controller.php'), $controllers ) )
-            {
+            if ( in_array( ( $url['controller'].'_controller.php'), $controllers ) ) {
+
                 require_once('controllers/' . $url['controller'] . '_controller.php');
 
                 $controller = $url['controller'].'Controller';
                 $actions = get_class_methods( $controller );
 
-                if ( in_array( $url['action'], $actions ) )
-                {
+                if ( in_array( $url['action'], $actions ) ) {
                     $controller::$title = self::$config['DefaultTitle'];
                     $controller::beforeAction();
                     $controller::{$url['action']}($url['params']);
-                }
-                else
-                {
+                } else {
                     self::ErrorView(404);
                 }
-            }
-            else
-            {
+
+            } else {
                 self::ErrorView(404);
             }
 

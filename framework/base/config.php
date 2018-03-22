@@ -40,7 +40,7 @@
         ],
 
         'Dev' => [
-            'BaseUrl' => 'http://localhost/smts_base/framework/',
+            'BaseUrl' => 'http://localhost/Smts_Base/framework/',
 
             'DataBaseName' => "smts_base",
             'DataBaseUser' => 'root',
