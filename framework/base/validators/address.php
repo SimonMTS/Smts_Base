@@ -18,7 +18,7 @@
                     
                     for ($i=0; $i < 6; $i++) {
                         if ( isset($address[$i]) ) {
-                            $exaddress[$i] = Smts::Sanitize ($address[$i]);
+                            $exaddress[$i] = Smts::Sanitize( $address[$i] );
                         }
                     }
                     

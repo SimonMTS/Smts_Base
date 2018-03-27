@@ -14,7 +14,7 @@
                         return false;
                     }
 
-                    $item = Sql::find( get_class($model) )->where(['id' => $model->id])->one();
+                    $item = Sql::find( strtolower(get_class($model)) )->where(['id' => $model->id])->one();
                     if ( $item != false && $item['pic'] != Smts::$config['DefaultProfilePic'] ) {
                         if ( unlink($item['pic']) == false ) {
                             return false;

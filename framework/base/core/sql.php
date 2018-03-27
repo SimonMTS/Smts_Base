@@ -7,8 +7,8 @@
     // ->Where()
     // ->andWhere()
     // ->orWhere()
+    // ->whereLike()
     // ->orderBy()
-    // ->whereLike
     
     // ->limit()
     // ->offset()
@@ -106,7 +106,7 @@
         public static function AddBlob( $table, $id, $blob, $ext ) {
 
             $db = sql_find::getInstance();
-            $req = $db->prepare("UPDATE $table SET pic = ?, pic_type = '$ext' WHERE id = '$id'");
+            $req = $db->prepare("UPDATE $table SET ".key($blob)." = ?, ".key($ext)." = '$ext' WHERE ".key($id)." = '$id'");
 		    $req->bindParam(1, $blob, PDO::PARAM_LOB);
             $req->execute();
             
