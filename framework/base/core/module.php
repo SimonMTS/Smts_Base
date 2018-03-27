@@ -3,9 +3,11 @@
     class Module {
 
         public static $RewriteRules = [];
-        public static $layout = '';
+        public static $layout = 'main';
 
         public static function UrlDecode( $var ) {
+
+            Controller::$title = Smts::$config['DefaultTitle'];
 
             $defaultPath = explode( '/', array_pop( self::$RewriteRules ) );
             

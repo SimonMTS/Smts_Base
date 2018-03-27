@@ -20,8 +20,6 @@
                 '' => 'pages/home'
             ];
             
-            self::$layout = 'main';
-
             self::UrlDecode($var);
 
         }

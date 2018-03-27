@@ -3,19 +3,13 @@
 
     class setupController extends Controller {
 
-        public static function beforeAction()  {
-
-            self::$layout = 'empty';
-
-        }
-
         public static function overview( $var ) {
 
             Dev::Render('setup/overview');
 
         }
 
-        public static function init( $var ) {   
+        public static function init( $var ) {
 
             $pw = 'pw';
             $start_time = new DateTime();

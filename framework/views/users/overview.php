@@ -58,7 +58,7 @@
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-			<?= BootstrapHelper::Pagination( $pagination, $page ) ?>
+				<?= BootstrapHelper::Pagination( $pagination, $page ) ?>
 			</ul>
 		</nav>
 
