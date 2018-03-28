@@ -144,7 +144,7 @@
 
             if ( !self::find($this->id) ) {
                 if ( !self::findByName($this->name) ) {
-                    return Sql::Save('user', [
+                    return Sql::Save('user')->Values([
                         'id' => $this->id,
                         'name' => $this->name,
                         'password' => $this->password,
@@ -161,7 +161,7 @@
                     return false;
                 }
             } else {
-                return Sql::Update('user', 'id', $this->id, [
+                return Sql::Update('user')->Where(['id' => $this->id])->Values([
                     'id' => $this->id,
                     'name' => $this->name,
                     'password' => $this->password,
@@ -189,7 +189,7 @@
                     }
                 }
 
-                return Sql::Delete('user', 'id', $this->id);
+                return Sql::Delete('user')->Where(['id' => $this->id])->all();
             } else {
                 return false;
             }

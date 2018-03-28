@@ -56,20 +56,20 @@
 
         private static function setupdb() {
 
-            Sql::RemoveDB(Smts::$config['DataBaseName']);
+            Sql::Extra()->RemoveDB(Smts::$config['DataBaseName']);
 
-            Sql::CreateDB(Smts::$config['DataBaseName']);
+            Sql::Extra()->CreateDB(Smts::$config['DataBaseName']);
 
             $databaseStruct = databaseStruct::getStructure();
 
             $pkeys = array_pop( $databaseStruct );
 
             foreach ( $databaseStruct as $table => $columns ) {
-                Sql::CreateTable( $table, $columns );
+                Sql::Extra()->CreateTable( $table, $columns );
             }
 
             foreach ( $pkeys as $table => $column ) {
-                Sql::AddPKey( $table, $column );
+                Sql::Extra()->AddPKey( $table, $column );
             }
 
             echo json_encode(['msg' => 'Done creating database <br><br>', 'isDone' => false]);
