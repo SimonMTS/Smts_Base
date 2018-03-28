@@ -329,7 +329,6 @@
 
             $this->sql = str_replace( '|||', $vals, $this->sql );
 
-            // return $this->sql.';';
             return Sql::exec( $this->DBinfo, $this->sql.';', $this->prop );
 
         }
@@ -668,4 +667,3 @@
         }
 
     }
-

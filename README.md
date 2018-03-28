@@ -4,7 +4,7 @@ a php framework
 # Installation
 1. Download the framework from github, you can find the most recent version on [the releases tab].
 
-2. Unzip `Smts_Base-master.zip` and place the `framework` folder into your web-root, for example `C:/xampp/htdocs/`.
+2. Unzip `Smts_Base-version.zip` and place the `framework` folder into your web-root, for example `C:/xampp/htdocs/`.
 
 3. Optionally, change the `framework` folder to your project name.
 
