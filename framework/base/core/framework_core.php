@@ -38,8 +38,8 @@
         }
 
         public static function Error( $a = null, $b = null, $c = null, $d = null, $e = null, $f = null ) {
-            
-            if ( count(array_unique([ $a, $b, $c, $d, $e, $f, null ])) === 1  ) {
+
+            if ( count(array_unique([ $a, $b, $c, $d, $e, $f, null ])) !== 1  ) {
                 self::ErrorView('custom', [
                     'Error: 500',
                     'Something went wrong'
