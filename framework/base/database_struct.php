@@ -31,9 +31,9 @@
 
         public static function getData() {
 
-            $salt = Smts::GenetateId();
+            $salt = Smts::GenerateId();
             $user_data = [
-                'id' => Smts::GenetateId(),
+                'id' => Smts::GenerateId(),
                 'name' => 'beheerder',
                 'password' => Smts::HashString('beheerder', $salt),
                 'salt' => $salt,
@@ -52,10 +52,10 @@
             $users[] = $user;
             
             for ($i=1; $i < 32; $i++) {
-                $salt = Smts::GenetateId();
+                $salt = Smts::GenerateId();
 
                 $user_data = [
-                    'id' => Smts::GenetateId(),
+                    'id' => Smts::GenerateId(),
                     'name' => 'test'.$i,
                     'password' => Smts::HashString('test'.$i, $salt),
                     'salt' => $salt,

@@ -37,7 +37,7 @@ return "<?php
 \$user = new User();
 
 if ( \$user->load('post') && \$user->validate() ) {
-    \$user->id = Smts::GenetateId();
+    \$user->id = Smts::GenerateId();
 
     if ( \$user->save() ) {
         Smts::Redirect(\Smts::\$config['BaseUrl']);

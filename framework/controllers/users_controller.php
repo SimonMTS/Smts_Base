@@ -99,8 +99,8 @@
             $user = new User();
 
             if ( $user->load('post') && $user->validate() ) {
-                $user->id = Smts::GenetateId();
-                $user->salt = Smts::GenetateId();
+                $user->id = Smts::GenerateId();
+                $user->salt = Smts::GenerateId();
                 $user->role = 1;
                 $user->password = Smts::HashString( $user->password, $user->salt );
 

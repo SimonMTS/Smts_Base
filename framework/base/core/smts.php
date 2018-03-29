@@ -32,7 +32,7 @@
 
         }
 
-        public static function GenetateId() {
+        public static function GenerateId() {
 
             return bin2hex( random_bytes(32) );
 
@@ -47,7 +47,7 @@
         public static function UploadFile( $file, $resolution = 400 ) {
 
             $target_dir = "assets/img/";
-            $target_file = $target_dir . self::GenetateId().$file['name'] ;
+            $target_file = $target_dir . self::GenerateId().$file['name'] ;
             $uploadOk = 1;
             $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
             
