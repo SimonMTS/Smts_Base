@@ -38,8 +38,8 @@
         }
 
         public static function Error( $a = null, $b = null, $c = null, $d = null, $e = null, $f = null ) {
-
-            if ( error_get_last() != null ) {
+            
+            if ( count(array_unique([ $a, $b, $c, $d, $e, $f, null ])) === 1  ) {
                 self::ErrorView('custom', [
                     'Error: 500',
                     'Something went wrong'
@@ -62,7 +62,7 @@
 
             foreach ( self::$config[ self::$config['Env'] ] as $settingName => $settingValue ) {
                 self::$config[ $settingName ] = $settingValue;
-            }            
+            }
 
             header("X-Frame-Options: DENY");
             header("Content-Security-Policy: frame-ancestors 'none'");
