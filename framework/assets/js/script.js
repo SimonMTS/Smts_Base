@@ -15,6 +15,24 @@ $( document ).ready(function() {
             $("#overviewsubmit").click();
         }
     });
+    
+
+    $("#change_lang_en").click(function(){
+        document.cookie = "lang=en; expires=Fri, 31 Dec 9999 23:59:59 GMT; path="+$("#BaseUrl").val();
+        location.reload();
+    });
+    $("#change_lang_nl").click(function(){
+        document.cookie = "lang=nl; expires=Fri, 31 Dec 9999 23:59:59 GMT; path="+$("#BaseUrl").val();
+        location.reload();
+    });
+
+
+    $(".del-btn").click(function(e){
+        e.preventDefault();
+        $(this).dropdown();
+        
+        $(this).parent().find('.dropdown-menu .btn-danger').attr("href", this.href);
+    });
 
 });
 

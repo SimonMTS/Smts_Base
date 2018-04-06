@@ -2,9 +2,9 @@
 	<div class="col-md-12">
 		<nav class="mt-4" aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>">Home</a></li>
-				<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>users">Users</a></li>
-				<li class="breadcrumb-item active">Edit</li>
+			<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>"><?= Smts::t('smts', 'home') ?></a></li>
+				<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>users"><?= Smts::t('smts', 'users') ?></a></li>
+				<li class="breadcrumb-item active"><?= Smts::t('smts', 'edit') ?></li>
 			</ol>
 		</nav>
 	</div>
@@ -14,25 +14,30 @@
 	<div class="col-12 col-md-8 col-lg-6 col-xl-4">
 		<form action="" method="post" enctype="multipart/form-data">
 			<div class="login-form">
-				<input class="form-control" type="text" placeholder="<?=$user->attributes()['name'] ?>" name="User[name]" value="<?=$user->name ?>" required>
+				<input class="form-control" type="text" placeholder="<?= Smts::t('users', 'username') ?>" name="User[name]" value="<?=$user->name ?>" required>
 				<br>
-				<input class="form-control" type="password" placeholder="<?=$user->attributes()['password'] ?>" name="User[password]">
+				<input class="form-control" type="password" placeholder="<?= Smts::t('users', 'password') ?>" name="User[password]">
 				<br>
-				<input class="form-control" type="password" placeholder="<?=$user->attributes()['password_rep'] ?>" name="User[password_rep]">
+				<input class="form-control" type="password" placeholder="<?= Smts::t('users', 'repeat password') ?>" name="User[password_rep]">
 				<br>
 				<div class="custom-file">
+					<style>
+						.custom-file-label::after {
+							content: "<?= Smts::t('users', 'browse') ?>";
+						}
+					</style>
 					<input class="custom-file-input" type="file" name="pic" id="customFile">
-					<label class="custom-file-label" for="customFile"><?=$user->attributes()['pic'] ?></label>
+					<label class="custom-file-label" for="customFile"><?= Smts::t('users', 'profile picture') ?></label>
 				</div>
 				<hr>
-				<input class="form-control" type="text" placeholder="<?=$user->attributes()['firstname'] ?>" name="User[firstname]" value="<?=$user->firstname ?>" required>
+				<input class="form-control" type="text" placeholder="<?= Smts::t('users', 'firstname') ?>" name="User[firstname]" value="<?=$user->firstname ?>" required>
 				<br>
-				<input class="form-control" type="text" placeholder="<?=$user->attributes()['lastname'] ?>" name="User[lastname]" value="<?=$user->lastname ?>" required>
+				<input class="form-control" type="text" placeholder="<?= Smts::t('users', 'lastname') ?>" name="User[lastname]" value="<?=$user->lastname ?>" required>
 				<br>
 				<select class="form-control" name="User[gender]" required>
-					<option selected disabled><?=$user->attributes()['gender'] ?></option>
-					<option <?php if ( $user->gender == 'm') : ?>selected<?php endif; ?> value="m">Man</option>
-					<option <?php if ( $user->gender == 'f') : ?>selected<?php endif; ?> value="f">Vrouw</option>
+					<option selected disabled><?= Smts::t('users', 'gender') ?></option>
+					<option <?php if ( $user->gender == 'm') : ?>selected<?php endif; ?> value="m"><?= Smts::t('users', 'male') ?></option>
+					<option <?php if ( $user->gender == 'f') : ?>selected<?php endif; ?> value="f"><?= Smts::t('users', 'female') ?></option>
 				</select>
 				<br>
 				<div class="form-row">
@@ -61,23 +66,23 @@
 				<br>	
 				<div class="form-row">
 					<div class="col">
-						<input class="form-control" type="text" placeholder="Street name" name="User[address][0]" value="<?=explode(', ', $user->address)[0] ?>" required>
+						<input class="form-control" type="text" placeholder="<?= Smts::t('users', 'street name') ?>" name="User[address][0]" value="<?=explode(', ', $user->address)[0] ?>" required>
 					</div>
 					<div class="col">
-						<input class="form-control" type="text" placeholder="House number" name="User[address][1]" value="<?=explode(', ', $user->address)[1] ?>" required>
+						<input class="form-control" type="text" placeholder="<?= Smts::t('users', 'house number') ?>" name="User[address][1]" value="<?=explode(', ', $user->address)[1] ?>" required>
 					</div>
 				</div>
 				<br>
 				<div class="form-row">
 					<div class="col">
-						<input class="form-control" type="text" placeholder="City" name="User[address][2]" value="<?=explode(', ', $user->address)[3] ?>" required>
+						<input class="form-control" type="text" placeholder="<?= Smts::t('users', 'city') ?>" name="User[address][2]" value="<?=explode(', ', $user->address)[3] ?>" required>
 					</div>
 					<div class="col">
-						<input class="form-control" type="text" placeholder="Zipcode" name="User[address][3]" value="<?=explode(', ', $user->address)[2] ?>" required>
+						<input class="form-control" type="text" placeholder="<?= Smts::t('users', 'zipcode') ?>" name="User[address][3]" value="<?=explode(', ', $user->address)[2] ?>" required>
 					</div>
 				</div>
 				<br>
-				<input class="btn btn-primary btn-block mb-5" type="submit" value="Edit">
+				<input class="btn btn-primary btn-block mb-5" type="submit" value="<?= Smts::t('users', 'edit') ?>">
 			</div>
 		</form>
 	</div>

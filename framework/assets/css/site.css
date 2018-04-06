@@ -9,3 +9,8 @@
     right: 5px;
     top: 5px;
 }
+
+.del-btn {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}

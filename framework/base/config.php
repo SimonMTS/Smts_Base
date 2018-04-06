@@ -48,6 +48,17 @@
 
             'Debug' => true,
             'CustomErrors' => false
-        ]
+        ],
+
+        
+        'DeterminLanguage' => function(){
+            $lang = 'en';
+
+            if ( isset( $_COOKIE['lang'] ) ) {
+                $lang = $_COOKIE['lang'];
+            }
+
+            return $lang;
+        }
 
     ];

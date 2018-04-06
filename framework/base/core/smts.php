@@ -1,4 +1,5 @@
 <?php
+    require "base/core/internationalization.php";
     require "base/core/framework_core.php";
     require "base/core/controller.php";
     require "base/core/model.php";
@@ -106,6 +107,18 @@
                     return false;
                 }
             }
+
+        }
+
+        public static function t( $category, $key, $replaceArr = [] ) {
+            
+            $text = i18n::t( $category, $key );
+
+            foreach ( $replaceArr as $key => $value ) {
+                $text = str_replace( $key, $value, $text );
+            }
+
+            return $text;
 
         }
 
