@@ -21,7 +21,7 @@
 
         public static function t( $category, $key ) {
             
-            $lang = call_user_func( Smts::$config['DeterminLanguage'] );
+            $lang = call_user_func( Smts::$config['DetermineLanguage'] );
 
             return (isset(self::getLangArr( $lang, $category )[$key])?self::getLangArr( $lang, $category )[$key]:'');
 

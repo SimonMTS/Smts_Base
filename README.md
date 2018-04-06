@@ -21,18 +21,19 @@ For detailed guides, and information about all classes and funtionality see [the
 
 # Directory Structure
 ```
-framework/                 Framework code
+framework/                  Framework code
 
-framework/base             Supporting code
-framework/base/core        Core framework code
-framework/base/helpers     Helper classes
-framework/base/validators  Validator classes
+framework/base              Supporting code
+framework/base/core         Core framework code
+framework/base/helpers      Helper classes
+framework/base/i18n         Translation files
+framework/base/validators   Validator classes
 
-framework/modules          Module files
-framework/controllers      Controller files
-framework/models           Model files
-framework/assets           Images, js- and css-files
-framework/views            View files
+framework/assets            Images, js- and css-files
+framework/controllers       Controller files
+framework/models            Model files
+framework/views             View files
+framework/modules           Module files
 ```
 
 [the wiki]: https://github.com/SimonMTS/Smts_Base/wiki

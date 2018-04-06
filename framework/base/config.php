@@ -51,7 +51,7 @@
         ],
 
         
-        'DeterminLanguage' => function(){
+        'DetermineLanguage' => function(){
             $lang = 'en';
 
             if ( isset( $_COOKIE['lang'] ) ) {
