@@ -4,11 +4,11 @@
 
         'SMTS_Base' => 'SMTS_Base',
         'home' => 'Home',
-        'error' => 'Error',
+        'error' => 'Fout',
         'users' => 'Gebruikers',
-        'create' => 'Create',
-        'edit' => 'Edit',
-        'view' => 'View',
+        'create' => 'Voeg toe',
+        'edit' => 'Bewerk',
+        'view' => 'Bekijk',
         'login' => 'Login',
 
         'or' => 'of',

@@ -35,14 +35,8 @@
 					</ul>
 
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item">
-							<a id="change_lang_en" class="nav-link <?= ((isset($_COOKIE['lang'])&&$_COOKIE['lang']=='en')||!isset($_COOKIE['lang'])?'text-white':'') ?>" href="">EN</a>
-						</li>
-						<span class="navbar-text">
-							|
-						</span>
-						<li class="nav-item mr-3">
-							<a id="change_lang_nl" class="nav-link <?= (isset($_COOKIE['lang'])&&$_COOKIE['lang']=='nl'?'text-white':'') ?>" href="">NL</a>
+						<li class="navbar-text mr-3">
+							<a id="change_lang_en" class="nav-link p-2 d-inline <?= ((isset($_COOKIE['lang'])&&$_COOKIE['lang']=='en')||!isset($_COOKIE['lang'])?'text-white':'') ?>" href="">EN</a>|<a id="change_lang_nl" class="nav-link p-2 d-inline <?= (isset($_COOKIE['lang'])&&$_COOKIE['lang']=='nl'?'text-white':'') ?>" href="">NL</a>
 						</li>
 
 						<?php if ( !isset( Smts::$session['id']) ) : ?>
