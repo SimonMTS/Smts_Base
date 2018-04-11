@@ -1,5 +1,9 @@
 <?php
 
+    namespace Base\Core;
+
+    use Base\Core\Smts;
+
     class Sql {
 
         private static $instance = NULL;
@@ -7,8 +11,8 @@
         public static function getInstance( $DBinfo ) {
 
             if (!isset(self::$instance)) {
-                $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-                self::$instance = new PDO($DBinfo[0], $DBinfo[1], $DBinfo[2], $pdo_options);
+                $pdo_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
+                self::$instance = new \PDO($DBinfo[0], $DBinfo[1], $DBinfo[2], $pdo_options);
             }
             return self::$instance;
 
@@ -20,7 +24,7 @@
 
             try {
 
-                $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
+                $db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, FALSE);
                 $req = $db->prepare( $sql );
                 $req->execute( $params );
                 
@@ -517,7 +521,7 @@
 
             $db = Sql::getInstance( $this->DBinfo );
             $req = $db->prepare("UPDATE $table SET ".key($blob)." = ?, ".key($ext)." = '$ext' WHERE ".key($id)." = '$id'");
-		    $req->bindParam(1, $blob, PDO::PARAM_LOB);
+		    $req->bindParam(1, $blob, \PDO::PARAM_LOB);
             $req->execute();
             
             return true;
@@ -541,7 +545,7 @@
 
         public function RemoveDB( $dbname ) {
             if ( isset($dbname) && !empty($dbname) ) {
-                $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+                $pdo_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
                 $db = new PDO('mysql:host=localhost', $this->DBinfo[1], $this->DBinfo[2], $pdo_options);
                 try {
                     $req = $db->prepare("DROP DATABASE `$dbname`");
@@ -557,7 +561,7 @@
 
         public function CreateDB( $name ) {
             if ( isset($name) && !empty($name) ) {
-                $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+                $pdo_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
                 $db = new PDO('mysql:host=localhost', $this->DBinfo[1], $this->DBinfo[2], $pdo_options);
                 try {
                     $req = $db->prepare("CREATE DATABASE `$name`");

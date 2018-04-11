@@ -41,4 +41,4 @@
     require 'base/core/smts.php';
     $config = require 'base/config.php';
 
-    Smts::Init( $config );
+    Base\Core\Smts::Init( $config );

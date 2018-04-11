@@ -1,4 +1,6 @@
 <?php
+    use Base\Core\Smts;
+    use Base\Core\Controller;
 
     class pagesController extends Controller {
 

@@ -1,3 +1,7 @@
+<?php
+	use Base\Core\Smts;
+    use Base\Core\Controller;
+?>
 <!DOCTYPE html>
 <html>
 	<head>

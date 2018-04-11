@@ -1,5 +1,9 @@
 <?php
 
+    namespace Base\Core;
+
+    use Base\Core\Smts;
+
     class i18n {
 
         private static $langArrs = [];

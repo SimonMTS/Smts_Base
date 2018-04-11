@@ -1,5 +1,10 @@
 <?php
-    class BootstrapHelper {
+
+    namespace Base\Helpers;
+
+    use Base\Core\Smts;
+
+    class Bootstrap_Helper {
         
         public static function Pagination( $totalPages, $currentPage ) {
 

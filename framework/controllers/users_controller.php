@@ -1,5 +1,7 @@
 <?php
-    require "models/user.php";
+    use Base\Core\Smts;
+    use Base\Core\Controller;
+    use Models\User;
 
     class usersController extends Controller {
         

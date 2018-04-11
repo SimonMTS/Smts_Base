@@ -1,4 +1,7 @@
 <?php
+    use Base\Core\Smts;
+    use Base\Core\Controller;
+    
     require "base/database_struct.php";
 
     class setupController extends Controller {

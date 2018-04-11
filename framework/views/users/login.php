@@ -1,8 +1,12 @@
+<?php
+	use Base\Core\Smts;
+?>
+
 <div class="row">
 	<div class="col-md-12">
 		<nav class="mt-4" aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="<?=Smts::$config['BaseUrl'] ?>"><?= Smts::t('smts', 'home') ?></a></li>
+				<li class="breadcrumb-item"><a href="<?= Smts::$config['BaseUrl'] ?>"><?= Smts::t('smts', 'home') ?></a></li>
 				<li class="breadcrumb-item active"><?= Smts::t('smts', 'login') ?></li>
 			</ol>
 		</nav>

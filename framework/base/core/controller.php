@@ -1,5 +1,7 @@
 <?php
 
+    namespace Base\Core;
+
     class Controller {
         
         public static $layout = 'main';

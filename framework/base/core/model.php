@@ -1,5 +1,7 @@
 <?php
 
+    namespace Base\Core;
+
     class Model {
 
         public static function generate( $classname, $tablename, $properties ) {

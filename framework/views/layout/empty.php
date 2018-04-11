@@ -1,3 +1,6 @@
+<?php
+    use Base\Core\Controller;
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -5,7 +8,7 @@
 	</head>
 	<body>
 		
-		<?php require_once(__dir__.'/../'.$view); ?>
+		<?php require_once __dir__.'/../'.$view; ?>
 
 	</body>
 <html>

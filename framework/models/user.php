@@ -1,6 +1,12 @@
 <?php
 
-    class User extends model {
+    namespace Models;
+
+    use Base\Core\Smts;
+    use Base\Core\Model;
+    use Base\Core\Sql as Sql;
+    
+    class User extends Model {
 
         public $id;
         public $name;

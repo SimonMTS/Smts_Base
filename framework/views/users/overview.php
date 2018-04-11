@@ -1,5 +1,7 @@
 <?php
-	require "base/helpers/bootstrap_helper.php";
+	use Base\Core\Smts;
+	use Models\User;
+	use Base\Helpers\Bootstrap_Helper;
 ?>
 
 <div class="row">
@@ -66,7 +68,7 @@
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<?= BootstrapHelper::Pagination( $pagination, $page ) ?>
+				<?= Bootstrap_Helper::Pagination( $pagination, $page ) ?>
 			</ul>
 		</nav>
 

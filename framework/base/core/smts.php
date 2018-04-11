@@ -1,5 +1,8 @@
 <?php
-    require "base/core/internationalization.php";
+
+    namespace Base\Core;
+
+    require "base/core/i18n.php";
     require "base/core/framework_core.php";
     require "base/core/controller.php";
     require "base/core/model.php";

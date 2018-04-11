@@ -1,5 +1,9 @@
 <?php
 
+    namespace Base\Core;
+
+    use Base\Core\Controller;
+
     class FrameworkCore {
 
         public static $session = [];
@@ -32,7 +36,6 @@
             }
 
             $view = $view . '.php';
-
             require __dir__.'/../../views/layout/' . Controller::$layout . '.php';
             exit;
         }
@@ -75,6 +78,12 @@
                 ini_set( "display_errors", "off" );
                 error_reporting( E_ALL );
             }
+
+            spl_autoload_register(function ($class) {
+                $class = str_replace('\\','/', strToLower($class)) . '.php';
+
+                require_once $class;
+            });
             
         }
 
@@ -147,25 +156,40 @@
 
         protected static function RouteRequest( $url ) {
             
-            $controllers = array_diff(scandir("./controllers"), ['..', '.']);
+            if ( $url['module'] == 'base' ) {
 
-            if ( in_array( ( $url['controller'].'_controller.php'), $controllers ) ) {
+                $controllers = array_diff(scandir("./controllers"), ['..', '.']);
 
-                require_once('controllers/' . $url['controller'] . '_controller.php');
+                if ( in_array( ( $url['controller'].'_controller.php'), $controllers ) ) {
 
-                $controller = $url['controller'].'Controller';
-                $actions = get_class_methods( $controller );
+                    require 'controllers/' . $url['controller'] . '_controller.php';
 
-                if ( in_array( $url['action'], $actions ) ) {
-                    $controller::$title = self::$config['DefaultTitle'];
-                    $controller::beforeAction();
-                    $controller::{$url['action']}($url['params']);
-                } else {
-                    self::ErrorView(404);
+                    $controller = $url['controller'].'Controller';
+                    $actions = get_class_methods( $controller );
+
+                    if ( in_array( $url['action'], $actions ) ) {
+                        $controller::$title = self::$config['DefaultTitle'];
+                        $controller::beforeAction();
+                        $controller::{$url['action']}($url['params']);
+                    }
+
                 }
+                
+                self::ErrorView(404);
 
             } else {
+
+                $modules = array_diff(scandir("./modules"), ['..', '.']);
+
+                if ( in_array($url['module'], $modules) ) {
+                    
+                    require 'modules/'.$url['module'].'/'.$url['module'].'.php';
+                    ucfirst($url['module'])::Init($url);exit;
+
+                }
+                
                 self::ErrorView(404);
+
             }
 
         }

@@ -10,10 +10,12 @@
             
             'users/[action]/[id]'               => 'base/users/[action]',
 
+            'dev/[controller]/[action]'         => 'dev/[controller]/[action]',
+            'dev/[controller]'                  => 'dev/[controller]/overview',
+            'dev'                               => 'dev/pages/home',
+
             '[module]/[controller]/[action]'    => '[module]/[controller]/[action]',
-
             '[controller]/[action]'             => 'base/[controller]/[action]',
-
             '[controller]'                      => 'base/[controller]/overview',
 
             '' => 'base/pages/home'
