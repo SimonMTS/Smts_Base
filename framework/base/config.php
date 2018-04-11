@@ -3,19 +3,20 @@
 
         'RewriteRules' => [
 
-            'login' => 'users/login',
+            'login'                             => 'base/users/login',
 
-            '[controller]' => '[controller]/overview',
-            '[controller]/p/[page]' => '[controller]/overview/[page]',
-            '[controller]/p/[page]/s/[search]' => '[controller]/overview/[page]/[search]',
-
-            'users/view/[id]' => 'users/view/[id]',
-            'users/edit/[id]' => 'users/edit/[id]',
-            'users/delete/[id]' => 'users/delete/[id]',
+            '[controller]/p/[page]/s/[search]'  => 'base/[controller]/overview',
+            '[controller]/p/[page]'             => 'base/[controller]/overview',
             
-            '[controller]/[action]' => '[controller]/[action]',
+            'users/[action]/[id]'               => 'base/users/[action]',
 
-            '' => 'pages/home'
+            '[module]/[controller]/[action]'    => '[module]/[controller]/[action]',
+
+            '[controller]/[action]'             => 'base/[controller]/[action]',
+
+            '[controller]'                      => 'base/[controller]/overview',
+
+            '' => 'base/pages/home'
 
         ],
 

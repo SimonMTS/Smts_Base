@@ -80,80 +80,69 @@
 
         protected static function GetPath() {
             $path = str_replace(self::$config['BaseUrl'], '',Smts::Curl());
-            $var = explode('/', $path );
+            $rules = self::$config['RewriteRules'];
 
-            $modules = array_diff(scandir("./modules"), ['..', '.']);
-
-            if ( isset($var[0]) && in_array($var[0], $modules) ) {
-                $Module = array_shift( $var );
-                
-                require 'modules/'.$Module.'/'.$Module.'.php';
-                ucfirst($Module)::Init($var);exit;
-            }
-
-            $defaultPath = explode( '/', array_pop( self::$config['RewriteRules'] ) );
-
-            if ( sizeof( $var ) == 1 && $var[0] == '' ) {
-
-                $url['controller'] = $defaultPath[0];
-                $url['action'] = $defaultPath[1];
-                $url['params'] = [];
-
-            } else {
-                
-                $urls = self::$config['RewriteRules'];
-
-                foreach ( $var as $varKey => $varValue ) {
-                    foreach ( $urls as $urlKey => $urlValue ) {
-                        $urlSection = explode( '/', $urlKey )[ $varKey ];
-                        if ( 
-                            (
-                                ( mb_substr( $urlSection, 0, 1 ) != '[' || mb_substr( $urlSection, -1 ) != ']' ) &&
-                                ( $urlSection != $varValue ) 
-                            ) || 
-                            empty( $varValue ) ||
-                            sizeof( explode( '/', $urlKey ) ) != sizeof( $var )   
-                        ) {
-                            unset( $urls[ $urlKey ] );
-                        }
-                    }
-                }
-                
-                $dataToFillIn = $var;
-
-                $fillInStructureSliced = array_slice(array_flip($urls), 0, 1);
-                $fillInStructure = explode( '/', array_shift( $fillInStructureSliced ) );
-
-                $pathToBeFilledInSliced = array_slice($urls, 0, 1);
-                $pathToBeFilledIn = explode( '/', array_shift( $pathToBeFilledInSliced ) );
-
-                $url = [];
-
-                foreach ( $fillInStructure as $fillInStructureKey => $fillInStructureValue ) {
-                    if ( mb_substr( $fillInStructureValue, 0, 1 ) == '[' || mb_substr( $fillInStructureValue, -1 ) == ']' ) {
-                        $pathToBeFilledIn[ array_search( $fillInStructureValue, $pathToBeFilledIn ) ] = $dataToFillIn[ $fillInStructureKey ];
-                    }
-                }
-
-                $pathToBeFilledIn = array_reverse($pathToBeFilledIn);
-                $url['controller'] = array_pop( $pathToBeFilledIn );
-                $url['action'] = array_pop( $pathToBeFilledIn );
-                $url['params'] = [];
-                
-                $i = 0;
-                foreach ( array_reverse($fillInStructure) as $fillInStructureValue ) {
-                    if ( mb_substr( $fillInStructureValue, 0, 1 ) == '[' || mb_substr( $fillInStructureValue, -1 ) == ']' ) {
-                        if ( $i == sizeof( $pathToBeFilledIn ) ) {
-                            break;
-                        }
-                        $url['params'][ substr($fillInStructureValue, 1, -1) ] = $pathToBeFilledIn[ $i ];
+            $routeComponents = explode( '/', $path );
+    
+            foreach ( $rules as $pattern => $destination ) {
+    
+                global $i;
+                $i=-1;
+                $PREregex = preg_replace_callback(
+                    '/\[([a-zA-Z0-9_.-]*)\]/', 
+                    function($regex_matches){
+                        global $i;
                         $i++;
+    
+                        return '(?P<'.$regex_matches[1].'>\w+)';
+                    }, 
+                    $pattern
+                );
+    
+                $regex = str_replace('/', '\\/', $PREregex);
+    
+                $matches = [];
+                if ( preg_match( '/'.$regex.'/', $path, $matches ) ) {
+    
+                    foreach ($matches as $key => $value) {
+                        if (is_int($key)) {
+                            unset($matches[$key]);
+                        }
                     }
+    
+                    $GLOBALS['matches'] = $matches;
+    
+                    $plk = preg_replace_callback(
+                        '/\[([a-zA-Z0-9_.-]*)\]/', 
+                        function($regex_matches){
+                            global $i;
+                            $i++;
+        
+                            return $GLOBALS['matches'][ $regex_matches[1] ];
+                        }, 
+                        $destination
+                    );
+    
+                    $plk_explode = explode( '/', $plk );
+    
+                    $components = [
+                        'module' => $plk_explode[0],
+                        'controller' => $plk_explode[1],
+                        'action' => $plk_explode[2]
+                    ];
+    
+                    unset( $GLOBALS['matches'] );
+                    unset( $matches['module'] );
+                    unset( $matches['controller'] );
+                    unset( $matches['action'] );
+
+                    $components['params'] = $matches;
+    
+                    return $components;
+    
                 }
-
+    
             }
-
-            return $url;
         }
 
         protected static function RouteRequest( $url ) {
