@@ -1,6 +1,6 @@
 <?php
     /**
-     *  @version 2.0
+     *  @version 3.0.0
      * 
      *  @link https://github.com/SimonMTS/Smts_Base
      *  @author Simon Striekwold
