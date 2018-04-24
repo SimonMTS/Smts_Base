@@ -1,8 +1,9 @@
 <?php
     use Base\Core\Smts;
+    use Base\Core\Sql;
     use Base\Core\Controller;
     
-    require "base/database_struct.php";
+    use Base\Database_Struct;
 
     class setupController extends Controller {
 
@@ -14,17 +15,8 @@
 
         public static function init( $var ) {
 
-            $pw = 'pw';
-            $start_time = new DateTime();
-
-            if ( !(isset($var['pw']) && $var['pw'] == $pw) && !(isset($var['pw']) && $var['pw'] == $pw.'confirmed') ) {
-                exit;
-            }
-
-            if ( $var['pw'] == $pw ) {
-                exit;
-            }
-
+            $start_time = new \DateTime();
+            
             echo json_encode(['msg' => 'Started Database reset <br><br>', 'isDone' => false]);
             ob_flush();flush();
 
@@ -32,7 +24,7 @@
 
             sleep(1);ob_flush();flush();
 
-                if ( databaseStruct::getData() ) {
+                if ( Database_Struct::getData() ) {
 
                     echo json_encode(['msg' => 'Done adding data <br><br>', 'isDone' => false]);
 
@@ -46,7 +38,7 @@
 
                 Smts::$session = null;
 
-                $end_time = new DateTime();
+                $end_time = new \DateTime();
                 echo json_encode(['msg' => 
                 'Completed database reset. <br><br>Operation took ' . $start_time->diff($end_time)->i . 'min ' . $start_time->diff($end_time)->s . ' sec. <br><br>', 
                 'isDone' => true]);
@@ -63,7 +55,7 @@
 
             Sql::Extra()->CreateDB(Smts::$config['DataBaseName']);
 
-            $databaseStruct = databaseStruct::getStructure();
+            $databaseStruct = Database_Struct::getStructure();
 
             $pkeys = array_pop( $databaseStruct );
 

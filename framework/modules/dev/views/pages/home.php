@@ -1,3 +1,7 @@
+<?php
+	use Base\Core\Smts;
+?>
+
 <div class="row">
 	<div class="col">
 		<nav class="mt-4" aria-label="breadcrumb">

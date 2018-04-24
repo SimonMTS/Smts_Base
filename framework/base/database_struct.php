@@ -1,7 +1,10 @@
 <?php
-    require "models/user.php";
+    namespace Base;
 
-    class databaseStruct {
+    use Base\Core\Smts;
+    use Models\User;
+
+    class Database_Struct {
 
         public static function getStructure() {
 

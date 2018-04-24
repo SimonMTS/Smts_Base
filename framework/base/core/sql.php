@@ -546,7 +546,7 @@
         public function RemoveDB( $dbname ) {
             if ( isset($dbname) && !empty($dbname) ) {
                 $pdo_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
-                $db = new PDO('mysql:host=localhost', $this->DBinfo[1], $this->DBinfo[2], $pdo_options);
+                $db = new \PDO('mysql:host=localhost', $this->DBinfo[1], $this->DBinfo[2], $pdo_options);
                 try {
                     $req = $db->prepare("DROP DATABASE `$dbname`");
                     $req->execute();
@@ -562,7 +562,7 @@
         public function CreateDB( $name ) {
             if ( isset($name) && !empty($name) ) {
                 $pdo_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
-                $db = new PDO('mysql:host=localhost', $this->DBinfo[1], $this->DBinfo[2], $pdo_options);
+                $db = new \PDO('mysql:host=localhost', $this->DBinfo[1], $this->DBinfo[2], $pdo_options);
                 try {
                     $req = $db->prepare("CREATE DATABASE `$name`");
                     $req->execute();

@@ -1,7 +1,5 @@
 <?php
 
-    namespace Modules\Dev;
-
     use Base\Core\Smts;
     use Base\Core\Module;
 
@@ -14,7 +12,7 @@
                     'This page is disabled'
                 ]);
             }
-
+            
 
             $controllers = array_diff(scandir("./modules/".$url['module']."/controllers"), ['..', '.']);
 
@@ -33,7 +31,6 @@
             }
             
             Smts::ErrorView(404);
-
 
         }
     }

@@ -14,7 +14,6 @@
             }
 
             $view = $view . '.php';
-
             require __dir__.'/../../modules/'.lcfirst(get_called_class()).'/views/layout/' . self::$layout . '.php';
             exit;
 

@@ -1,5 +1,7 @@
 <?php
-	require 'base/helpers/bootstrap_helper.php';
+	use Base\Core\Smts;
+	use Base\Core\Controller;
+	use Base\Helpers\Bootstrap_Helper;
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@
 
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title><?=Controller::$title ?></title>
+		<title><?= Controller::$title ?></title>
 	</head>
 	<body>
 
@@ -45,7 +47,7 @@
 
 		<div class="container">
 		
-			<?php require_once(__dir__.'/../'.$view); ?>
+			<?php require_once __dir__.'/../'.$view; ?>
 
 		</div>
 
