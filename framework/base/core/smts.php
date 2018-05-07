@@ -38,7 +38,7 @@
 
         public static function GenerateId() {
 
-            return bin2hex( random_bytes(32) );
+            return bin2hex( random_bytes(16) );
 
         }
 

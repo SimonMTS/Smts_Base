@@ -548,7 +548,7 @@
                 $pdo_options[\PDO::ATTR_ERRMODE] = \PDO::ERRMODE_EXCEPTION;
                 $db = new \PDO('mysql:host=localhost', $this->DBinfo[1], $this->DBinfo[2], $pdo_options);
                 try {
-                    $req = $db->prepare("DROP DATABASE `$dbname`");
+                    $req = $db->prepare("DROP DATABASE IF EXISTS `$dbname`");
                     $req->execute();
                 } catch( PDOException $Exception ) {
                     return false;

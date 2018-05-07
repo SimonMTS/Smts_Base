@@ -42,11 +42,11 @@
                 'salt' => $salt,
                 'role' => 777,
                 'pic' => Smts::$config['DefaultProfilePic'],
-                'firstname' => 'Simon',
-                'lastname' => 'Striekwold',
+                'firstname' => 'Henk',
+                'lastname' => 'jansen',
                 'gender' => 'm',
-                'dateofbirth' => date('d/m/Y:H:i:s', strtotime( '19-3-1999' )),
-                'address' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'
+                'dateofbirth' => date('d/m/Y:H:i:s', strtotime( '11-1-1980' )),
+                'address' => 'Gasstraat, 10, 5349AV, Oss, Nederland'
             ];
 
             $user = new user();
@@ -68,7 +68,7 @@
                     'lastname' => 'achternaam'.$i,
                     'gender' => 'm',
                     'dateofbirth' => date('d/m/Y:H:i:s', strtotime( '27-6-1993' )),
-                    'address' => 'Teugenaarsstraat, 86, 5348JE, Oss, Nederland'                   
+                    'address' => 'Gasstraat, 10, 5349AV, Oss, Nederland'                   
                 ];
 
                 $user = new user();

@@ -4,7 +4,7 @@
 
     use Base\Core\Smts;
     use Base\Core\Model;
-    use Base\Core\Sql as Sql;
+    use Base\Core\Sql;
     
     class User extends Model {
 
